@@ -5,10 +5,10 @@ export const SITE_CONFIG = {
   tagline: "Transform Data into $17M+ Impact",
   subtitle: "Rigorous Statistical Methods + ML Expertise + AWS Architecture + GenAI Governance",
   email: "leducse@gmail.com",
-  phone: "703-984-9803",
   location: "Fairfax, VA",
   linkedin: "sleduc",
-  github: "github.com/leducse",
+  linkedinUrl: "https://linkedin.com/in/sleduc",
+  github: "leducse",
   githubUrl: "https://github.com/leducse",
 };
 

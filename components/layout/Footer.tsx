@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Phone, MapPin, Linkedin, Github, Sparkles } from "lucide-react";
+import { Mail, MapPin, Linkedin, Github, Sparkles } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 
 export default function Footer() {
@@ -76,11 +76,24 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={`tel:${SITE_CONFIG.phone}`}
+                  href={SITE_CONFIG.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 text-[var(--text-muted)] hover:text-cyan-400 transition-colors"
                 >
-                  <Phone className="w-4 h-4" />
-                  {SITE_CONFIG.phone}
+                  <Linkedin className="w-4 h-4" />
+                  LinkedIn Profile
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE_CONFIG.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-[var(--text-muted)] hover:text-cyan-400 transition-colors"
+                >
+                  <Github className="w-4 h-4" />
+                  GitHub Profile
                 </a>
               </li>
               <li className="flex items-center gap-2 text-[var(--text-muted)]">

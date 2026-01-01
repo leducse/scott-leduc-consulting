@@ -168,6 +168,7 @@ export default function ContactForm() {
             <option value="business-intelligence">Business Intelligence</option>
             <option value="data-engineering">Data Engineering</option>
             <option value="genai-governance">GenAI & Data Governance</option>
+            <option value="other">Other</option>
           </select>
         </div>
         <div>
