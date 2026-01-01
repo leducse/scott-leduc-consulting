@@ -19,11 +19,7 @@ interface Message {
   timestamp: Date;
 }
 
-interface ChatWidgetProps {
-  websocketUrl?: string;
-}
-
-export default function ChatWidget({ websocketUrl }: ChatWidgetProps) {
+export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -37,12 +33,14 @@ export default function ChatWidget({ websocketUrl }: ChatWidgetProps) {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const wsRef = useRef<WebSocket | null>(null);
   const currentResponseRef = useRef<string>("");
+  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
@@ -56,113 +54,165 @@ export default function ChatWidget({ websocketUrl }: ChatWidgetProps) {
     }
   }, [isOpen, isMinimized]);
 
-  // Connect to WebSocket
-  const connectWebSocket = useCallback(() => {
-    if (!websocketUrl) {
-      // Fallback to HTTP if no WebSocket URL
+  // Fetch presigned WebSocket URL and connect
+  const connectToAgentCore = useCallback(async () => {
+    if (isConnecting || wsRef.current?.readyState === WebSocket.OPEN) {
       return;
     }
 
+    setIsConnecting(true);
+
     try {
-      const ws = new WebSocket(websocketUrl);
+      // Get presigned WebSocket URL from our API
+      const response = await fetch(`/api/chat?session_id=${sessionId}`);
+      
+      if (!response.ok) {
+        throw new Error("Failed to get WebSocket URL");
+      }
+
+      const { websocket_url } = await response.json();
+
+      if (!websocket_url) {
+        console.log("WebSocket URL not available, using HTTP fallback");
+        setIsConnecting(false);
+        return;
+      }
+
+      // Connect to AgentCore WebSocket
+      const ws = new WebSocket(websocket_url);
       
       ws.onopen = () => {
         setIsConnected(true);
-        console.log("WebSocket connected");
+        setIsConnecting(false);
+        console.log("Connected to AgentCore WebSocket");
       };
 
       ws.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        
-        if (data.type === "chunk") {
-          currentResponseRef.current += data.content;
-          setMessages((prev) => {
-            const lastMessage = prev[prev.length - 1];
-            if (lastMessage?.role === "assistant" && lastMessage.id === "streaming") {
-              return [
-                ...prev.slice(0, -1),
-                { ...lastMessage, content: currentResponseRef.current },
-              ];
-            }
-            return prev;
-          });
-        } else if (data.type === "done") {
-          setIsLoading(false);
-          // Finalize the streaming message
-          setMessages((prev) => {
-            const lastMessage = prev[prev.length - 1];
-            if (lastMessage?.id === "streaming") {
-              return [
-                ...prev.slice(0, -1),
-                { ...lastMessage, id: `msg-${Date.now()}` },
-              ];
-            }
-            return prev;
-          });
-          currentResponseRef.current = "";
-        } else if (data.type === "error") {
-          setIsLoading(false);
-          setMessages((prev) => [
-            ...prev,
-            {
-              id: `error-${Date.now()}`,
-              role: "assistant",
-              content: "Sorry, I encountered an error. Please try again.",
-              timestamp: new Date(),
-            },
-          ]);
+        try {
+          const data = JSON.parse(event.data);
+          
+          // Handle different message types from AgentCore
+          if (data.type === "chunk" || data.content) {
+            const content = data.content || data.text || "";
+            currentResponseRef.current += content;
+            
+            setMessages((prev) => {
+              const lastMessage = prev[prev.length - 1];
+              if (lastMessage?.role === "assistant" && lastMessage.id === "streaming") {
+                return [
+                  ...prev.slice(0, -1),
+                  { ...lastMessage, content: currentResponseRef.current },
+                ];
+              }
+              return prev;
+            });
+          } else if (data.type === "done" || data.type === "end") {
+            setIsLoading(false);
+            setMessages((prev) => {
+              const lastMessage = prev[prev.length - 1];
+              if (lastMessage?.id === "streaming") {
+                return [
+                  ...prev.slice(0, -1),
+                  { ...lastMessage, id: `msg-${Date.now()}` },
+                ];
+              }
+              return prev;
+            });
+            currentResponseRef.current = "";
+          } else if (data.type === "error") {
+            setIsLoading(false);
+            setMessages((prev) => [
+              ...prev.filter(m => m.id !== "streaming"),
+              {
+                id: `error-${Date.now()}`,
+                role: "assistant",
+                content: data.message || "Sorry, I encountered an error. Please try again.",
+                timestamp: new Date(),
+              },
+            ]);
+            currentResponseRef.current = "";
+          } else if (data.response) {
+            // Handle non-streaming response
+            setIsLoading(false);
+            setMessages((prev) => [
+              ...prev.filter(m => m.id !== "streaming"),
+              {
+                id: `msg-${Date.now()}`,
+                role: "assistant",
+                content: data.response,
+                timestamp: new Date(),
+              },
+            ]);
+          }
+        } catch (e) {
+          // If it's plain text, treat it as content
+          if (typeof event.data === "string") {
+            currentResponseRef.current += event.data;
+            setMessages((prev) => {
+              const lastMessage = prev[prev.length - 1];
+              if (lastMessage?.role === "assistant" && lastMessage.id === "streaming") {
+                return [
+                  ...prev.slice(0, -1),
+                  { ...lastMessage, content: currentResponseRef.current },
+                ];
+              }
+              return prev;
+            });
+          }
+          console.error("Error parsing WebSocket message:", e);
         }
       };
 
       ws.onclose = () => {
         setIsConnected(false);
+        setIsConnecting(false);
         console.log("WebSocket disconnected");
+        
+        // Attempt to reconnect after a delay if chat is still open
+        if (isOpen && !reconnectTimeoutRef.current) {
+          reconnectTimeoutRef.current = setTimeout(() => {
+            reconnectTimeoutRef.current = null;
+            if (isOpen) {
+              connectToAgentCore();
+            }
+          }, 5000);
+        }
       };
 
       ws.onerror = (error) => {
         console.error("WebSocket error:", error);
         setIsConnected(false);
+        setIsConnecting(false);
       };
 
       wsRef.current = ws;
     } catch (error) {
-      console.error("Failed to connect WebSocket:", error);
+      console.error("Failed to connect to AgentCore:", error);
+      setIsConnecting(false);
     }
-  }, [websocketUrl]);
+  }, [isOpen, isConnecting, sessionId]);
 
   // Connect when widget opens
   useEffect(() => {
-    if (isOpen && websocketUrl && !wsRef.current) {
-      connectWebSocket();
+    if (isOpen && !wsRef.current) {
+      connectToAgentCore();
     }
-  }, [isOpen, websocketUrl, connectWebSocket]);
+  }, [isOpen, connectToAgentCore]);
 
-  // Cleanup WebSocket on unmount
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
+      if (reconnectTimeoutRef.current) {
+        clearTimeout(reconnectTimeoutRef.current);
+      }
       wsRef.current?.close();
     };
   }, []);
 
+  // Send message via HTTP (fallback)
   const sendMessageViaHttp = async (message: string) => {
-    try {
-      // For local development, use the chatbot API endpoint
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: message, session_id: sessionId }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
-
-      const data = await response.json();
-      return data.response;
-    } catch (error) {
-      console.error("HTTP request failed:", error);
-      throw error;
-    }
+    // For now, return a message indicating the chat is connecting
+    return "I'm currently connecting to the AI backend. Please wait a moment and try again, or use the contact form to reach Scott directly.";
   };
 
   const handleSendMessage = async () => {
@@ -192,11 +242,14 @@ export default function ChatWidget({ websocketUrl }: ChatWidgetProps) {
           timestamp: new Date(),
         },
       ]);
-      wsRef.current.send(
-        JSON.stringify({ prompt: message, session_id: sessionId })
-      );
+      
+      // Send in AgentCore expected format
+      wsRef.current.send(JSON.stringify({ 
+        prompt: message,
+        session_id: sessionId 
+      }));
     } else {
-      // Fallback to HTTP
+      // Fallback to HTTP message
       try {
         const response = await sendMessageViaHttp(message);
         setMessages((prev) => [
@@ -220,6 +273,11 @@ export default function ChatWidget({ websocketUrl }: ChatWidgetProps) {
         ]);
       }
       setIsLoading(false);
+      
+      // Try to reconnect
+      if (!isConnecting) {
+        connectToAgentCore();
+      }
     }
   };
 
@@ -250,7 +308,7 @@ export default function ChatWidget({ websocketUrl }: ChatWidgetProps) {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={toggleOpen}
-            className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 text-[var(--deep-navy)] shadow-lg shadow-cyan-500/30 flex items-center justify-center"
+            className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 text-[#0a1628] shadow-lg shadow-cyan-500/30 flex items-center justify-center"
             aria-label="Open chat"
           >
             <MessageCircle className="w-6 h-6" />
@@ -279,14 +337,14 @@ export default function ChatWidget({ websocketUrl }: ChatWidgetProps) {
             <div className="flex items-center justify-between px-4 py-3 border-b border-cyan-500/30 bg-[#0f2744]">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-[var(--deep-navy)]" />
+                  <Bot className="w-4 h-4 text-[#0a1628]" />
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-slate-100">
                     Scott&apos;s AI Assistant
                   </h3>
                   <p className="text-xs text-cyan-400">
-                    {isConnected ? "Online" : "Ready to chat"}
+                    {isConnecting ? "Connecting..." : isConnected ? "Online" : "Ready to chat"}
                   </p>
                 </div>
               </div>
@@ -331,7 +389,7 @@ export default function ChatWidget({ websocketUrl }: ChatWidgetProps) {
                         {message.role === "user" ? (
                           <User className="w-3.5 h-3.5 text-cyan-400" />
                         ) : (
-                          <Bot className="w-3.5 h-3.5 text-[var(--deep-navy)]" />
+                          <Bot className="w-3.5 h-3.5 text-[#0a1628]" />
                         )}
                       </div>
                       <div
@@ -353,7 +411,7 @@ export default function ChatWidget({ websocketUrl }: ChatWidgetProps) {
                   {isLoading && messages[messages.length - 1]?.content === "" && (
                     <div className="flex gap-3">
                       <div className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center bg-gradient-to-r from-cyan-500 to-cyan-400">
-                        <Bot className="w-3.5 h-3.5 text-[var(--deep-navy)]" />
+                        <Bot className="w-3.5 h-3.5 text-[#0a1628]" />
                       </div>
                       <div className="px-4 py-2.5 rounded-2xl rounded-tl-md bg-[#0f2744] border border-cyan-500/20">
                         <div className="flex items-center gap-1">
@@ -394,7 +452,7 @@ export default function ChatWidget({ websocketUrl }: ChatWidgetProps) {
                     </button>
                   </div>
                   <p className="text-xs text-slate-500 mt-2 text-center">
-                    Powered by Amazon Bedrock
+                    Powered by Amazon Bedrock AgentCore
                   </p>
                 </div>
               </>
@@ -405,4 +463,3 @@ export default function ChatWidget({ websocketUrl }: ChatWidgetProps) {
     </>
   );
 }
-
