@@ -42,7 +42,7 @@ export const SERVICES = [
     slug: "statistical-analysis",
     description: "Advanced statistical methods including propensity score matching, difference-in-differences, and experimental design",
     icon: "BarChart3",
-    gradient: "from-cyan-500 to-blue-500",
+    gradient: "from-cyan-500 to-sky-500",
   },
   {
     id: "machine-learning",
@@ -50,7 +50,7 @@ export const SERVICES = [
     slug: "machine-learning",
     description: "Predictive modeling, NLP, recommendation engines, and ML deployment",
     icon: "Brain",
-    gradient: "from-violet-500 to-purple-500",
+    gradient: "from-blue-500 to-indigo-500",
   },
   {
     id: "aws-architecture",
@@ -58,7 +58,7 @@ export const SERVICES = [
     slug: "aws-architecture",
     description: "Serverless applications, data audit platforms, full-stack development, and cloud-native solutions",
     icon: "Cloud",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-sky-500 to-cyan-500",
   },
   {
     id: "business-intelligence",
@@ -66,7 +66,7 @@ export const SERVICES = [
     slug: "business-intelligence",
     description: "Executive dashboards, KPI standardization, regression guardrails, and automated reporting",
     icon: "LineChart",
-    gradient: "from-emerald-500 to-teal-500",
+    gradient: "from-teal-500 to-emerald-500",
   },
   {
     id: "data-engineering",
@@ -74,7 +74,7 @@ export const SERVICES = [
     slug: "data-engineering",
     description: "ETL pipelines, data warehousing, data contracts, and real-time data processing",
     icon: "Database",
-    gradient: "from-orange-500 to-amber-500",
+    gradient: "from-cyan-500 to-teal-500",
   },
   {
     id: "genai-governance",
@@ -82,7 +82,7 @@ export const SERVICES = [
     slug: "genai-governance",
     description: "GenAI readiness, data contracts, LLM evaluation, and metric governance frameworks",
     icon: "Sparkles",
-    gradient: "from-fuchsia-500 to-pink-500",
+    gradient: "from-indigo-500 to-blue-500",
   },
 ];
 
@@ -98,7 +98,7 @@ export const CASE_STUDIES = [
       { label: "PSM Success", value: "100%", suffix: " Perfect matching" },
       { label: "Revenue Increase", value: "19%", suffix: " (p < 0.05)" },
     ],
-    gradient: "from-cyan-500 to-blue-500",
+    gradient: "from-cyan-500 to-sky-500",
   },
   {
     id: "ml-recommender",
@@ -110,7 +110,7 @@ export const CASE_STUDIES = [
       { label: "Model Accuracy", value: "89.1%", suffix: " (XGBoost)" },
       { label: "Feature Engineering", value: "50+", suffix: " features" },
     ],
-    gradient: "from-violet-500 to-purple-500",
+    gradient: "from-blue-500 to-indigo-500",
   },
   {
     id: "aws-dashboard",
@@ -123,7 +123,7 @@ export const CASE_STUDIES = [
       { label: "Response Time", value: "<2s", suffix: "" },
       { label: "Data Processing", value: "74K+", suffix: " records" },
     ],
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-sky-500 to-cyan-500",
   },
   {
     id: "activity-analysis",
@@ -135,7 +135,7 @@ export const CASE_STUDIES = [
       { label: "NLP Accuracy", value: "89%", suffix: " (Bedrock)" },
       { label: "Scenarios Analyzed", value: "4", suffix: " playbooks" },
     ],
-    gradient: "from-emerald-500 to-teal-500",
+    gradient: "from-teal-500 to-emerald-500",
   },
   {
     id: "data-audit-platform",
@@ -148,7 +148,7 @@ export const CASE_STUDIES = [
       { label: "Documentation Coverage", value: "92%", suffix: " improvement" },
       { label: "Metric Health Scores", value: "100%", suffix: " tracked" },
     ],
-    gradient: "from-fuchsia-500 to-pink-500",
+    gradient: "from-emerald-500 to-teal-500",
   },
   {
     id: "bi-regression-guardrails",

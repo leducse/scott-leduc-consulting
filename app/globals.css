@@ -8,10 +8,14 @@
   --text-muted: #94a3b8;
   --text-light: #64748b;
   
+  /* Deep navy variants for components */
+  --deep-navy: #0a1628;
+  --deep-navy-light: #0f2744;
+  
   /* Accent colors - Electric cyan/teal focus */
   --accent-primary: #06b6d4;
   --accent-secondary: #0ea5e9;
-  --accent-tertiary: #8b5cf6;
+  --accent-tertiary: #0891b2;
   
   /* Gradients */
   --gradient-primary-start: #06b6d4;
