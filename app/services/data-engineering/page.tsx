@@ -1,0 +1,19 @@
+import ServicePageContent from "@/components/services/ServicePageContent";
+
+export const metadata = {
+  title: "Data Engineering Consulting | Scott LeDuc Consulting",
+  description:
+    "ETL pipelines, data warehousing, and real-time processing built on AWS for scale and reliability.",
+};
+
+export default function DataEngineeringServicePage() {
+  return (
+    <div className="bg-gradient-to-br from-white via-orange-50/60 to-red-50/40">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <ServicePageContent serviceKey="data-engineering" />
+      </div>
+    </div>
+  );
+}
+
+

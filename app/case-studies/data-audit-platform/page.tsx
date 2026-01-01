@@ -1,0 +1,18 @@
+import CaseStudyPageContent from "@/components/case-studies/CaseStudyPageContent";
+
+export const metadata = {
+  title: "Data Audit & Documentation Platform Case Study | Scott LeDuc Consulting",
+  description:
+    "Learn how a dashboard-first data audit platform delivered 85% reduction in data quality issues and 92% improvement in documentation coverage.",
+};
+
+export default function DataAuditPlatformCaseStudyPage() {
+  return (
+    <div className="bg-gradient-to-br from-white via-purple-50/60 to-pink-50/40">
+      <CaseStudyPageContent caseStudyKey="data-audit-platform" />
+    </div>
+  );
+}
+
+
+
