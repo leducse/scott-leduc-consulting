@@ -64,6 +64,12 @@ amplifytools.xcconfig
 # Cloned SDK
 agentcore-sdk/
 
+# Python
+chatbot/venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
 # Zip files
 *.zip
 
