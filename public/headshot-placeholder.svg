@@ -1,0 +1,39 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628"/>
+      <stop offset="100%" style="stop-color:#0f2744"/>
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22d3ee"/>
+      <stop offset="100%" style="stop-color:#0ea5e9"/>
+    </linearGradient>
+    <clipPath id="circleClip">
+      <circle cx="200" cy="200" r="180"/>
+    </clipPath>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="200" cy="200" r="190" fill="url(#bgGradient)" stroke="url(#accentGradient)" stroke-width="2"/>
+  
+  <!-- Inner glow -->
+  <circle cx="200" cy="200" r="180" fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Silhouette group -->
+  <g clip-path="url(#circleClip)">
+    <!-- Head -->
+    <ellipse cx="200" cy="145" rx="65" ry="75" fill="#1e3a5f"/>
+    
+    <!-- Shoulders/Body -->
+    <ellipse cx="200" cy="380" rx="130" ry="120" fill="#1e3a5f"/>
+  </g>
+  
+  <!-- Decorative elements -->
+  <circle cx="320" cy="80" r="4" fill="#22d3ee" opacity="0.6"/>
+  <circle cx="80" cy="320" r="3" fill="#22d3ee" opacity="0.4"/>
+  <circle cx="340" cy="280" r="2" fill="#22d3ee" opacity="0.5"/>
+  
+  <!-- Subtle border accent -->
+  <circle cx="200" cy="200" r="188" fill="none" stroke="#22d3ee" stroke-width="0.5" opacity="0.4"/>
+</svg>
+

@@ -1,9 +1,11 @@
 import GradientCard from "@/components/shared/GradientCard";
 import StatsVisualization from "@/components/shared/StatsVisualization";
 import ServiceCTA from "@/components/services/ServiceCTA";
+import Testimonials from "@/components/shared/Testimonials";
 import { ABOUT_CONTENT } from "@/lib/content";
 import { KEY_METRICS, SITE_CONFIG } from "@/lib/constants";
 import { Award, GraduationCap, Briefcase, Shield, CheckCircle } from "lucide-react";
+import Image from "next/image";
 
 export const metadata = {
   title: "About | Scott LeDuc Consulting",
@@ -15,20 +17,39 @@ export default function AboutPage() {
   return (
     <div className="bg-[var(--background)]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-        {/* Header */}
-        <section className="text-center space-y-4">
-          <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
-            About
-          </p>
-          <h1
-            className="text-4xl md:text-5xl font-bold text-[var(--foreground)]"
-            style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
-          >
-            Data-Driven Consulting, Proven Results
-          </h1>
-          <p className="text-lg text-[var(--text-muted)] max-w-3xl mx-auto">
-            {ABOUT_CONTENT.summary}
-          </p>
+        {/* Header with Headshot */}
+        <section className="grid md:grid-cols-[280px_1fr] gap-12 items-center">
+          {/* Headshot */}
+          <div className="flex justify-center md:justify-start">
+            <div className="relative">
+              <div className="absolute -inset-1 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full blur-sm opacity-50" />
+              <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-2 border-cyan-400/30">
+                <Image
+                  src={ABOUT_CONTENT.headshot}
+                  alt={SITE_CONFIG.name}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+          
+          {/* Header Text */}
+          <div className="text-center md:text-left space-y-4">
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
+              About
+            </p>
+            <h1
+              className="text-4xl md:text-5xl font-bold text-[var(--foreground)]"
+              style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
+            >
+              Data-Driven Consulting, Proven Results
+            </h1>
+            <p className="text-lg text-[var(--text-muted)] max-w-2xl">
+              {ABOUT_CONTENT.summary}
+            </p>
+          </div>
         </section>
 
         {/* Stats */}
@@ -148,6 +169,9 @@ export default function AboutPage() {
             </div>
           </GradientCard>
         </section>
+
+        {/* Testimonials */}
+        <Testimonials />
 
         {/* CTA */}
         <section>

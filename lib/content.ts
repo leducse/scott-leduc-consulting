@@ -1,7 +1,29 @@
 // Content extracted from resume and project READMEs
 
+export const TESTIMONIALS = [
+  {
+    quote: "Scott's statistical analysis of our customer engagement program revealed insights we never could have found otherwise. The 6:1 ROI validation gave us the confidence to expand the program significantly.",
+    author: "Director of Customer Success",
+    role: "Enterprise Tech Company",
+    highlight: "6:1 ROI Validation",
+  },
+  {
+    quote: "The dashboard Scott built became the single most-used tool in our organization. What used to take days now takes seconds, and the insights have fundamentally changed how we make decisions.",
+    author: "VP of Operations",
+    role: "AWS Partner Organization",
+    highlight: "22K+ Annual Views",
+  },
+  {
+    quote: "Working with Scott transformed our approach to ML implementation. His ability to translate complex models into business value is exceptional—we saw a 53% improvement in conversion rates.",
+    author: "Head of Data Science",
+    role: "SaaS Platform",
+    highlight: "53% Conversion Lift",
+  },
+];
+
 export const ABOUT_CONTENT = {
   summary: "Award-winning analytics leader with 10+ years of experience bridging digital marketing, media performance, and advanced data science. First dedicated SA operations member for AWS SLG & EDU vertical, supporting 1,200+ builders across 18 global sub-regions serving 10,200+ customers.",
+  headshot: "/headshot-placeholder.svg", // Replace with actual headshot
   achievements: [
     "Drove 45% revenue increase contributing to 19% of WWPS 2023 revenue through predictive modeling and performance forecasting",
     "Delivered $17M+ in business impact through security engagement programs with statistical validation",

@@ -5,6 +5,7 @@ import ServiceCard from "@/components/services/ServiceCard";
 import CaseStudyCard from "@/components/case-studies/CaseStudyCard";
 import ServiceCTA from "@/components/services/ServiceCTA";
 import StatsVisualization from "@/components/shared/StatsVisualization";
+import Testimonials from "@/components/shared/Testimonials";
 import { CASE_STUDIES, KEY_METRICS, SERVICES } from "@/lib/constants";
 import { PROCESS_CONTENT } from "@/lib/content";
 import { CheckCircle, Zap, Users } from "lucide-react";
@@ -165,6 +166,9 @@ export default function Home() {
             orientation="horizontal"
           />
         </section>
+
+        {/* Testimonials */}
+        <Testimonials />
 
         {/* CTA */}
         <section>
