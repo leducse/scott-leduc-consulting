@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function ActivityAnalysisCaseStudyPage() {
   return (
-    <div className="bg-gradient-to-br from-white via-green-50/60 to-emerald-50/40">
+    <div className="bg-[#0a1628]">
       <CaseStudyPageContent caseStudyKey="activity-analysis" />
     </div>
   );

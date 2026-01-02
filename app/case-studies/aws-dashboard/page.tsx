@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function AwsDashboardCaseStudyPage() {
   return (
-    <div className="bg-gradient-to-br from-white via-indigo-50/60 to-purple-50/40">
+    <div className="bg-[#0a1628]">
       <CaseStudyPageContent caseStudyKey="aws-dashboard" />
     </div>
   );

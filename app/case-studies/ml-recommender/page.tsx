@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function MlRecommenderCaseStudyPage() {
   return (
-    <div className="bg-gradient-to-br from-white via-blue-50/60 to-cyan-50/40">
+    <div className="bg-[#0a1628]">
       <CaseStudyPageContent caseStudyKey="ml-recommender" />
     </div>
   );

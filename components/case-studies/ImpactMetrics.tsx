@@ -10,7 +10,7 @@ interface ImpactMetricsProps {
 
 export default function ImpactMetrics({
   metrics,
-  gradient = "from-purple-500 to-pink-500",
+  gradient = "from-cyan-500 to-blue-500",
 }: ImpactMetricsProps) {
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -23,12 +23,12 @@ export default function ImpactMetrics({
           transition={{ duration: 0.4, delay: index * 0.05 }}
         >
           <GradientCard gradient={gradient} hover={false} className="text-center">
-            <div className="text-3xl font-bold text-gray-900 mb-2">{metric.value}</div>
-            <div className="text-sm uppercase tracking-wide text-purple-500 font-semibold">
+            <div className="text-3xl font-bold text-slate-100 mb-2">{metric.value}</div>
+            <div className="text-sm uppercase tracking-wide text-cyan-400 font-semibold">
               {metric.label}
             </div>
             {metric.suffix && (
-              <div className="text-sm text-gray-600 mt-1">{metric.suffix}</div>
+              <div className="text-sm text-slate-400 mt-1">{metric.suffix}</div>
             )}
           </GradientCard>
         </motion.div>
