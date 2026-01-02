@@ -1,0 +1,96 @@
+{
+  "collection": {
+    "name": "scottleduc-kb",
+    "id": "d73iornjcxz37yt4g0x2",
+    "arn": "arn:aws:aoss:us-east-1:441383083571:collection/d73iornjcxz37yt4g0x2"
+  },
+  "policies": {
+    "network": {
+      "type": "network",
+      "name": "scottleduc-kb-network",
+      "policyVersion": "MTc2NzMwMTkzMTMxMl8x",
+      "policy": [
+        {
+          "Rules": [
+            {
+              "Resource": [
+                "collection/scottleduc-kb"
+              ],
+              "ResourceType": "collection"
+            },
+            {
+              "Resource": [
+                "collection/scottleduc-kb"
+              ],
+              "ResourceType": "dashboard"
+            }
+          ],
+          "AllowFromPublic": true
+        }
+      ],
+      "createdDate": 1767301931312,
+      "lastModifiedDate": 1767301931312
+    },
+    "encryption": {
+      "type": "encryption",
+      "name": "scottleduc-kb-encryption",
+      "policyVersion": "MTc2NzMwMTkyMzY0OV8x",
+      "policy": {
+        "Rules": [
+          {
+            "Resource": [
+              "collection/scottleduc-kb"
+            ],
+            "ResourceType": "collection"
+          }
+        ],
+        "AWSOwnedKey": true
+      },
+      "createdDate": 1767301923649,
+      "lastModifiedDate": 1767301923649
+    },
+    "data_access": {
+      "type": "data",
+      "name": "scottleduc-kb-access",
+      "policyVersion": "MTc2NzMwMTkzOTM5NF8x",
+      "policy": [
+        {
+          "Rules": [
+            {
+              "Resource": [
+                "collection/scottleduc-kb"
+              ],
+              "Permission": [
+                "aoss:CreateCollectionItems",
+                "aoss:DeleteCollectionItems",
+                "aoss:UpdateCollectionItems",
+                "aoss:DescribeCollectionItems"
+              ],
+              "ResourceType": "collection"
+            },
+            {
+              "Resource": [
+                "index/scottleduc-kb/*"
+              ],
+              "Permission": [
+                "aoss:CreateIndex",
+                "aoss:DeleteIndex",
+                "aoss:UpdateIndex",
+                "aoss:DescribeIndex",
+                "aoss:ReadDocument",
+                "aoss:WriteDocument"
+              ],
+              "ResourceType": "index"
+            }
+          ],
+          "Principal": [
+            "arn:aws:iam::441383083571:role/BedrockKnowledgeBaseRole",
+            "arn:aws:iam::441383083571:user/leducse-admin"
+          ]
+        }
+      ],
+      "createdDate": 1767301939394,
+      "lastModifiedDate": 1767301939394
+    }
+  }
+}

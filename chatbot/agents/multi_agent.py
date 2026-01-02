@@ -15,6 +15,7 @@ import boto3
 from .config import (
     AWS_REGION,
     KNOWLEDGE_BASE_ID,
+    USE_EMBEDDED_KNOWLEDGE,
     CONTACT_EMAIL,
     SES_FROM_EMAIL,
     ROUTING_MODEL,
@@ -141,7 +142,17 @@ class ScottLeducAgent:
             raise
     
     def _retrieve_from_knowledge_base(self, query: str, top_k: int = 5) -> str:
-        """Retrieve relevant context from the knowledge base."""
+        """Retrieve relevant context from the knowledge base.
+        
+        NOTE: When USE_EMBEDDED_KNOWLEDGE is True, this returns empty string
+        because all knowledge is already embedded in the system prompts.
+        This saves ~$175/month in OpenSearch Serverless costs.
+        """
+        # Skip KB retrieval when using embedded knowledge (saves ~$175/month)
+        if USE_EMBEDDED_KNOWLEDGE or not KNOWLEDGE_BASE_ID:
+            logger.debug("Using embedded knowledge - skipping KB retrieval")
+            return ""
+        
         try:
             response = self.bedrock_agent_runtime.retrieve(
                 knowledgeBaseId=KNOWLEDGE_BASE_ID,
@@ -270,13 +281,8 @@ Sent via Scott LeDuc Consulting AI Assistant
         context: ConversationContext
     ) -> AsyncGenerator[str, None]:
         """Handle interview-style questions about Scott."""
-        # Retrieve relevant context from knowledge base
-        kb_context = self._retrieve_from_knowledge_base(user_message)
-        
-        # Build enhanced prompt with KB context
-        enhanced_prompt = INTERVIEW_SYSTEM_PROMPT
-        if kb_context:
-            enhanced_prompt += f"\n\nRELEVANT CONTEXT FROM KNOWLEDGE BASE:\n{kb_context}"
+        # Knowledge is now embedded directly in INTERVIEW_SYSTEM_PROMPT
+        # This saves ~$175/month vs OpenSearch Serverless
         
         # Get recent conversation history
         messages = context.get_recent_messages(6)
@@ -284,7 +290,7 @@ Sent via Scott LeDuc Consulting AI Assistant
         
         async for chunk in self._invoke_model_streaming(
             INTERVIEW_MODEL,
-            enhanced_prompt,
+            INTERVIEW_SYSTEM_PROMPT,
             messages
         ):
             yield chunk
@@ -295,13 +301,8 @@ Sent via Scott LeDuc Consulting AI Assistant
         context: ConversationContext
     ) -> AsyncGenerator[str, None]:
         """Handle consulting-style problem-solving questions."""
-        # Retrieve relevant context from knowledge base
-        kb_context = self._retrieve_from_knowledge_base(user_message)
-        
-        # Build enhanced prompt with KB context
-        enhanced_prompt = CONSULTANT_SYSTEM_PROMPT
-        if kb_context:
-            enhanced_prompt += f"\n\nRELEVANT CASE STUDIES AND METHODOLOGY:\n{kb_context}"
+        # Knowledge is now embedded directly in CONSULTANT_SYSTEM_PROMPT
+        # This saves ~$175/month vs OpenSearch Serverless
         
         # Get recent conversation history
         messages = context.get_recent_messages(6)
@@ -309,7 +310,7 @@ Sent via Scott LeDuc Consulting AI Assistant
         
         async for chunk in self._invoke_model_streaming(
             CONSULTANT_MODEL,
-            enhanced_prompt,
+            CONSULTANT_SYSTEM_PROMPT,
             messages
         ):
             yield chunk

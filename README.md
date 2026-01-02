@@ -108,9 +108,7 @@ A modern, professional consulting website built with Next.js, featuring an AI-po
 | **AgentCore Memory** | `scottleduc_consultant_mem-er6lzH3Wp1` | Session memory (STM only) |
 | **Lambda** | `agentcore-presigned-url` | Generates presigned WebSocket URLs |
 | **API Gateway** | `fmfvkrcjl7` (HTTP API) | Exposes Lambda for presigned URL generation |
-| **Bedrock Knowledge Base** | `QFNR1QV59Y` | RAG for resume, case studies, services |
-| **S3 Bucket** | `scottleduc-consulting-kb` | Knowledge base documents + deployment packages |
-| **OpenSearch Serverless** | `scottleduc-kb` (Collection) | Vector store for knowledge base |
+| **S3 Bucket** | `scottleduc-consulting-kb` | Deployment packages + knowledge backup |
 | **SES** | `leducse@gmail.com` (verified) | Contact form email notifications |
 | **Amplify** | `scott-leduc-consulting` (`d3jq7pom4n937u`) | Website hosting with CI/CD |
 | **CloudWatch Log Group** | `/aws/bedrock-agentcore/runtimes/scottleduc_consultant-vKDki47sNm-DEFAULT` | Chatbot logs |
@@ -742,10 +740,8 @@ agentcore invoke '{"prompt": "I want to get in touch with Scott"}'
 
 | Service | Description | Estimated Monthly Cost |
 |---------|-------------|----------------------|
-| **OpenSearch Serverless** | 2 OCUs minimum (1 indexing, 1 search) × $0.24/hr | ~$175 (minimum) |
 | **Bedrock - Claude 3 Haiku** | Routing: ~500 calls × ~500 input/100 output tokens | ~$0.15 |
-| **Bedrock - Claude 3.5 Sonnet** | Responses: ~500 calls × ~2K input/500 output tokens | ~$5-10 |
-| **Bedrock - Titan Embeddings** | Knowledge Base queries | ~$0.10 |
+| **Bedrock - Claude 3.5 Sonnet** | Responses: ~500 calls × ~8K input/500 output tokens (embedded KB) | ~$15-25 |
 | **AgentCore Runtime** | Compute time (serverless) | ~$2-5 |
 | **Lambda** | Presigned URL generation (~500 invocations) | ~$0.01 |
 | **API Gateway** | HTTP API (~500 requests) | ~$0.01 |
@@ -753,26 +749,33 @@ agentcore invoke '{"prompt": "I want to get in touch with Scott"}'
 | **Amplify Hosting** | SSR compute + bandwidth | ~$5-10 |
 | **SES** | ~10-50 emails/month | ~$0.01 |
 | **CloudWatch Logs** | Log storage and queries | ~$1-3 |
-| **TOTAL** | | **~$190-210/month** |
+| **TOTAL** | | **~$25-45/month** |
 
-### ⚠️ Major Cost Driver: OpenSearch Serverless
+### ✅ OpenSearch Serverless DELETED (Saving ~$175/month)
 
-OpenSearch Serverless has a **minimum of 2 OCUs** that run 24/7 at $0.24/hour each = **~$175/month minimum**.
+We eliminated the major cost driver by embedding all knowledge directly in the agent prompts:
 
-**Options to reduce costs:**
+- **Before**: OpenSearch Serverless = ~$175/month minimum (2 OCUs × $0.24/hr × 24/7)
+- **After**: Knowledge embedded in prompts = ~$0/month
 
-1. **Delete OpenSearch and use simpler retrieval** (not recommended if you need RAG)
-2. **Accept the cost** as the price of semantic search capability
-3. **Switch to OpenSearch provisioned** (cheaper if you manage it yourself)
-4. **Use a different vector store** (Pinecone free tier, Supabase, etc.)
+**How it works:**
+- All resume, case studies, and services content (~6,750 tokens) is embedded directly in the system prompts
+- Claude Sonnet has a 200K token context window, so this is trivial to include
+- Slightly higher per-request cost (more input tokens) but eliminates the fixed $175/month
 
-### Cost Reduction Already Implemented
+**To restore OpenSearch if needed:**
+```bash
+python infrastructure/opensearch-backup/restore-opensearch.py
+```
 
-1. ✅ **Use Haiku for routing**: ~10x cheaper than Sonnet ($0.25 vs $3 per 1M tokens)
-2. ✅ **CloudWatch retention**: Set to 30 days (reduces log storage costs)
-3. ✅ **Lambda for presigned URLs**: Serverless, pay only for invocations
-4. ✅ **HTTP API Gateway**: 70% cheaper than REST API
-5. ✅ **Budget alert**: $50/month threshold with email notifications
+### Cost Reduction Implemented
+
+1. ✅ **Embedded knowledge**: Eliminated $175/month OpenSearch Serverless cost
+2. ✅ **Use Haiku for routing**: ~10x cheaper than Sonnet ($0.25 vs $3 per 1M tokens)
+3. ✅ **CloudWatch retention**: Set to 30 days (reduces log storage costs)
+4. ✅ **Lambda for presigned URLs**: Serverless, pay only for invocations
+5. ✅ **HTTP API Gateway**: 70% cheaper than REST API
+6. ✅ **Budget alert**: $100/month threshold with email notifications
 
 ### Monitoring Costs
 
