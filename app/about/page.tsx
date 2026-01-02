@@ -1,113 +1,111 @@
+"use client";
+
 import GradientCard from "@/components/shared/GradientCard";
-import StatsVisualization from "@/components/shared/StatsVisualization";
-import ServiceCTA from "@/components/services/ServiceCTA";
-import Testimonials from "@/components/shared/Testimonials";
-import { ABOUT_CONTENT, COMPETITIVE_ADVANTAGE } from "@/lib/content";
-import { KEY_METRICS, SITE_CONFIG } from "@/lib/constants";
-import { Award, GraduationCap, Briefcase, Shield, CheckCircle, Layers, Target, Zap, TrendingUp } from "lucide-react";
+import GradientButton from "@/components/shared/GradientButton";
+import { SITE_CONFIG } from "@/lib/constants";
+import { 
+  BarChart3, 
+  Rocket, 
+  Building2, 
+  TrendingUp,
+  Layers,
+  Brain,
+  Server,
+  LineChart,
+  Shield,
+  MessageSquare,
+  Mail,
+  ArrowRight
+} from "lucide-react";
 import Image from "next/image";
 
-export const metadata = {
-  title: "About | Scott LeDuc Consulting",
-  description:
-    "Learn about Scott LeDuc's experience in statistical analysis, machine learning, AWS architecture, and data-driven consulting.",
-};
-
 export default function AboutPage() {
+  const capabilities = [
+    { layer: "Strategy", description: "Business problems → analytical frameworks", icon: TrendingUp },
+    { layer: "Statistics", description: "Causal inference with PSM, DiD, bootstrap", icon: BarChart3 },
+    { layer: "Data Science", description: "ML models with 89%+ accuracy", icon: Brain },
+    { layer: "Engineering", description: "Serverless AWS architectures", icon: Server },
+    { layer: "Visualization", description: "Executive dashboards at scale", icon: LineChart },
+    { layer: "Governance", description: "Data contracts & GenAI readiness", icon: Shield },
+  ];
+
+  const valueProps = [
+    {
+      title: "Statistical Rigor",
+      description: "Propensity score matching, difference-in-differences, and causal inference that validates ROI with p < 0.05 significance—numbers executives can defend.",
+      icon: BarChart3,
+    },
+    {
+      title: "Production-Ready Solutions",
+      description: "Strategy doesn't stop at the slide deck. Models get deployed, dashboards go live, pipelines run in production.",
+      icon: Rocket,
+    },
+    {
+      title: "Enterprise Scale Experience",
+      description: "First SA operations member for AWS SLG & EDU, supporting 1,200+ builders across 18 global sub-regions serving 10,200+ customers.",
+      icon: Building2,
+    },
+    {
+      title: "Business-First Perspective",
+      description: "MS in Business Analytics from William & Mary. Every analysis ties back to revenue, adoption, or operational impact.",
+      icon: TrendingUp,
+    },
+  ];
+
+  const openChatbot = () => {
+    // Trigger chatbot open - dispatch custom event
+    window.dispatchEvent(new CustomEvent('openChatbot'));
+  };
+
   return (
-    <div className="bg-[var(--background)]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-        {/* Header with Headshot */}
-        <section className="grid md:grid-cols-[280px_1fr] gap-12 items-center">
-          {/* Headshot */}
-          <div className="flex justify-center md:justify-start">
-            <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full blur-sm opacity-50" />
-              <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-2 border-cyan-400/30">
-                <Image
-                  src={ABOUT_CONTENT.headshot}
-                  alt={SITE_CONFIG.name}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </div>
+    <div className="bg-[#0a1628]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+        
+        {/* Hero Section */}
+        <section className="text-center space-y-6">
+          <p className="text-sm uppercase tracking-[0.35em] text-cyan-400 font-semibold">
+            The Decision Layer
+          </p>
+          <h1
+            className="text-4xl md:text-5xl font-bold text-white"
+            style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
+          >
+            Building the critical layer between raw data and confident business decisions.
+          </h1>
+        </section>
+
+        {/* Value Proposition */}
+        <section className="space-y-8">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <p className="text-lg text-slate-300 leading-relaxed">
+              Organizations don't struggle with data—they struggle with <span className="text-cyan-400 font-semibold">trust</span>. 
+              Dashboards show numbers, but executives ask: <em>"Can we act on this?"</em>
+            </p>
+            <p className="text-lg text-slate-300 leading-relaxed">
+              The <span className="text-white font-semibold">Decision Layer</span> is the foundation that transforms 
+              uncertainty into confidence: validated metrics, proven models, and governed data that leadership can trust. 
+              Scott LeDuc builds that layer.
+            </p>
+          </div>
+        </section>
+
+        {/* What Scott Brings */}
+        <section className="space-y-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-white mb-2">What Scott Brings</h2>
+            <p className="text-slate-300">
+              A rare combination that spans the full analytics value chain—from executive strategy to production deployment.
+            </p>
           </div>
           
-          {/* Header Text */}
-          <div className="text-center md:text-left space-y-4">
-            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
-              About
-            </p>
-            <h1
-              className="text-4xl md:text-5xl font-bold text-[var(--foreground)]"
-              style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
-            >
-              Data-Driven Consulting, Proven Results
-            </h1>
-            <p className="text-lg text-[var(--text-muted)] max-w-2xl">
-              {ABOUT_CONTENT.summary}
-            </p>
-          </div>
-        </section>
-
-        {/* Stats */}
-        <section>
-          <StatsVisualization
-            title="Validated Track Record"
-            stats={KEY_METRICS.map((metric) => ({
-              label: metric.label,
-              value: metric.value,
-              description: metric.description,
-            }))}
-          />
-        </section>
-
-        {/* Competitive Advantage */}
-        <section className="space-y-8">
-          <div className="text-center space-y-4">
-            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
-              What Sets Me Apart
-            </p>
-            <h2
-              className="text-3xl md:text-4xl font-bold text-white"
-              style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
-            >
-              {COMPETITIVE_ADVANTAGE.headline}
-            </h2>
-            <p className="text-lg text-slate-300 max-w-3xl mx-auto">
-              {COMPETITIVE_ADVANTAGE.subheadline}
-            </p>
-          </div>
-
-          {/* Capabilities Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
-            {COMPETITIVE_ADVANTAGE.capabilities.map((cap) => (
-              <div
-                key={cap.layer}
-                className="p-4 rounded-xl bg-[#111827] border border-cyan-500/20 hover:border-cyan-500/40 transition-colors"
-              >
-                <div className="text-cyan-400 text-xs font-semibold uppercase tracking-wide mb-2">
-                  {cap.layer}
-                </div>
-                <div className="text-slate-200 text-sm">
-                  {cap.description}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Value Props */}
           <div className="grid gap-6 md:grid-cols-2">
-            {COMPETITIVE_ADVANTAGE.valueProps.map((prop, index) => {
-              const icons = [Target, Zap, Layers, TrendingUp];
-              const IconComponent = icons[index];
+            {valueProps.map((prop, index) => {
+              const IconComponent = prop.icon;
               const gradients = [
                 "from-cyan-500 to-blue-500",
                 "from-blue-500 to-violet-500",
                 "from-violet-500 to-purple-500",
-                "from-purple-500 to-pink-500",
+                "from-purple-500 to-cyan-500",
               ];
               return (
                 <GradientCard key={prop.title} gradient={gradients[index]} hover={false}>
@@ -126,154 +124,116 @@ export default function AboutPage() {
               );
             })}
           </div>
+        </section>
 
-          {/* Why This is Rare */}
-          <GradientCard gradient="from-slate-600 to-slate-700" hover={false}>
-            <h3 className="text-xl font-semibold text-white mb-4">
-              {COMPETITIVE_ADVANTAGE.whyRare.title}
-            </h3>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-white/10">
-                    <th className="text-left py-2 px-3 text-cyan-400 font-semibold">Role</th>
-                    <th className="text-left py-2 px-3 text-slate-300 font-semibold">What They Do</th>
-                    <th className="text-left py-2 px-3 text-slate-400 font-semibold">What They Can&apos;t Do</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {COMPETITIVE_ADVANTAGE.whyRare.comparisons.map((row) => (
-                    <tr key={row.type} className="border-b border-white/5">
-                      <td className="py-2 px-3 text-white font-medium">{row.type}</td>
-                      <td className="py-2 px-3 text-slate-300">{row.does}</td>
-                      <td className="py-2 px-3 text-slate-400">{row.cantDo}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-4 text-cyan-400 font-semibold text-center">
-              {COMPETITIVE_ADVANTAGE.whyRare.conclusion}
+        {/* The Full Stack */}
+        <section className="space-y-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-white mb-2">The Full Stack</h2>
+            <p className="text-slate-300">
+              Covering the complete analytics value chain.
             </p>
-          </GradientCard>
-        </section>
-
-        {/* Achievements & Expertise */}
-        <section className="grid gap-6 md:grid-cols-2">
-          <GradientCard gradient="from-cyan-500 to-blue-500" hover={false}>
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                <Award className="w-5 h-5 text-cyan-400" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-semibold text-[var(--foreground)] mb-4">
-                  Signature Achievements
-                </h2>
-                <ul className="space-y-3 text-[var(--text-muted)]">
-                  {ABOUT_CONTENT.achievements.map((achievement) => (
-                    <li key={achievement} className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-1" />
-                      <span>{achievement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </GradientCard>
-
-          <GradientCard gradient="from-violet-500 to-purple-500" hover={false}>
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center">
-                <Briefcase className="w-5 h-5 text-violet-400" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-semibold text-[var(--foreground)] mb-4">
-                  Areas of Expertise
-                </h2>
-                <ul className="space-y-2 text-[var(--text-muted)]">
-                  {ABOUT_CONTENT.expertise.map((skill) => (
-                    <li key={skill} className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-violet-400 flex-shrink-0 mt-1" />
-                      <span>{skill}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </GradientCard>
-        </section>
-
-        {/* Education & Certifications */}
-        <section className="grid gap-6 md:grid-cols-2">
-          <GradientCard gradient="from-blue-500 to-indigo-500" hover={false}>
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                <GraduationCap className="w-5 h-5 text-blue-400" />
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-semibold text-[var(--foreground)] mb-4">
-                  Education
-                </h2>
-                <div className="mb-4">
-                  <div className="text-lg font-semibold text-[var(--foreground)]">
-                    {ABOUT_CONTENT.education.degree}
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {capabilities.map((cap) => {
+              const IconComponent = cap.icon;
+              return (
+                <div
+                  key={cap.layer}
+                  className="p-4 rounded-xl bg-[#111827] border border-cyan-500/20 hover:border-cyan-500/40 transition-colors text-center"
+                >
+                  <div className="flex justify-center mb-3">
+                    <div className="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                      <IconComponent className="w-5 h-5 text-cyan-400" />
+                    </div>
                   </div>
-                  <div className="text-[var(--text-muted)]">
-                    {ABOUT_CONTENT.education.school}
+                  <div className="text-cyan-400 text-xs font-semibold uppercase tracking-wide mb-1">
+                    {cap.layer}
                   </div>
-                  <div className="text-sm text-[var(--text-light)]">
-                    {ABOUT_CONTENT.education.period}
+                  <div className="text-slate-300 text-sm">
+                    {cap.description}
                   </div>
                 </div>
-                <h3 className="text-sm font-semibold text-cyan-400 uppercase tracking-wide mb-2">
-                  Relevant Coursework
-                </h3>
-                <ul className="space-y-2 text-sm text-[var(--text-muted)]">
-                  {ABOUT_CONTENT.education.coursework.map((course) => (
-                    <li key={course}>• {course}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </GradientCard>
-
-          <GradientCard gradient="from-emerald-500 to-teal-500" hover={false}>
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                <Shield className="w-5 h-5 text-emerald-400" />
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-semibold text-[var(--foreground)] mb-4">
-                  Certifications
-                </h2>
-                <ul className="space-y-3">
-                  {ABOUT_CONTENT.certifications.map((cert) => (
-                    <li
-                      key={cert.name}
-                      className="flex items-center justify-between p-3 rounded-lg bg-[var(--background)]/50"
-                    >
-                      <span className="text-[var(--foreground)]">{cert.name}</span>
-                      <span className="text-sm text-cyan-400 font-medium">
-                        {cert.year}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </GradientCard>
+              );
+            })}
+          </div>
         </section>
 
-        {/* Testimonials */}
-        <Testimonials />
+        {/* Call to Action */}
+        <section className="space-y-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-white mb-2">
+              Ready to build your Decision Layer?
+            </h2>
+            <p className="text-slate-300">
+              Three paths forward:
+            </p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-3">
+            {/* Contact Scott */}
+            <GradientCard gradient="from-cyan-500 to-blue-500" hover={true} className="text-center">
+              <div className="space-y-4">
+                <div className="flex justify-center">
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                    <Mail className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold text-white">Start a Conversation</h3>
+                <p className="text-slate-200 text-sm">
+                  Discuss your analytics challenges and explore fit.
+                </p>
+                <GradientButton href="/contact" size="sm">
+                  Contact Scott
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </GradientButton>
+              </div>
+            </GradientCard>
 
-        {/* CTA */}
-        <section>
-          <ServiceCTA
-            headline={`Work with ${SITE_CONFIG.name}`}
-            subheadline="Let's connect to discuss how we can apply this experience to your organization's next strategic initiative."
-          />
+            {/* Chat Now */}
+            <GradientCard gradient="from-blue-500 to-violet-500" hover={true} className="text-center">
+              <div className="space-y-4">
+                <div className="flex justify-center">
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                    <MessageSquare className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold text-white">Chat Now</h3>
+                <p className="text-slate-200 text-sm">
+                  Quick questions? The AI assistant can help.
+                </p>
+                <button
+                  onClick={openChatbot}
+                  className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-violet-500 text-white font-semibold text-sm hover:from-blue-400 hover:to-violet-400 transition-all"
+                >
+                  Open Chat
+                  <MessageSquare className="w-4 h-4 ml-2" />
+                </button>
+              </div>
+            </GradientCard>
+
+            {/* See the Work */}
+            <GradientCard gradient="from-violet-500 to-purple-500" hover={true} className="text-center">
+              <div className="space-y-4">
+                <div className="flex justify-center">
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                    <Layers className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold text-white">See the Work</h3>
+                <p className="text-slate-200 text-sm">
+                  Explore case studies and proven outcomes.
+                </p>
+                <GradientButton href="/case-studies" size="sm">
+                  View Case Studies
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </GradientButton>
+              </div>
+            </GradientCard>
+          </div>
         </section>
+
       </div>
     </div>
   );

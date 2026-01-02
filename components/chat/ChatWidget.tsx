@@ -55,6 +55,17 @@ export default function ChatWidget() {
     }
   }, [isOpen, isMinimized]);
 
+  // Listen for external open chatbot events
+  useEffect(() => {
+    const handleOpenChatbot = () => {
+      setIsOpen(true);
+      setIsMinimized(false);
+    };
+    
+    window.addEventListener('openChatbot', handleOpenChatbot);
+    return () => window.removeEventListener('openChatbot', handleOpenChatbot);
+  }, []);
+
   // Fetch presigned WebSocket URL and connect
   const connectToAgentCore = useCallback(async () => {
     if (isConnecting || wsRef.current?.readyState === WebSocket.OPEN) {
