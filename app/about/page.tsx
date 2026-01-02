@@ -176,24 +176,15 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold text-white">Where I've Made Impact</h2>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="flex flex-wrap justify-center gap-3">
             {ORGANIZATIONS.map((org) => (
               <div
                 key={org.name}
-                className="group p-6 rounded-xl bg-[#111827]/50 border border-white/5 hover:border-cyan-500/30 transition-all"
+                className="group px-5 py-3 rounded-lg bg-[#111827]/50 border border-white/5 hover:border-cyan-500/30 transition-all"
               >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center">
-                    <Building2 className="w-6 h-6 text-cyan-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors">
-                      {org.name}
-                    </h3>
-                    <p className="text-cyan-400/80 text-sm font-medium">{org.role}</p>
-                    <p className="text-slate-400 text-sm mt-1">{org.description}</p>
-                  </div>
-                </div>
+                <p className="text-base font-medium text-white group-hover:text-cyan-400 transition-colors">
+                  {org.name}
+                </p>
               </div>
             ))}
           </div>

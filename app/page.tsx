@@ -118,20 +118,16 @@ export default function Home() {
             </h2>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="flex flex-wrap justify-center gap-4">
             {ORGANIZATIONS.map((org) => (
               <div
                 key={org.name}
-                className="group relative p-6 rounded-xl bg-[#111827]/50 border border-white/5 hover:border-cyan-500/30 transition-all duration-300"
+                className="group relative px-6 py-4 rounded-xl bg-[#111827]/50 border border-white/5 hover:border-cyan-500/30 transition-all duration-300"
               >
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 
-                <div className="relative space-y-2 text-center">
-                  <div className="w-12 h-12 mx-auto rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-3">
-                    <Building2 className="w-6 h-6 text-cyan-400" />
-                  </div>
-                  <p className="text-lg font-bold text-white">{org.shortName}</p>
-                  <p className="text-xs text-slate-400">{org.role}</p>
+                <div className="relative text-center">
+                  <p className="text-base font-semibold text-white group-hover:text-cyan-400 transition-colors">{org.shortName}</p>
                 </div>
               </div>
             ))}

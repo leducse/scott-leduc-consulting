@@ -190,31 +190,49 @@ export const ICON_MAP = {
   Sparkles: "Sparkles",
 } as const;
 
-// Organizations/clients worked with
+// Organizations worked with
 export const ORGANIZATIONS = [
   {
-    name: "Amazon Web Services",
-    shortName: "AWS",
+    name: "Amazon",
+    shortName: "Amazon",
     role: "Solutions Architect Operations",
-    description: "First SA operations member for SLG & EDU vertical",
+    description: "Analytics & ML for 1,200+ builders across 18 global regions",
   },
   {
-    name: "AWS WWPS",
-    shortName: "WWPS",
-    role: "Analytics & Performance",
-    description: "Supporting 1,200+ builders across 18 global sub-regions",
+    name: "T-Mobile",
+    shortName: "T-Mobile",
+    role: "Analytics & BI",
+    description: "Enterprise analytics and business intelligence",
   },
   {
-    name: "AWS Security",
-    shortName: "Security",
-    role: "G3 Program Analytics",
-    description: "$17M+ impact through engagement programs",
+    name: "Charter Communications",
+    shortName: "Charter",
+    role: "Data Analytics",
+    description: "Customer analytics and reporting solutions",
   },
   {
-    name: "William & Mary",
-    shortName: "W&M",
-    role: "MS Business Analytics",
-    description: "Raymond A. Mason School of Business",
+    name: "National Geographic Society",
+    shortName: "Nat Geo",
+    role: "Analytics",
+    description: "Data-driven insights for global initiatives",
+  },
+  {
+    name: "Virginia DMAS",
+    shortName: "VA DMAS",
+    role: "Healthcare Analytics",
+    description: "Virginia Department of Medical Assistance Services",
+  },
+  {
+    name: "Feeding America",
+    shortName: "Feeding America",
+    role: "Nonprofit Analytics",
+    description: "Impact measurement and program analytics",
+  },
+  {
+    name: "American Diabetes Association",
+    shortName: "ADA",
+    role: "Healthcare Analytics",
+    description: "Data strategy and analytics solutions",
   },
 ];
 
