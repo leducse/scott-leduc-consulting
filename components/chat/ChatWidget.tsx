@@ -64,8 +64,10 @@ export default function ChatWidget() {
     setIsConnecting(true);
 
     try {
-      // Get presigned WebSocket URL from our API
-      const response = await fetch(`/api/chat?session_id=${sessionId}`);
+      // Get presigned WebSocket URL from API Gateway (Lambda function)
+      // This endpoint is separate from Amplify and has proper AWS credentials
+      const apiGatewayUrl = "https://fmfvkrcjl7.execute-api.us-east-1.amazonaws.com/prod/ws-url";
+      const response = await fetch(`${apiGatewayUrl}?session_id=${sessionId}`);
       
       if (!response.ok) {
         throw new Error("Failed to get WebSocket URL");
@@ -225,12 +227,6 @@ export default function ChatWidget() {
       wsRef.current?.close();
     };
   }, []);
-
-  // Send message via HTTP (fallback)
-  const sendMessageViaHttp = async (message: string) => {
-    // Return a helpful fallback message
-    return "The AI assistant is currently being configured for production. In the meantime, please use the contact form at /contact or email leducse@gmail.com to get in touch with Scott directly. You can also connect on LinkedIn: linkedin.com/in/sleduc";
-  };
 
   const handleSendMessage = async () => {
     const message = inputValue.trim();
