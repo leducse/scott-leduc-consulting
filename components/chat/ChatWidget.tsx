@@ -26,10 +26,11 @@ export default function ChatWidget() {
     {
       id: "welcome",
       role: "assistant",
-      content: "Hi! I'm Scott's AI assistant. I can answer questions about his experience, skills, and services, or help you think through data and analytics challenges. How can I help you today?",
+      content: "Hi! I'm Scott's AI assistant, powered by Amazon Bedrock AgentCore. I can answer questions about his experience, skills, and consulting services. How can I help you today?",
       timestamp: new Date(),
     },
   ]);
+  const [connectionFailed, setConnectionFailed] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
@@ -189,6 +190,22 @@ export default function ChatWidget() {
     } catch (error) {
       console.error("Failed to connect to AgentCore:", error);
       setIsConnecting(false);
+      setConnectionFailed(true);
+      
+      // Add a message about the connection issue
+      setMessages((prev) => {
+        // Only add if we don't already have a connection error message
+        if (prev.some(m => m.id === "connection-error")) return prev;
+        return [
+          ...prev,
+          {
+            id: "connection-error",
+            role: "assistant",
+            content: "I'm having trouble connecting to the AI backend right now. You can still type your questions and I'll do my best to help, or feel free to use the contact form at /contact to reach Scott directly.",
+            timestamp: new Date(),
+          },
+        ];
+      });
     }
   }, [isOpen, isConnecting, sessionId]);
 
@@ -211,8 +228,8 @@ export default function ChatWidget() {
 
   // Send message via HTTP (fallback)
   const sendMessageViaHttp = async (message: string) => {
-    // For now, return a message indicating the chat is connecting
-    return "I'm currently connecting to the AI backend. Please wait a moment and try again, or use the contact form to reach Scott directly.";
+    // Return a helpful fallback message
+    return "The AI assistant is currently being configured for production. In the meantime, please use the contact form at /contact or email leducse@gmail.com to get in touch with Scott directly. You can also connect on LinkedIn: linkedin.com/in/sleduc";
   };
 
   const handleSendMessage = async () => {
@@ -249,33 +266,37 @@ export default function ChatWidget() {
         session_id: sessionId 
       }));
     } else {
-      // Fallback to HTTP message
-      try {
-        const response = await sendMessageViaHttp(message);
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: `msg-${Date.now()}`,
-            role: "assistant",
-            content: response,
-            timestamp: new Date(),
-          },
-        ]);
-      } catch {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: `error-${Date.now()}`,
-            role: "assistant",
-            content: "Sorry, I'm having trouble connecting. Please try again later or use the contact form.",
-            timestamp: new Date(),
-          },
-        ]);
-      }
+      // Fallback mode - provide helpful response
       setIsLoading(false);
       
-      // Try to reconnect
-      if (!isConnecting) {
+      // Generate a helpful offline response based on the question
+      let response = "";
+      const lowerMessage = message.toLowerCase();
+      
+      if (lowerMessage.includes("experience") || lowerMessage.includes("background") || lowerMessage.includes("about")) {
+        response = "Scott has 10+ years of experience in analytics, data science, and ML. He's an AWS Certified ML Engineer with expertise in statistical analysis, causal inference, and cloud architecture. He's delivered $17M+ in business impact at AWS. For more details, check out the About page or his case studies!";
+      } else if (lowerMessage.includes("service") || lowerMessage.includes("help") || lowerMessage.includes("offer")) {
+        response = "Scott offers consulting in: Statistical Analysis & Causal Inference, Machine Learning & AI, AWS Cloud Architecture, Business Intelligence, Data Engineering, and GenAI Governance. Visit the Services page for details, or use the Contact form to discuss your specific needs!";
+      } else if (lowerMessage.includes("contact") || lowerMessage.includes("reach") || lowerMessage.includes("email")) {
+        response = "You can reach Scott at leducse@gmail.com or through the Contact form at /contact. He typically responds within 24-48 hours. You can also connect on LinkedIn: linkedin.com/in/sleduc";
+      } else if (lowerMessage.includes("case") || lowerMessage.includes("project") || lowerMessage.includes("example")) {
+        response = "Check out Scott's case studies showcasing $706K annual revenue impact, 53% conversion improvements, and ML recommender systems. Visit the Case Studies page for detailed breakdowns with metrics and methodologies!";
+      } else {
+        response = "Thanks for your question! The AI assistant is currently in offline mode. Please visit the Contact page at /contact to reach Scott directly, or explore the website to learn more about his services and experience. Email: leducse@gmail.com";
+      }
+      
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `msg-${Date.now()}`,
+          role: "assistant",
+          content: response,
+          timestamp: new Date(),
+        },
+      ]);
+      
+      // Try to reconnect in background
+      if (!isConnecting && !connectionFailed) {
         connectToAgentCore();
       }
     }
@@ -343,8 +364,8 @@ export default function ChatWidget() {
                   <h3 className="text-sm font-semibold text-slate-100">
                     Scott&apos;s AI Assistant
                   </h3>
-                  <p className="text-xs text-cyan-400">
-                    {isConnecting ? "Connecting..." : isConnected ? "Online" : "Ready to chat"}
+                  <p className={`text-xs ${connectionFailed ? "text-amber-400" : "text-cyan-400"}`}>
+                    {isConnecting ? "Connecting..." : isConnected ? "Online" : connectionFailed ? "Offline mode" : "Ready to chat"}
                   </p>
                 </div>
               </div>
