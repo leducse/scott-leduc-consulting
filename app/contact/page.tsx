@@ -1,7 +1,7 @@
 import ContactForm from "@/components/shared/ContactForm";
 import GradientCard from "@/components/shared/GradientCard";
 import { SITE_CONFIG } from "@/lib/constants";
-import { Mail, Phone, MapPin, Clock, Calendar, Users } from "lucide-react";
+import { Mail, Linkedin, Github, MapPin, Clock, Calendar, Users } from "lucide-react";
 
 export const metadata = {
   title: "Contact | Scott LeDuc Consulting",
@@ -49,11 +49,24 @@ export default function ContactPage() {
                 </li>
                 <li>
                   <a
-                    href={`tel:${SITE_CONFIG.phone}`}
+                    href={SITE_CONFIG.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-3 text-[var(--text-muted)] hover:text-cyan-400 transition-colors"
                   >
-                    <Phone className="w-5 h-5" />
-                    {SITE_CONFIG.phone}
+                    <Linkedin className="w-5 h-5" />
+                    linkedin.com/in/{SITE_CONFIG.linkedin}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={SITE_CONFIG.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-[var(--text-muted)] hover:text-cyan-400 transition-colors"
+                  >
+                    <Github className="w-5 h-5" />
+                    github.com/{SITE_CONFIG.github}
                   </a>
                 </li>
                 <li className="flex items-center gap-3 text-[var(--text-muted)]">
