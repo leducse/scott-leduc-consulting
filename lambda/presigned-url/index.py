@@ -33,7 +33,7 @@ CORS_HEADERS = {
 
 def get_data_plane_endpoint(region: str) -> str:
     """Get the AgentCore data plane endpoint for the region."""
-    return f"agentruntime.bedrock-agentcore.{region}.amazonaws.com"
+    return f"bedrock-agentcore.{region}.amazonaws.com"
 
 
 def generate_presigned_url(runtime_arn: str, session_id: str, expires: int = 300) -> str:
