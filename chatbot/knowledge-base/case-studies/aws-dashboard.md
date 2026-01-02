@@ -64,3 +64,4 @@ Eliminated manual data collection, reduced reporting turnaround from days to min
 - CloudWatch for monitoring
 - AWS Secrets Manager for security
 
+

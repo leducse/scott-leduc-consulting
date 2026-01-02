@@ -58,6 +58,25 @@ export default function AboutPage() {
             <p className="text-sm uppercase tracking-[0.35em] text-cyan-400 font-semibold">
               About Scott
             </p>
+            
+            {/* Profile Photo */}
+            <div className="flex justify-center">
+              <div className="relative">
+                <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-cyan-500/30 shadow-lg shadow-cyan-500/20">
+                  <Image
+                    src="/scott-profile.png"
+                    alt="Scott LeDuc"
+                    width={192}
+                    height={192}
+                    className="object-cover w-full h-full"
+                    priority
+                  />
+                </div>
+                {/* Decorative ring */}
+                <div className="absolute inset-0 rounded-full border-2 border-cyan-400/20 scale-110" />
+              </div>
+            </div>
+            
             <h1
               className="text-4xl md:text-5xl font-bold text-white"
               style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
