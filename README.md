@@ -46,26 +46,26 @@ A modern, professional consulting website built with Next.js, featuring an AI-po
 │  │  │  │  ┌──────────────┐ ┌───────────┐ ┌─────────────────┐         │  │ ││
 │  │  │  │  │INTERVIEW_AGENT│ │CONSULTANT │ │CONTACT_HANDLER  │         │  │ ││
 │  │  │  │  │(Claude Sonnet)│ │  AGENT    │ │(Collect info,   │         │  │ ││
-│  │  │  │  │1st person,    │ │(Sonnet)   │ │ send via SES)   │         │  │ ││
-│  │  │  │  │uses KB for RAG│ │Advisory   │ │                 │         │  │ ││
-│  │  │  │  └───────┬───────┘ └─────┬─────┘ └─────────────────┘         │  │ ││
-│  │  │  │          └───────┬───────┘                                   │  │ ││
-│  │  │  │                  ▼                                           │  │ ││
-│  │  │  │  ┌───────────────────────────────────────────────────────┐   │  │ ││
-│  │  │  │  │  KNOWLEDGE BASE (QFNR1QV59Y) - RAG Retrieval          │   │  │ ││
-│  │  │  │  │  - Resume, Case Studies, Services, Methodology        │   │  │ ││
-│  │  │  │  └───────────────────────────────────────────────────────┘   │  │ ││
+│  │  │  │  │1st person     │ │(Sonnet)   │ │ send via SES)   │         │  │ ││
+│  │  │  │  │               │ │Advisory   │ │                 │         │  │ ││
+│  │  │  │  └───────────────┘ └───────────┘ └─────────────────┘         │  │ ││
+│  │  │  │                         │                                    │  │ ││
+│  │  │  │  ┌──────────────────────┴─────────────────────────────────┐  │  │ ││
+│  │  │  │  │  EMBEDDED KNOWLEDGE (~6,750 tokens in system prompts)  │  │  │ ││
+│  │  │  │  │  - Resume, Case Studies, Services, Methodology         │  │  │ ││
+│  │  │  │  │  - No external DB needed (saves ~$175/month)           │  │  │ ││
+│  │  │  │  └────────────────────────────────────────────────────────┘  │  │ ││
 │  │  │  └──────────────────────────────────────────────────────────────┘  │ ││
 │  │  └────────────────────────────────────────────────────────────────────┘ ││
 │  └─────────────────────────────────────────────────────────────────────────┘│
 │                                                                             │
 │  ┌─────────────────────────────────────────────────────────────────────────┐│
 │  │  Supporting Services                                                    ││
-│  │  ┌──────────────────┐  ┌─────────────────┐  ┌────────────────────────┐  ││
-│  │  │  S3 Bucket       │  │ OpenSearch      │  │  AWS SES               │  ││
-│  │  │  scottleduc-     │  │ Serverless      │  │  Contact form emails   │  ││
-│  │  │  consulting-kb   │  │ (Vector Store)  │  │  leducse@gmail.com     │  ││
-│  │  └──────────────────┘  └─────────────────┘  └────────────────────────┘  ││
+│  │  ┌──────────────────────────────────┐  ┌────────────────────────────┐   ││
+│  │  │  S3 Bucket                       │  │  AWS SES                   │   ││
+│  │  │  scottleduc-consulting-kb        │  │  Contact form emails       │   ││
+│  │  │  (Deployment packages + backup)  │  │  leducse@gmail.com         │   ││
+│  │  └──────────────────────────────────┘  └────────────────────────────┘   ││
 │  └─────────────────────────────────────────────────────────────────────────┘│
 │                                                                             │
 │  ┌─────────────────────────────────────────────────────────────────────────┐│
@@ -73,7 +73,7 @@ A modern, professional consulting website built with Next.js, featuring an AI-po
 │  │  - CloudWatch Logs: /aws/bedrock-agentcore/runtimes/*                  ││
 │  │  - Lambda Logs: /aws/lambda/agentcore-presigned-url                    ││
 │  │  - X-Ray Traces, GenAI Dashboard                                       ││
-│  │  - AWS Budget: $50/month with email alerts                             ││
+│  │  - AWS Budget: $100/month with email alerts                            ││
 │  └─────────────────────────────────────────────────────────────────────────┘│
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -91,10 +91,11 @@ A modern, professional consulting website built with Next.js, featuring an AI-po
 ### AI Chatbot
 - **Multi-Agent Architecture**: Routing agent + specialized agents (Interview, Consultant)
 - **Amazon Bedrock AgentCore**: Serverless deployment with WebSocket support
-- **RAG Integration**: Knowledge Base with resume, case studies, and services
+- **Embedded Knowledge**: All content (~6,750 tokens) embedded in system prompts (no external DB)
 - **Real-time Streaming**: WebSocket-based response streaming
 - **Session Memory**: Short-term memory for conversation context (30-day retention)
 - **Observability**: CloudWatch logs, X-Ray traces, GenAI dashboard
+- **Cost Optimized**: ~$25-45/month (eliminated $175/month OpenSearch cost)
 
 ---
 
@@ -149,28 +150,35 @@ User Message
           ▼               ▼               ▼
 ┌─────────────────┐ ┌─────────────┐ ┌──────────────────┐
 │ INTERVIEW_AGENT │ │ CONSULTANT  │ │ CONTACT_HANDLER  │
-│ (Claude 3.5     │ │   AGENT     │ │                  │
-│  Sonnet)        │ │ (Claude 3.5 │ │ Collects user    │
-│                 │ │  Sonnet)    │ │ info, sends      │
-│ Speaks as Scott │ │             │ │ via SES          │
-│ 1st person,     │ │ Consultative│ │                  │
-│ uses KB for     │ │ approach,   │ │                  │
-│ experience data │ │ asks        │ │                  │
-│                 │ │ questions   │ │                  │
-└─────────────────┘ └─────────────┘ └──────────────────┘
-          │               │
-          └───────┬───────┘
+│ (Claude 3.5     │ │   AGENT     │ │ (Claude Haiku)   │
+│  Sonnet)        │ │ (Claude 3.5 │ │                  │
+│                 │ │  Sonnet)    │ │ Collects user    │
+│ Speaks as Scott │ │             │ │ info, sends      │
+│ 1st person      │ │ Consultative│ │ via SES          │
+│                 │ │ approach    │ │                  │
+└────────┬────────┘ └──────┬──────┘ └──────────────────┘
+         │                 │
+         └────────┬────────┘
                   ▼
-    ┌─────────────────────────┐
-    │   KNOWLEDGE BASE        │
-    │   (RAG Retrieval)       │
-    │                         │
-    │  - Resume/Experience    │
-    │  - Case Studies         │
-    │  - Services             │
-    │  - Methodology          │
-    └─────────────────────────┘
+    ┌─────────────────────────────┐
+    │   EMBEDDED KNOWLEDGE        │
+    │   (~6,750 tokens in prompt) │
+    │                             │
+    │  All content included in    │
+    │  system prompts - no        │
+    │  external DB required       │
+    │                             │
+    │  - Resume/Experience        │
+    │  - Case Studies             │
+    │  - Services                 │
+    │  - Methodology              │
+    └─────────────────────────────┘
 ```
+
+> **Note**: We previously used OpenSearch Serverless + Bedrock Knowledge Base for RAG, 
+> but switched to embedded knowledge to save ~$175/month. The knowledge base is small 
+> enough (~6,750 tokens) to fit in Claude's context window. To restore OpenSearch if 
+> needed, run: `python infrastructure/opensearch-backup/restore-opensearch.py`
 
 ### Agent Prompts Location
 
@@ -300,18 +308,30 @@ agentcore deploy
 agentcore status
 ```
 
-### Update Knowledge Base
+### Update Embedded Knowledge
+
+The chatbot's knowledge is embedded directly in `chatbot/agents/config.py`. To update:
 
 ```bash
-# Upload new/updated documents to S3
-aws s3 sync chatbot/knowledge-base/ s3://scottleduc-consulting-kb/knowledge-base/
+# 1. Edit the knowledge content
+#    Modify EMBEDDED_KNOWLEDGE variable in chatbot/agents/config.py
 
-# Trigger knowledge base sync
-aws bedrock-agent start-ingestion-job \
-  --knowledge-base-id QFNR1QV59Y \
-  --data-source-id <data-source-id> \
-  --region us-east-1
+# 2. Also update the source markdown files (for reference)
+#    Edit files in chatbot/knowledge-base/
+
+# 3. Redeploy the agent
+cd chatbot
+source venv/bin/activate
+agentcore deploy
+
+# 4. Commit and push changes
+git add -A
+git commit -m "Update embedded knowledge"
+git push origin main
 ```
+
+> **Note**: The markdown files in `chatbot/knowledge-base/` are kept for reference 
+> but are not used at runtime. The actual knowledge is in `EMBEDDED_KNOWLEDGE` in config.py.
 
 ---
 
@@ -415,26 +435,19 @@ aws logs tail /aws/bedrock-agentcore/runtimes/scottleduc_consultant-vKDki47sNm-D
 agentcore deploy
 ```
 
-#### 3. Knowledge Base returns no results
+#### 3. Chatbot gives wrong or incomplete answers
 
-**Cause**: Documents not synced or embedding issue
+**Cause**: Embedded knowledge may need updating
 
 **Debug**:
 ```bash
-# Check Knowledge Base status
-aws bedrock-agent get-knowledge-base --knowledge-base-id QFNR1QV59Y --region us-east-1
-
-# List data sources
-aws bedrock-agent list-data-sources --knowledge-base-id QFNR1QV59Y --region us-east-1
+# Check what knowledge is embedded
+grep -A 50 "EMBEDDED_KNOWLEDGE" chatbot/agents/config.py | head -60
 ```
 
-**Fix**: Re-sync the knowledge base:
-```bash
-aws bedrock-agent start-ingestion-job \
-  --knowledge-base-id QFNR1QV59Y \
-  --data-source-id <data-source-id> \
-  --region us-east-1
-```
+**Fix**: Update the knowledge in `chatbot/agents/config.py`:
+1. Edit the `EMBEDDED_KNOWLEDGE` variable
+2. Redeploy: `cd chatbot && agentcore deploy`
 
 #### 4. Contact form emails not sending
 
@@ -471,53 +484,7 @@ aws iam attach-user-policy \
 
 Note: IAM policy changes can take 5-15 minutes to propagate.
 
-#### 6. OpenSearch Serverless access denied
-
-**Cause**: Data access policy not configured
-
-**Fix**: Ensure data access policy allows your IAM principal:
-```bash
-aws aoss create-access-policy \
-  --name scottleduc-kb-access \
-  --type data \
-  --policy '[{"Rules":[{"Resource":["collection/scottleduc-kb"],"Permission":["aoss:*"],"ResourceType":"collection"},{"Resource":["index/scottleduc-kb/*"],"Permission":["aoss:*"],"ResourceType":"index"}],"Principal":["arn:aws:iam::441383083571:user/<your-user>"]}]'
-```
-
-#### 7. AgentCore Runtime cannot access Knowledge Base (AccessDeniedException)
-
-**Cause**: The AgentCore runtime's execution role doesn't have `bedrock:Retrieve` permission.
-
-**Symptoms**: CloudWatch logs show:
-```
-ERROR: User: arn:aws:sts::441383083571:assumed-role/AmazonBedrockAgentCoreSDKRuntime-us-east-1-*/...
-is not authorized to perform: bedrock:Retrieve on resource: 
-arn:aws:bedrock:us-east-1:441383083571:knowledge-base/QFNR1QV59Y
-```
-
-**Fix**: Add inline policy to the AgentCore runtime role:
-```bash
-aws iam put-role-policy \
-  --role-name AmazonBedrockAgentCoreSDKRuntime-us-east-1-855e130581 \
-  --policy-name BedrockKnowledgeBaseAccess \
-  --policy-document '{
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Sid": "BedrockKnowledgeBaseRetrieve",
-        "Effect": "Allow",
-        "Action": [
-          "bedrock:Retrieve",
-          "bedrock:RetrieveAndGenerate"
-        ],
-        "Resource": [
-          "arn:aws:bedrock:us-east-1:441383083571:knowledge-base/*"
-        ]
-      }
-    ]
-  }'
-```
-
-#### 8. WebSocket connection fails with 500 error
+#### 6. WebSocket connection fails with 500 error
 
 **Cause**: Lambda cannot generate presigned URL (missing env vars or permissions)
 
@@ -534,7 +501,7 @@ aws lambda get-function-configuration --function-name agentcore-presigned-url --
 - `AGENTCORE_RUNTIME_ARN` environment variable set
 - IAM role with `bedrock-agentcore:*` permissions
 
-#### 9. WebSocket connects but no response
+#### 7. WebSocket connects but no response
 
 **Cause**: Message format mismatch or runtime issue
 
@@ -618,6 +585,11 @@ consulting-website/
 │   └── presigned-url/
 │       └── index.py             # Generates SigV4 presigned WebSocket URLs
 │
+├── infrastructure/              # Infrastructure backup and scripts
+│   └── opensearch-backup/
+│       ├── opensearch-config.json    # Saved OpenSearch configuration
+│       └── restore-opensearch.py     # Script to restore OpenSearch if needed
+│
 ├── agentcore-sdk/               # Cloned AgentCore SDK (reference)
 ├── amplify.yml                  # AWS Amplify build config
 ├── package.json                 # Node.js dependencies
@@ -641,14 +613,17 @@ consulting-website/
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `KNOWLEDGE_BASE_ID` | Bedrock Knowledge Base ID | `QFNR1QV59Y` |
 | `CHATBOT_URL` | Local chatbot URL (dev) | `http://localhost:8080` |
+| `CONTACT_EMAIL` | Email for contact form | `leducse@gmail.com` |
+| `SES_FROM_EMAIL` | SES sender email | `leducse@gmail.com` |
 
 ### Setting in Amplify
 
 1. Go to AWS Amplify Console
 2. Select your app → Environment variables
 3. Add variables for the build environment
+
+> **Note**: `KNOWLEDGE_BASE_ID` is no longer used - knowledge is embedded in prompts.
 
 ---
 
@@ -717,14 +692,15 @@ agentcore invoke '{"prompt": "I want to get in touch with Scott"}'
 2. Test locally: `agentcore dev`
 3. Deploy: `agentcore deploy`
 
-### Updating Knowledge Base
+### Updating Chatbot Knowledge
 
-1. Add/modify markdown files in `chatbot/knowledge-base/`
-2. Upload to S3:
-   ```bash
-   aws s3 sync chatbot/knowledge-base/ s3://scottleduc-consulting-kb/knowledge-base/
-   ```
-3. Trigger sync via AWS Console or CLI
+The knowledge is embedded directly in `chatbot/agents/config.py`:
+
+1. Edit the `EMBEDDED_KNOWLEDGE` variable in `chatbot/agents/config.py`
+2. Optionally update source markdown files in `chatbot/knowledge-base/` (for reference)
+3. Test locally: `agentcore dev` then `agentcore invoke '{"prompt": "test question"}'`
+4. Deploy: `agentcore deploy`
+5. Commit and push to save changes
 
 ### Updating Website Content
 
@@ -780,7 +756,7 @@ python infrastructure/opensearch-backup/restore-opensearch.py
 ### Monitoring Costs
 
 ```bash
-# Check current month spending
+# Check current month spending (requires ce:GetCostAndUsage permission)
 aws ce get-cost-and-usage \
   --time-period Start=$(date +%Y-%m-01),End=$(date +%Y-%m-%d) \
   --granularity MONTHLY \
@@ -788,14 +764,10 @@ aws ce get-cost-and-usage \
   --group-by Type=DIMENSION,Key=SERVICE \
   --region us-east-1
 
-# Check OpenSearch Serverless specifically
-aws cloudwatch get-metric-statistics \
-  --namespace AWS/AOSS \
-  --metric-name SearchOCU \
-  --start-time $(date -u -v-7d +%Y-%m-%dT%H:%M:%SZ) \
-  --end-time $(date -u +%Y-%m-%dT%H:%M:%SZ) \
-  --period 3600 \
-  --statistics Average \
+# Check budget status
+aws budgets describe-budget \
+  --account-id 441383083571 \
+  --budget-name scottleduc-consulting-monthly \
   --region us-east-1
 ```
 
