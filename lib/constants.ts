@@ -260,11 +260,11 @@ export const CAREER_TIMELINE = [
     ],
   },
   {
-    period: "2018 – 2021",
+    period: "2013 – 2021",
     title: "Analytics & Business Intelligence",
     company: "Various Organizations",
     highlights: [
-      "Built and scaled BI platforms serving hundreds of stakeholders",
+      "Built and scaled BI platforms serving hundreds of stakeholders across telecommunication, ecommerce, and advocacy industries ",
       "Developed predictive models for customer behavior and revenue forecasting",
       "Led cross-functional analytics initiatives with measurable ROI",
     ],
