@@ -1,37 +1,15 @@
 import Hero from "@/components/layout/Hero";
 import MetricCounter from "@/components/shared/MetricCounter";
 import GradientCard from "@/components/shared/GradientCard";
-import ServiceCard from "@/components/services/ServiceCard";
 import CaseStudyCard from "@/components/case-studies/CaseStudyCard";
 import ServiceCTA from "@/components/services/ServiceCTA";
 import StatsVisualization from "@/components/shared/StatsVisualization";
 import Testimonials from "@/components/shared/Testimonials";
 import GradientButton from "@/components/shared/GradientButton";
-import { CASE_STUDIES, KEY_METRICS, SERVICES, ORGANIZATIONS } from "@/lib/constants";
-import { PROCESS_CONTENT } from "@/lib/content";
-import { CheckCircle, Zap, Users, ArrowRight, Building2 } from "lucide-react";
+import { CASE_STUDIES, KEY_METRICS, ORGANIZATIONS } from "@/lib/constants";
+import { PROCESS_CONTENT, SOLUTION_CARDS } from "@/lib/content";
+import { ArrowRight, Building2 } from "lucide-react";
 import Link from "next/link";
-
-const differentiators = [
-  {
-    title: "Causal Validation",
-    description:
-      "Propensity score matching, difference-in-differences, and bootstrap validation ensure statistical confidence.",
-    icon: CheckCircle,
-  },
-  {
-    title: "Full-Stack Solutions",
-    description:
-      "From AWS serverless architectures to React/TypeScript frontends and Python ML pipelines, we deliver end-to-end outcomes.",
-    icon: Zap,
-  },
-  {
-    title: "Executive Storytelling",
-    description:
-      "Data narratives aligned to stakeholders with actionable recommendations and visual analytics.",
-    icon: Users,
-  },
-];
 
 export default function Home() {
   const featuredCaseStudies = CASE_STUDIES.slice(0, 3);
@@ -58,6 +36,74 @@ export default function Home() {
           ))}
         </section>
 
+        {/* Building the Decision Layer - Problem → Solution Cards */}
+        <section className="space-y-10">
+          <div className="text-center space-y-4">
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
+              Building the Decision Layer
+            </p>
+            <h2
+              className="text-3xl md:text-4xl font-bold text-[var(--foreground)]"
+              style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
+            >
+              From Data Chaos to Confident Action
+            </h2>
+            <p className="text-lg text-[var(--text-muted)] max-w-3xl mx-auto">
+              Every engagement addresses a gap between raw data and decisions leadership can trust.
+            </p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {SOLUTION_CARDS.map((card) => (
+              <div
+                key={card.id}
+                className="group relative p-6 rounded-xl bg-[#111827]/70 border border-white/5 hover:border-cyan-500/30 transition-all duration-300 flex flex-col"
+              >
+                {/* Gradient accent line */}
+                <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-xl bg-gradient-to-r ${card.gradient} opacity-60 group-hover:opacity-100 transition-opacity`} />
+                
+                {/* Title */}
+                <h3 className="text-lg font-semibold text-white mb-4">
+                  {card.title}
+                </h3>
+                
+                {/* Problem */}
+                <div className="mb-4">
+                  <p className="text-xs uppercase tracking-wider text-slate-500 mb-1">The Problem</p>
+                  <p className="text-sm text-slate-300 leading-relaxed">
+                    "{card.problem}"
+                  </p>
+                </div>
+                
+                {/* Solution */}
+                <div className="mb-4">
+                  <p className="text-xs uppercase tracking-wider text-slate-500 mb-1">The Solution</p>
+                  <p className="text-sm text-slate-200 leading-relaxed">
+                    {card.solution}
+                  </p>
+                </div>
+                
+                {/* Proof */}
+                <div className="mb-6 flex-grow">
+                  <p className="text-xs uppercase tracking-wider text-cyan-400 mb-1">The Proof</p>
+                  <p className="text-sm text-cyan-300 font-medium">
+                    {card.proof}
+                  </p>
+                </div>
+                
+                {/* Link to case study */}
+                <Link
+                  href={`/case-studies/${card.caseStudySlug}`}
+                  className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors group/link"
+                >
+                  View case study
+                  <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Organizations Worked With */}
         <section className="space-y-8">
           <div className="text-center space-y-4">
@@ -78,7 +124,6 @@ export default function Home() {
                 key={org.name}
                 className="group relative p-6 rounded-xl bg-[#111827]/50 border border-white/5 hover:border-cyan-500/30 transition-all duration-300"
               >
-                {/* Glow effect on hover */}
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 
                 <div className="relative space-y-2 text-center">
@@ -103,70 +148,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Services */}
-        <section className="space-y-10">
-          <div className="text-center space-y-4">
-            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
-              Services
-            </p>
-            <h2
-              className="text-3xl md:text-4xl font-bold text-[var(--foreground)]"
-              style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
-            >
-              Analytics, ML, AWS, and GenAI Governance
-            </h2>
-            <p className="text-lg text-[var(--text-muted)] max-w-3xl mx-auto">
-              Build rigorously validated solutions that translate into measurable revenue impact, improved win rates, and operational efficiency.
-            </p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((service) => (
-              <ServiceCard
-                key={service.id}
-                title={service.title}
-                description={service.description}
-                icon={service.icon as "BarChart3" | "Brain" | "Cloud" | "LineChart" | "Database" | "Sparkles"}
-                gradient={service.gradient}
-                href={`/services/${service.slug}`}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* Why Partner */}
-        <section className="space-y-10">
-          <h2
-            className="text-3xl md:text-4xl font-bold text-[var(--foreground)] text-center"
-            style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
-          >
-            Why organizations partner with us
-          </h2>
-          <div className="grid gap-6 md:grid-cols-3">
-            {differentiators.map((item) => {
-              const IconComponent = item.icon;
-              return (
-                <GradientCard
-                  key={item.title}
-                  gradient="from-cyan-500 to-blue-500"
-                  hover={false}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                      <IconComponent className="w-5 h-5 text-cyan-400" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-[var(--text-muted)]">{item.description}</p>
-                    </div>
-                  </div>
-                </GradientCard>
-              );
-            })}
-          </div>
-        </section>
-
         {/* Featured Case Studies */}
         <section className="space-y-10">
           <div className="text-center space-y-4">
@@ -177,7 +158,7 @@ export default function Home() {
               className="text-3xl md:text-4xl font-bold text-[var(--foreground)]"
               style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
             >
-              Proven outcomes across data and cloud initiatives
+              Proven Outcomes with Measurable Impact
             </h2>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
@@ -210,7 +191,7 @@ export default function Home() {
               className="text-3xl md:text-4xl font-bold text-[var(--foreground)]"
               style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
             >
-              Structured methodology from discovery to optimization
+              Structured Methodology from Discovery to Optimization
             </h2>
           </div>
           <StatsVisualization
@@ -226,8 +207,8 @@ export default function Home() {
         {/* CTA */}
         <section>
           <ServiceCTA
-            headline="Ready to turn data into measurable impact?"
-            subheadline="Let's scope a roadmap that aligns to your revenue goals, timelines, and stakeholders."
+            headline="Ready to build your Decision Layer?"
+            subheadline="Let's scope a roadmap that turns your data into decisions leadership can trust."
           />
         </section>
       </div>

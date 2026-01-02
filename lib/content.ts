@@ -554,6 +554,106 @@ export const CASE_STUDY_CONTENT = {
     ],
     impact: "Eliminated production dashboard breakage, reduced time to assess change impact from hours to minutes, and built trust with executives by catching regressions before they go live. Enabled faster, safer data pipeline deployments.",
   },
+  "consulting-platform": {
+    problem: "Independent consultants need a professional web presence that demonstrates technical credibility—not just claims expertise but proves it. Most consulting sites are static brochures that don't showcase implementation ability.",
+    solution: "Built a production consulting platform from scratch demonstrating full-stack capabilities: Next.js frontend with React and TypeScript, Python Lambda backend, Amazon Bedrock AI chatbot with multi-agent architecture, and fully automated CI/CD deployment.",
+    results: [
+      "Full-stack deployment completed in under 2 weeks",
+      "AI chatbot with 3 specialized agents (routing, interview, consultant)",
+      "100% serverless architecture with zero server management",
+      "<2 second page loads with 90+ Lighthouse scores",
+      "Automated CI/CD deployment on every git push",
+    ],
+    methodology: {
+      title: "Full-Stack Development Process",
+      steps: [
+        {
+          name: "Architecture Design",
+          description: "Serverless-first architecture with React/TypeScript frontend on Amplify and Python Lambda backend via API Gateway. Designed for scalability and minimal operational overhead.",
+        },
+        {
+          name: "Frontend Development",
+          description: "Next.js 16 with App Router, Tailwind CSS for styling, Framer Motion for animations. Responsive dark theme with accessibility considerations.",
+        },
+        {
+          name: "AI Agent Development",
+          description: "Multi-agent chatbot using Amazon Bedrock AgentCore. Routing agent (Haiku) for intent classification, specialized agents (Sonnet) for interview and consulting responses. Embedded knowledge base (~6,750 tokens).",
+        },
+        {
+          name: "Infrastructure & DevOps",
+          description: "AWS Amplify hosting with CloudFront CDN, custom domain configuration, CloudWatch observability, SES email integration. GitHub-triggered CI/CD pipeline.",
+        },
+      ],
+    },
+    technologies: [
+      "Next.js 16 with React 19 and TypeScript",
+      "Tailwind CSS 4 and Framer Motion",
+      "Python 3.12 with AWS Lambda",
+      "Amazon Bedrock AgentCore",
+      "AWS Amplify, API Gateway, CloudFront",
+      "CloudWatch for observability",
+      "AWS SES for email",
+    ],
+    impact: "A working demonstration that bridges strategy and implementation. The site itself is the portfolio piece—proving the ability to deliver end-to-end from concept to production deployment.",
+  },
 };
+
+// Problem → Solution cards for homepage
+export const SOLUTION_CARDS = [
+  {
+    id: "causal-analytics",
+    title: "Causal Analytics",
+    problem: "We spent $2M on this initiative but can't prove it worked. Leadership wants evidence, not opinions.",
+    solution: "Statistical validation that separates correlation from causation. Defensible ROI with confidence intervals.",
+    proof: "$706K annual revenue validated with 6:1 ROI (p < 0.05)",
+    caseStudySlug: "g3-analysis",
+    gradient: "from-cyan-500 to-blue-500",
+  },
+  {
+    id: "genai-readiness",
+    title: "GenAI Readiness",
+    problem: "Leadership wants us to 'use AI' but our data is undocumented and inconsistent. We don't know which metrics to trust.",
+    solution: "Data audit, governance, and documentation that makes your data AI-ready with guardrails for reliability.",
+    proof: "92% documentation coverage, 150+ dashboards audited",
+    caseStudySlug: "data-audit-platform",
+    gradient: "from-violet-500 to-purple-500",
+  },
+  {
+    id: "predictive-ml",
+    title: "Predictive ML",
+    problem: "We're targeting everyone the same way. Sales wastes time on accounts that won't convert.",
+    solution: "ML models that predict which customers to prioritize and which approaches actually work.",
+    proof: "53% conversion improvement, 89% model accuracy",
+    caseStudySlug: "ml-recommender",
+    gradient: "from-blue-500 to-indigo-500",
+  },
+  {
+    id: "cloud-architecture",
+    title: "Cloud Architecture",
+    problem: "We have great analysis but no way to deploy it. Everything is manual, slow, or stuck in spreadsheets.",
+    solution: "Production-ready serverless systems on AWS—from concept to deployed application with real users.",
+    proof: "Full-stack consulting platform with AI chatbot, CI/CD pipeline, custom domain",
+    caseStudySlug: "consulting-platform",
+    gradient: "from-cyan-500 to-violet-500",
+  },
+  {
+    id: "bi-dashboards",
+    title: "BI & Dashboards",
+    problem: "Everyone has different numbers. Reports take days. Executives don't trust what they're seeing.",
+    solution: "Single source of truth with standardized KPIs, automated pipelines, and self-service access.",
+    proof: "22,000+ annual views—highest-utilized tool in WWPS",
+    caseStudySlug: "aws-dashboard",
+    gradient: "from-teal-500 to-emerald-500",
+  },
+  {
+    id: "data-quality",
+    title: "Data Quality & Pipelines",
+    problem: "Data keeps breaking. We ship changes and dashboards go down. Nobody knows what depends on what.",
+    solution: "Automated quality checks, lineage tracking, and CI/CD guardrails that catch issues before production.",
+    proof: "85% reduction in data issues, 45+ regressions prevented",
+    caseStudySlug: "bi-regression-guardrails",
+    gradient: "from-emerald-500 to-cyan-500",
+  },
+];
 
 

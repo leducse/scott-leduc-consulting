@@ -62,7 +62,7 @@ export default function AboutPage() {
               className="text-4xl md:text-5xl font-bold text-white"
               style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
             >
-              The Full-Stack Data Strategist
+              Full-Stack Analytics & AI Practice Leader
             </h1>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
               Building the critical layer between raw data and confident business decisions—

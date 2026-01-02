@@ -165,6 +165,19 @@ export const CASE_STUDIES = [
     ],
     gradient: "from-blue-500 to-indigo-500",
   },
+  {
+    id: "consulting-platform",
+    slug: "consulting-platform",
+    title: "Decision Layer Consulting Platform",
+    tagline: "Full-Stack Serverless Application with AI Integration",
+    metrics: [
+      { label: "Deployment Time", value: "<2", suffix: " weeks" },
+      { label: "Architecture", value: "100%", suffix: " serverless" },
+      { label: "AI Agents", value: "3", suffix: " specialized" },
+      { label: "Page Load", value: "<2s", suffix: "" },
+    ],
+    gradient: "from-cyan-500 to-violet-500",
+  },
 ];
 
 // Icon mapping for dynamic icon rendering
