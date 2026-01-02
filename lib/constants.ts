@@ -176,3 +176,66 @@ export const ICON_MAP = {
   Database: "Database",
   Sparkles: "Sparkles",
 } as const;
+
+// Organizations/clients worked with
+export const ORGANIZATIONS = [
+  {
+    name: "Amazon Web Services",
+    shortName: "AWS",
+    role: "Solutions Architect Operations",
+    description: "First SA operations member for SLG & EDU vertical",
+  },
+  {
+    name: "AWS WWPS",
+    shortName: "WWPS",
+    role: "Analytics & Performance",
+    description: "Supporting 1,200+ builders across 18 global sub-regions",
+  },
+  {
+    name: "AWS Security",
+    shortName: "Security",
+    role: "G3 Program Analytics",
+    description: "$17M+ impact through engagement programs",
+  },
+  {
+    name: "William & Mary",
+    shortName: "W&M",
+    role: "MS Business Analytics",
+    description: "Raymond A. Mason School of Business",
+  },
+];
+
+// Career timeline for About page
+export const CAREER_TIMELINE = [
+  {
+    period: "2022 – Present",
+    title: "Solutions Architect Operations",
+    company: "Amazon Web Services",
+    highlights: [
+      "First dedicated SA operations member for AWS SLG & EDU vertical",
+      "Supporting 1,200+ builders across 18 global sub-regions serving 10,200+ customers",
+      "Built enterprise dashboard with 22,000+ annual views (highest-utilized tool in WWPS)",
+      "Delivered $17M+ in business impact through statistical validation programs",
+    ],
+  },
+  {
+    period: "2021 – 2022",
+    title: "MS Business Analytics",
+    company: "College of William & Mary",
+    highlights: [
+      "Advanced coursework in ML, causal inference, and optimization",
+      "Capstone projects in neural networks and time series forecasting",
+      "Focus on bridging technical analytics with business strategy",
+    ],
+  },
+  {
+    period: "2018 – 2021",
+    title: "Analytics & Business Intelligence",
+    company: "Various Organizations",
+    highlights: [
+      "Built and scaled BI platforms serving hundreds of stakeholders",
+      "Developed predictive models for customer behavior and revenue forecasting",
+      "Led cross-functional analytics initiatives with measurable ROI",
+    ],
+  },
+];

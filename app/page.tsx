@@ -6,9 +6,11 @@ import CaseStudyCard from "@/components/case-studies/CaseStudyCard";
 import ServiceCTA from "@/components/services/ServiceCTA";
 import StatsVisualization from "@/components/shared/StatsVisualization";
 import Testimonials from "@/components/shared/Testimonials";
-import { CASE_STUDIES, KEY_METRICS, SERVICES } from "@/lib/constants";
+import GradientButton from "@/components/shared/GradientButton";
+import { CASE_STUDIES, KEY_METRICS, SERVICES, ORGANIZATIONS } from "@/lib/constants";
 import { PROCESS_CONTENT } from "@/lib/content";
-import { CheckCircle, Zap, Users } from "lucide-react";
+import { CheckCircle, Zap, Users, ArrowRight, Building2 } from "lucide-react";
+import Link from "next/link";
 
 const differentiators = [
   {
@@ -54,6 +56,51 @@ export default function Home() {
               description={metric.description}
             />
           ))}
+        </section>
+
+        {/* Organizations Worked With */}
+        <section className="space-y-8">
+          <div className="text-center space-y-4">
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
+              Experience
+            </p>
+            <h2
+              className="text-3xl md:text-4xl font-bold text-[var(--foreground)]"
+              style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
+            >
+              Organizations Partnered With
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {ORGANIZATIONS.map((org) => (
+              <div
+                key={org.name}
+                className="group relative p-6 rounded-xl bg-[#111827]/50 border border-white/5 hover:border-cyan-500/30 transition-all duration-300"
+              >
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                
+                <div className="relative space-y-2 text-center">
+                  <div className="w-12 h-12 mx-auto rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-3">
+                    <Building2 className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <p className="text-lg font-bold text-white">{org.shortName}</p>
+                  <p className="text-xs text-slate-400">{org.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-center">
+            <Link 
+              href="/about"
+              className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors"
+            >
+              View full background
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </section>
 
         {/* Services */}
@@ -144,6 +191,12 @@ export default function Home() {
                 href={`/case-studies/${caseStudy.slug}`}
               />
             ))}
+          </div>
+          <div className="text-center">
+            <GradientButton href="/case-studies" variant="secondary" size="lg">
+              View All Case Studies
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </GradientButton>
           </div>
         </section>
 
