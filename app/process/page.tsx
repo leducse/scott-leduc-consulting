@@ -4,7 +4,7 @@ import { PROCESS_CONTENT } from "@/lib/content";
 import { CheckCircle } from "lucide-react";
 
 export const metadata = {
-  title: "Process | Scott LeDuc Consulting",
+  title: "Process | Decision Layer Analytics",
   description:
     "Learn about our proven 5-phase consulting methodology for delivering measurable business impact.",
 };

@@ -4,7 +4,7 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { Mail, Linkedin, Github, MapPin, Clock, Calendar, Users } from "lucide-react";
 
 export const metadata = {
-  title: "Contact | Scott LeDuc Consulting",
+  title: "Contact | Decision Layer Analytics",
   description:
     "Request a consultation to discuss statistical analysis, machine learning, AWS architecture, and analytics engagements.",
 };

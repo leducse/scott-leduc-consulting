@@ -1,7 +1,7 @@
 import ServicePageContent from "@/components/services/ServicePageContent";
 
 export const metadata = {
-  title: "AWS Cloud Architecture Consulting | Scott LeDuc Consulting",
+  title: "AWS Cloud Architecture Consulting | Decision Layer Analytics",
   description:
     "Serverless applications, API integrations, and cloud-native solutions designed with AWS best practices.",
 };

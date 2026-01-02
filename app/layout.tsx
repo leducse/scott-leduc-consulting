@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description: SITE_CONFIG.subtitle,
     type: "website",
     url: "https://decision-layer.com",
-    siteName: "Decision Layer - Scott LeDuc Consulting",
+    siteName: "Decision Layer Analytics",
   },
   twitter: {
     card: "summary_large_image",

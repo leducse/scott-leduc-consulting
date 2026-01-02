@@ -1,7 +1,7 @@
 import CaseStudyPageContent from "@/components/case-studies/CaseStudyPageContent";
 
 export const metadata = {
-  title: "Activity Scenario Analysis Case Study | Scott LeDuc Consulting",
+  title: "Activity Scenario Analysis Case Study | Decision Layer Analytics",
   description:
     "Learn how AI-powered behavioral analytics boosted win rates by 23% with scenario-specific playbooks.",
 };

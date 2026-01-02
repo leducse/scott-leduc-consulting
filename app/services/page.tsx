@@ -5,7 +5,7 @@ import { SERVICES, SITE_CONFIG } from "@/lib/constants";
 import { CheckCircle, Layers } from "lucide-react";
 
 export const metadata = {
-  title: "Services | Scott LeDuc Consulting",
+  title: "Services | Decision Layer Analytics",
   description:
     "Statistical analysis, machine learning, AWS architecture, business intelligence, and data engineering consulting services.",
 };

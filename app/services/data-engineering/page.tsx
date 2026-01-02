@@ -1,7 +1,7 @@
 import ServicePageContent from "@/components/services/ServicePageContent";
 
 export const metadata = {
-  title: "Data Engineering Consulting | Scott LeDuc Consulting",
+  title: "Data Engineering Consulting | Decision Layer Analytics",
   description:
     "ETL pipelines, data warehousing, and real-time processing built on AWS for scale and reliability.",
 };

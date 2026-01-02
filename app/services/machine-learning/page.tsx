@@ -1,7 +1,7 @@
 import ServicePageContent from "@/components/services/ServicePageContent";
 
 export const metadata = {
-  title: "Machine Learning & AI Consulting | Scott LeDuc Consulting",
+  title: "Machine Learning & AI Consulting | Decision Layer Analytics",
   description:
     "Predictive modeling, NLP, recommendation engines, and ML deployment services with measurable business outcomes.",
 };

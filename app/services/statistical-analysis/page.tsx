@@ -1,7 +1,7 @@
 import ServicePageContent from "@/components/services/ServicePageContent";
 
 export const metadata = {
-  title: "Statistical Analysis Consulting | Scott LeDuc Consulting",
+  title: "Statistical Analysis Consulting | Decision Layer Analytics",
   description:
     "Propensity score matching, difference-in-differences, and causal inference consulting services delivering validated business impact.",
 };

@@ -3,7 +3,7 @@ import ServiceCTA from "@/components/services/ServiceCTA";
 import { CASE_STUDIES } from "@/lib/constants";
 
 export const metadata = {
-  title: "Case Studies | Scott LeDuc Consulting",
+  title: "Case Studies | Decision Layer Analytics",
   description:
     "Explore case studies showcasing statistical analysis, machine learning, AWS architecture, and analytics consulting outcomes.",
 };

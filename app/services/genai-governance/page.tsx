@@ -1,7 +1,7 @@
 import ServicePageContent from "@/components/services/ServicePageContent";
 
 export const metadata = {
-  title: "GenAI & Data Governance Consulting | Scott LeDuc Consulting",
+  title: "GenAI & Data Governance Consulting | Decision Layer Analytics",
   description:
     "GenAI readiness, data contracts, LLM evaluation frameworks, and metric governance consulting services for safe, governed AI adoption.",
 };

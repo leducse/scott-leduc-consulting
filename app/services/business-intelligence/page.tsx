@@ -1,7 +1,7 @@
 import ServicePageContent from "@/components/services/ServicePageContent";
 
 export const metadata = {
-  title: "Business Intelligence Consulting | Scott LeDuc Consulting",
+  title: "Business Intelligence Consulting | Decision Layer Analytics",
   description:
     "Executive dashboards, KPI standardization, and automated reporting to drive data-informed decisions.",
 };
