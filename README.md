@@ -1,6 +1,14 @@
-# Scott LeDuc Consulting Website
+# Decision Layer - Scott LeDuc Consulting
 
-A modern, professional consulting website built with Next.js, featuring an AI-powered chatbot using Amazon Bedrock AgentCore. The site showcases expertise in statistical analysis, machine learning, AWS architecture, and data engineering.
+**Live Site**: [decision-layer.com](https://decision-layer.com)
+
+A modern consulting website built with Next.js, featuring an AI-powered chatbot using Amazon Bedrock AgentCore. The site positions Scott LeDuc as a "full-stack data strategist" who builds the critical layer between raw data and confident business decisions.
+
+## 🎯 Brand Positioning
+
+**Decision Layer** = The foundation that transforms uncertainty into confidence: validated metrics, proven models, and governed data that leadership can trust.
+
+**Core Message**: Organizations don't struggle with data—they struggle with trust. Decision Layer builds the missing layer that enables confident action.
 
 ## 🏗️ Architecture Overview
 
@@ -83,10 +91,17 @@ A modern, professional consulting website built with Next.js, featuring an AI-po
 ### Website
 - **Modern Tech Stack**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4
 - **Responsive Design**: Mobile-first design with smooth animations using Framer Motion
-- **SEO Optimized**: Metadata and structured content for all pages
+- **Dark Theme**: Consistent `#0a1628` dark navy theme across all pages
+- **Welcome Modal**: First-time visitor overlay showcasing services with AI enhancement
+- **About Page**: "Decision Layer" branded value proposition with CTAs (Contact, Chat, Explore)
+- **SEO Optimized**: Metadata with canonical URL (decision-layer.com)
 - **Contact Form**: AWS SES integrated contact form with validation
 - **Case Studies**: Detailed case studies showcasing real-world impact
 - **Service Pages**: Comprehensive service offerings with methodology and deliverables
+
+### Custom Domains (AWS Amplify)
+- **Primary**: `decision-layer.com`
+- **Redirects**: `leducanalyticsconsulting.com`, `scottleduc.biz`, `bi-viz.com`, `bi-viz.biz`, `leducbiconsulting.com`
 
 ### AI Chatbot
 - **Multi-Agent Architecture**: Routing agent + specialized agents (Interview, Consultant)
@@ -571,7 +586,8 @@ consulting-website/
 │       ├── GradientButton.tsx
 │       ├── GradientCard.tsx
 │       ├── MetricCounter.tsx
-│       └── Testimonials.tsx
+│       ├── Testimonials.tsx
+│       └── WelcomeModal.tsx      # First-time visitor modal (Decision Layer intro)
 │
 ├── lib/                         # Utilities and content
 │   ├── constants.ts             # Site config, services, case studies
