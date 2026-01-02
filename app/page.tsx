@@ -1,12 +1,10 @@
 import Hero from "@/components/layout/Hero";
-import MetricCounter from "@/components/shared/MetricCounter";
-import GradientCard from "@/components/shared/GradientCard";
 import CaseStudyCard from "@/components/case-studies/CaseStudyCard";
 import ServiceCTA from "@/components/services/ServiceCTA";
 import StatsVisualization from "@/components/shared/StatsVisualization";
 import Testimonials from "@/components/shared/Testimonials";
 import GradientButton from "@/components/shared/GradientButton";
-import { CASE_STUDIES, KEY_METRICS, ORGANIZATIONS } from "@/lib/constants";
+import { CASE_STUDIES, ORGANIZATIONS } from "@/lib/constants";
 import { PROCESS_CONTENT, SOLUTION_CARDS } from "@/lib/content";
 import { ArrowRight, Building2 } from "lucide-react";
 import Link from "next/link";
@@ -24,18 +22,7 @@ export default function Home() {
       <Hero />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 pb-24">
-        {/* Key Metrics */}
-        <section className="grid gap-6 md:grid-cols-4">
-          {KEY_METRICS.map((metric) => (
-            <MetricCounter
-              key={metric.label}
-              value={metric.value}
-              label={metric.label}
-              description={metric.description}
-            />
-          ))}
-        </section>
-
+        
         {/* Building the Decision Layer - Problem → Solution Cards */}
         <section className="space-y-10">
           <div className="text-center space-y-4">
@@ -104,17 +91,37 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Organizations Worked With */}
-        <section className="space-y-8">
+        {/* Engagement Approach */}
+        <section className="space-y-10">
           <div className="text-center space-y-4">
             <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
-              Experience
+              Engagement Approach
             </p>
             <h2
               className="text-3xl md:text-4xl font-bold text-[var(--foreground)]"
               style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
             >
+              Structured Methodology from Discovery to Optimization
+            </h2>
+          </div>
+          <StatsVisualization
+            title="First three phases"
+            stats={processHighlights}
+            orientation="horizontal"
+          />
+        </section>
+
+        {/* Organizations Partnered With */}
+        <section className="space-y-8">
+          <div className="text-center space-y-4">
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
               Organizations Partnered With
+            </p>
+            <h2
+              className="text-3xl md:text-4xl font-bold text-[var(--foreground)]"
+              style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
+            >
+              Trusted by Industry Leaders
             </h2>
           </div>
           
@@ -144,7 +151,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Featured Case Studies */}
+        {/* Case Studies */}
         <section className="space-y-10">
           <div className="text-center space-y-4">
             <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
@@ -177,27 +184,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Engagement Approach */}
-        <section className="space-y-10">
-          <div className="text-center space-y-4">
-            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
-              Engagement Approach
-            </p>
-            <h2
-              className="text-3xl md:text-4xl font-bold text-[var(--foreground)]"
-              style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
-            >
-              Structured Methodology from Discovery to Optimization
-            </h2>
-          </div>
-          <StatsVisualization
-            title="First three phases"
-            stats={processHighlights}
-            orientation="horizontal"
-          />
-        </section>
-
-        {/* Testimonials */}
+        {/* Feedback (Testimonials) */}
         <Testimonials />
 
         {/* CTA */}

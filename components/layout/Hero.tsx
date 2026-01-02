@@ -1,13 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, BarChart3, Brain, Cloud } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { SITE_CONFIG } from "@/lib/constants";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden min-h-[90vh] flex items-center">
+    <section className="relative overflow-hidden min-h-[85vh] flex items-center">
       {/* Background effects */}
       <div className="absolute inset-0">
         {/* Gradient orbs */}
@@ -21,22 +20,6 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center max-w-4xl mx-auto">
-          {/* Brand Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-            </span>
-            <span className="text-sm font-medium text-[var(--text-muted)]">
-              Decision Layer Analytics
-            </span>
-          </motion.div>
-
           {/* Main headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -45,17 +28,17 @@ export default function Hero() {
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6"
             style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
           >
-            <span className="gradient-text-animated">{SITE_CONFIG.tagline}</span>
+            <span className="gradient-text-animated">Decision Layer Analytics</span>
           </motion.h1>
 
-          {/* Subtitle with emphasis */}
+          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl md:text-2xl text-[var(--text-muted)] mb-6 max-w-3xl mx-auto leading-relaxed"
           >
-            Statistical validation. Machine learning. AWS architecture.
+            Advanced Analytics. AI/ML Engineering. Cloud Architecture.
           </motion.p>
           
           {/* Value prop */}
@@ -89,38 +72,6 @@ export default function Hero() {
             >
               View Case Studies
             </Link>
-          </motion.div>
-
-          {/* Capability pillars */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-20 pt-12 border-t border-[var(--card-border)]"
-          >
-            <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-3 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6 text-cyan-400" />
-                </div>
-                <p className="text-sm font-medium text-white">Statistical Rigor</p>
-                <p className="text-xs text-slate-500">p &lt; 0.05 validated</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-3 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                  <Brain className="w-6 h-6 text-blue-400" />
-                </div>
-                <p className="text-sm font-medium text-white">ML Engineering</p>
-                <p className="text-xs text-slate-500">89%+ accuracy</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-3 rounded-lg bg-violet-500/10 flex items-center justify-center">
-                  <Cloud className="w-6 h-6 text-violet-400" />
-                </div>
-                <p className="text-sm font-medium text-white">AWS Certified</p>
-                <p className="text-xs text-slate-500">Production-ready</p>
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>
