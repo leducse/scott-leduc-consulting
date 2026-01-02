@@ -23,12 +23,12 @@ export default function ImpactMetrics({
           transition={{ duration: 0.4, delay: index * 0.05 }}
         >
           <GradientCard gradient={gradient} hover={false} className="text-center">
-            <div className="text-3xl font-bold text-slate-100 mb-2">{metric.value}</div>
-            <div className="text-sm uppercase tracking-wide text-cyan-400 font-semibold">
+            <div className="text-3xl font-bold text-white mb-2">{metric.value}</div>
+            <div className="text-sm uppercase tracking-wide text-cyan-300 font-semibold">
               {metric.label}
             </div>
             {metric.suffix && (
-              <div className="text-sm text-slate-400 mt-1">{metric.suffix}</div>
+              <div className="text-sm text-slate-200 mt-1">{metric.suffix}</div>
             )}
           </GradientCard>
         </motion.div>

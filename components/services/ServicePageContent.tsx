@@ -37,13 +37,13 @@ export default function ServicePageContent({
   return (
     <div className="space-y-16">
       <section className="space-y-6">
-        <p className="text-sm uppercase tracking-[0.35em] text-purple-500 font-semibold">
+        <p className="text-sm uppercase tracking-[0.35em] text-cyan-400 font-semibold">
           Services
         </p>
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
+        <h1 className="text-4xl md:text-5xl font-bold text-white">
           {service.title}
         </h1>
-        <p className="text-lg text-gray-700 max-w-3xl">
+        <p className="text-lg text-slate-300 max-w-3xl">
           {service.overview}
         </p>
       </section>
@@ -72,13 +72,13 @@ export default function ServicePageContent({
         />
         <GradientCard gradient="from-purple-500 to-pink-500" className="h-full">
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-gray-900">
+            <h3 className="text-xl font-semibold text-white">
               Engagement Options
             </h3>
-            <p className="text-gray-600">
+            <p className="text-slate-200">
               Flexible consulting models tailored to your organization:
             </p>
-            <ul className="space-y-3 text-gray-700">
+            <ul className="space-y-3 text-slate-100">
               <li>• Strategic advisory retainers</li>
               <li>• End-to-end implementation projects</li>
               <li>• Team enablement and training programs</li>
@@ -91,10 +91,10 @@ export default function ServicePageContent({
       {caseStudy && (
         <section className="space-y-6">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            <h2 className="text-3xl font-bold text-white mb-2">
               Featured Case Study
             </h2>
-            <p className="text-gray-600">
+            <p className="text-slate-300">
               Explore how this service delivered measurable outcomes.
             </p>
           </div>

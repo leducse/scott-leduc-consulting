@@ -20,9 +20,9 @@ export default function ServiceFeatures({
     <GradientCard gradient={gradient} className="h-full">
       <div className="flex items-center gap-3 mb-4">
         <span className="text-3xl">{icon}</span>
-        <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
+        <h3 className="text-xl font-semibold text-white">{title}</h3>
       </div>
-      <ul className="space-y-3 text-gray-600">
+      <ul className="space-y-3 text-slate-200">
         {items.map((item, index) => (
           <motion.li
             key={item}
@@ -32,7 +32,7 @@ export default function ServiceFeatures({
             transition={{ duration: 0.3, delay: index * 0.05 }}
             className="flex items-start gap-3"
           >
-            <span className="text-purple-500 mt-1">•</span>
+            <span className="text-cyan-400 mt-1">•</span>
             <span>{item}</span>
           </motion.li>
         ))}

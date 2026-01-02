@@ -3,18 +3,25 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ChatWidget from "@/components/chat/ChatWidget";
+import WelcomeModal from "@/components/shared/WelcomeModal";
 import { SITE_CONFIG } from "@/lib/constants";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://decision-layer.com"),
   title: {
     default: `${SITE_CONFIG.name} | ${SITE_CONFIG.tagline}`,
     template: `%s | ${SITE_CONFIG.name}`,
   },
   description: SITE_CONFIG.subtitle,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: SITE_CONFIG.name,
     description: SITE_CONFIG.subtitle,
     type: "website",
+    url: "https://decision-layer.com",
+    siteName: "Decision Layer - Scott LeDuc Consulting",
   },
   twitter: {
     card: "summary_large_image",
@@ -52,6 +59,7 @@ export default function RootLayout({
         <main className="flex-1 relative">{children}</main>
         <Footer />
         <ChatWidget />
+        <WelcomeModal />
       </body>
     </html>
   );

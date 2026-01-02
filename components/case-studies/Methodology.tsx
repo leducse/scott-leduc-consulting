@@ -17,8 +17,8 @@ export default function Methodology({ title, steps }: MethodologyProps) {
   return (
     <section className="space-y-6">
       <div>
-        <h2 className="text-3xl font-bold text-slate-100 mb-2">{title}</h2>
-        <p className="text-slate-400">
+        <h2 className="text-3xl font-bold text-white mb-2">{title}</h2>
+        <p className="text-slate-200">
           A proven approach combining statistical rigor, automation, and AWS best practices.
         </p>
       </div>
@@ -37,10 +37,10 @@ export default function Methodology({ title, steps }: MethodologyProps) {
                   {index + 1}
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-slate-100 mb-2">
+                  <h3 className="text-xl font-semibold text-white mb-2">
                     {step.name}
                   </h3>
-                  <p className="text-slate-400">{step.description}</p>
+                  <p className="text-slate-100">{step.description}</p>
                 </div>
               </div>
             </GradientCard>

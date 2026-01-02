@@ -65,24 +65,24 @@ export default function CaseStudyPageContent({
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         <section className="grid gap-6 md:grid-cols-2">
           <GradientCard gradient={caseStudyGradients[caseStudyKey]} hover={false}>
-            <h2 className="text-2xl font-semibold text-slate-100 mb-3">Challenge</h2>
-            <p className="text-slate-300 leading-relaxed">{content.problem}</p>
+            <h2 className="text-2xl font-semibold text-white mb-3">Challenge</h2>
+            <p className="text-slate-100 leading-relaxed">{content.problem}</p>
           </GradientCard>
           <GradientCard gradient="from-blue-500 to-cyan-500" hover={false}>
-            <h2 className="text-2xl font-semibold text-slate-100 mb-3">Solution</h2>
-            <p className="text-slate-300 leading-relaxed">{content.solution}</p>
+            <h2 className="text-2xl font-semibold text-white mb-3">Solution</h2>
+            <p className="text-slate-100 leading-relaxed">{content.solution}</p>
           </GradientCard>
         </section>
 
         <section className="space-y-6">
-          <h2 className="text-3xl font-bold text-slate-100">Impact Metrics</h2>
+          <h2 className="text-3xl font-bold text-white">Impact Metrics</h2>
           <ImpactMetrics metrics={meta.metrics} gradient={caseStudyGradients[caseStudyKey]} />
         </section>
 
         <section className="grid gap-6 md:grid-cols-2">
           <GradientCard gradient="from-cyan-500 to-teal-500" hover={false}>
-            <h3 className="text-xl font-semibold text-slate-100 mb-3">Results</h3>
-            <ul className="space-y-3 text-slate-300">
+            <h3 className="text-xl font-semibold text-white mb-3">Results</h3>
+            <ul className="space-y-3 text-slate-100">
               {content.results.map((result) => (
                 <li key={result}>• {result}</li>
               ))}
@@ -90,8 +90,8 @@ export default function CaseStudyPageContent({
           </GradientCard>
 
           <GradientCard gradient="from-blue-500 to-indigo-500" hover={false}>
-            <h3 className="text-xl font-semibold text-slate-100 mb-3">Business Impact</h3>
-            <p className="text-slate-300 leading-relaxed">{content.impact}</p>
+            <h3 className="text-xl font-semibold text-white mb-3">Business Impact</h3>
+            <p className="text-slate-100 leading-relaxed">{content.impact}</p>
           </GradientCard>
         </section>
 
@@ -109,9 +109,9 @@ export default function CaseStudyPageContent({
 
         {"features" in content && content.features && (
           <section className="space-y-4">
-            <h2 className="text-3xl font-bold text-slate-100">Feature Importance</h2>
+            <h2 className="text-3xl font-bold text-white">Feature Importance</h2>
             <GradientCard gradient="from-cyan-500 to-blue-500" hover={false}>
-              <ul className="space-y-3 text-slate-300">
+              <ul className="space-y-3 text-slate-100">
                 {content.features.map((feature) => (
                   <li key={feature}>• {feature}</li>
                 ))}
@@ -122,13 +122,13 @@ export default function CaseStudyPageContent({
 
         {"technologies" in content && content.technologies && (
           <section className="space-y-4">
-            <h2 className="text-3xl font-bold text-slate-100">Technology Stack</h2>
+            <h2 className="text-3xl font-bold text-white">Technology Stack</h2>
             <GradientCard gradient="from-sky-500 to-cyan-500" hover={false}>
               <ul className="flex flex-wrap gap-3">
                 {content.technologies.map((tech) => (
                   <li
                     key={tech}
-                    className="px-3 py-1 rounded-full bg-[#0a1628]/70 border border-cyan-500/30 text-sm font-medium text-slate-200"
+                    className="px-3 py-1 rounded-full bg-[#0a1628]/70 border border-cyan-500/30 text-sm font-medium text-white"
                   >
                     {tech}
                   </li>
@@ -140,7 +140,7 @@ export default function CaseStudyPageContent({
 
         {"scenarios" in content && content.scenarios && (
           <section className="space-y-4">
-            <h2 className="text-3xl font-bold text-slate-100">Scenario Playbooks</h2>
+            <h2 className="text-3xl font-bold text-white">Scenario Playbooks</h2>
             <div className="grid gap-6 md:grid-cols-2">
               {content.scenarios.map((scenario) => (
                 <GradientCard
@@ -148,13 +148,13 @@ export default function CaseStudyPageContent({
                   gradient="from-teal-500 to-cyan-500"
                   hover={false}
                 >
-                  <h3 className="text-xl font-semibold text-slate-100 mb-2">
+                  <h3 className="text-xl font-semibold text-white mb-2">
                     {scenario.name}
                   </h3>
-                  <p className="text-sm uppercase tracking-wide text-cyan-400 mb-2">
+                  <p className="text-sm uppercase tracking-wide text-cyan-300 mb-2">
                     Win Rate: {scenario.winRate}
                   </p>
-                  <p className="text-slate-300 text-sm leading-relaxed">
+                  <p className="text-slate-100 text-sm leading-relaxed">
                     {scenario.sequence}
                   </p>
                 </GradientCard>

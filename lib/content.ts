@@ -21,6 +21,49 @@ export const TESTIMONIALS = [
   },
 ];
 
+export const COMPETITIVE_ADVANTAGE = {
+  headline: "The Full-Stack Data Strategist",
+  subheadline: "Not just a data scientist, not just a BI developer, not just an AWS architect—the rare professional who bridges all three.",
+  capabilities: [
+    { layer: "Strategy", description: "Translate business problems → analytical frameworks" },
+    { layer: "Statistics", description: "Apply PhD-level causal inference (PSM, DiD, bootstrap)" },
+    { layer: "Data Science", description: "Build ML models with 89%+ accuracy" },
+    { layer: "Engineering", description: "Design serverless architectures on AWS" },
+    { layer: "Visualization", description: "Create dashboards with 22K+ annual views" },
+    { layer: "Governance", description: "Implement data contracts & GenAI readiness" },
+    { layer: "Communication", description: "Present to executives with quantified ROI" },
+  ],
+  valueProps: [
+    {
+      title: "Prove ROI, Not Just Estimate It",
+      description: "No vague claims—validated impact with propensity score matching, difference-in-differences, and statistical significance (p < 0.05). This builds executive trust and justifies investment.",
+    },
+    {
+      title: "From Idea to Production",
+      description: "Whiteboard the strategy AND deploy the Lambda function. No 'throw it over the wall' to engineering—faster delivery, fewer misunderstandings.",
+    },
+    {
+      title: "AWS Insider Perspective",
+      description: "First SA operations member for AWS SLG & EDU vertical, supporting 1,200+ builders and 10,200+ customers. Deep understanding of what works at scale.",
+    },
+    {
+      title: "Business-First Technologist",
+      description: "MS in Business Analytics, not just CS. Every metric tied to revenue, ROI, or adoption. Speak executive language, not just SQL.",
+    },
+  ],
+  whyRare: {
+    title: "Why This Combination is Rare",
+    comparisons: [
+      { type: "Data Scientists", does: "Build models", cantDo: "Deploy to production, tell business story" },
+      { type: "BI Developers", does: "Build dashboards", cantDo: "Statistical rigor, cloud architecture" },
+      { type: "Data Engineers", does: "Build pipelines", cantDo: "Business strategy, visualization" },
+      { type: "Consultants", does: "Strategy decks", cantDo: "Hands-on implementation" },
+      { type: "AWS Architects", does: "Infrastructure", cantDo: "Analytics, statistics" },
+    ],
+    conclusion: "Scott spans ALL of these—that's extremely uncommon.",
+  },
+};
+
 export const ABOUT_CONTENT = {
   summary: "Award-winning analytics leader with 10+ years of experience bridging digital marketing, media performance, and advanced data science. First dedicated SA operations member for AWS SLG & EDU vertical, supporting 1,200+ builders across 18 global sub-regions serving 10,200+ customers.",
   headshot: "/headshot-placeholder.svg", // Replace with actual headshot

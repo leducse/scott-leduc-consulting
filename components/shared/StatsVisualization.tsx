@@ -27,7 +27,7 @@ export default function StatsVisualization({
   return (
     <div className="p-8 rounded-2xl glass-card">
       {title && (
-        <h3 className="text-lg font-semibold text-[var(--text-muted)] mb-6 text-center">
+        <h3 className="text-lg font-semibold text-slate-200 mb-6 text-center">
           {title}
         </h3>
       )}
@@ -41,14 +41,14 @@ export default function StatsVisualization({
             transition={{ delay: index * 0.1, duration: 0.5 }}
             className="text-center p-4 rounded-lg bg-[var(--background)]/50"
           >
-            <div className="text-sm font-medium text-cyan-400 mb-1">
+            <div className="text-sm font-medium text-cyan-300 mb-1">
               {stat.value}
             </div>
-            <div className="text-lg font-semibold text-[var(--foreground)]">
+            <div className="text-lg font-semibold text-white">
               {stat.label}
             </div>
             {stat.description && (
-              <div className="text-sm text-[var(--text-muted)] mt-1 line-clamp-2">
+              <div className="text-sm text-slate-200 mt-1 line-clamp-2">
                 {stat.description}
               </div>
             )}

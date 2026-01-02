@@ -4,6 +4,8 @@ export const SITE_CONFIG = {
   name: "Scott LeDuc Consulting",
   tagline: "Transform Data into $17M+ Impact",
   subtitle: "Rigorous Statistical Methods + ML Expertise + AWS Architecture + GenAI Governance",
+  domain: "decision-layer.com",
+  url: "https://decision-layer.com",
   email: "leducse@gmail.com",
   location: "Fairfax, VA",
   linkedin: "sleduc",

@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function GenAIGovernanceServicePage() {
   return (
-    <div className="bg-gradient-to-br from-white via-purple-50/60 to-pink-50/40">
+    <div className="bg-[#0a1628]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <ServicePageContent serviceKey="genai-governance" />
       </div>

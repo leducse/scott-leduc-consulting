@@ -2,9 +2,9 @@ import GradientCard from "@/components/shared/GradientCard";
 import StatsVisualization from "@/components/shared/StatsVisualization";
 import ServiceCTA from "@/components/services/ServiceCTA";
 import Testimonials from "@/components/shared/Testimonials";
-import { ABOUT_CONTENT } from "@/lib/content";
+import { ABOUT_CONTENT, COMPETITIVE_ADVANTAGE } from "@/lib/content";
 import { KEY_METRICS, SITE_CONFIG } from "@/lib/constants";
-import { Award, GraduationCap, Briefcase, Shield, CheckCircle } from "lucide-react";
+import { Award, GraduationCap, Briefcase, Shield, CheckCircle, Layers, Target, Zap, TrendingUp } from "lucide-react";
 import Image from "next/image";
 
 export const metadata = {
@@ -62,6 +62,100 @@ export default function AboutPage() {
               description: metric.description,
             }))}
           />
+        </section>
+
+        {/* Competitive Advantage */}
+        <section className="space-y-8">
+          <div className="text-center space-y-4">
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
+              What Sets Me Apart
+            </p>
+            <h2
+              className="text-3xl md:text-4xl font-bold text-white"
+              style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
+            >
+              {COMPETITIVE_ADVANTAGE.headline}
+            </h2>
+            <p className="text-lg text-slate-300 max-w-3xl mx-auto">
+              {COMPETITIVE_ADVANTAGE.subheadline}
+            </p>
+          </div>
+
+          {/* Capabilities Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+            {COMPETITIVE_ADVANTAGE.capabilities.map((cap) => (
+              <div
+                key={cap.layer}
+                className="p-4 rounded-xl bg-[#111827] border border-cyan-500/20 hover:border-cyan-500/40 transition-colors"
+              >
+                <div className="text-cyan-400 text-xs font-semibold uppercase tracking-wide mb-2">
+                  {cap.layer}
+                </div>
+                <div className="text-slate-200 text-sm">
+                  {cap.description}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Value Props */}
+          <div className="grid gap-6 md:grid-cols-2">
+            {COMPETITIVE_ADVANTAGE.valueProps.map((prop, index) => {
+              const icons = [Target, Zap, Layers, TrendingUp];
+              const IconComponent = icons[index];
+              const gradients = [
+                "from-cyan-500 to-blue-500",
+                "from-blue-500 to-violet-500",
+                "from-violet-500 to-purple-500",
+                "from-purple-500 to-pink-500",
+              ];
+              return (
+                <GradientCard key={prop.title} gradient={gradients[index]} hover={false}>
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
+                      <IconComponent className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-2">
+                        {prop.title}
+                      </h3>
+                      <p className="text-slate-200">{prop.description}</p>
+                    </div>
+                  </div>
+                </GradientCard>
+              );
+            })}
+          </div>
+
+          {/* Why This is Rare */}
+          <GradientCard gradient="from-slate-600 to-slate-700" hover={false}>
+            <h3 className="text-xl font-semibold text-white mb-4">
+              {COMPETITIVE_ADVANTAGE.whyRare.title}
+            </h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    <th className="text-left py-2 px-3 text-cyan-400 font-semibold">Role</th>
+                    <th className="text-left py-2 px-3 text-slate-300 font-semibold">What They Do</th>
+                    <th className="text-left py-2 px-3 text-slate-400 font-semibold">What They Can&apos;t Do</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {COMPETITIVE_ADVANTAGE.whyRare.comparisons.map((row) => (
+                    <tr key={row.type} className="border-b border-white/5">
+                      <td className="py-2 px-3 text-white font-medium">{row.type}</td>
+                      <td className="py-2 px-3 text-slate-300">{row.does}</td>
+                      <td className="py-2 px-3 text-slate-400">{row.cantDo}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 text-cyan-400 font-semibold text-center">
+              {COMPETITIVE_ADVANTAGE.whyRare.conclusion}
+            </p>
+          </GradientCard>
         </section>
 
         {/* Achievements & Expertise */}
