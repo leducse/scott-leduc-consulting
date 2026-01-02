@@ -26,7 +26,7 @@ export default function Navbar() {
               <Sparkles className="w-4 h-4 text-white" />
             </div>
             <span className="text-lg font-bold text-[var(--foreground)] group-hover:text-cyan-400 transition-colors">
-              Scott LeDuc
+              Decision Layer
             </span>
           </Link>
 

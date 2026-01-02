@@ -1,9 +1,9 @@
 // Site-wide constants and configuration
 
 export const SITE_CONFIG = {
-  name: "Scott LeDuc Consulting",
-  tagline: "Transform Data into $17M+ Impact",
-  subtitle: "Rigorous Statistical Methods + ML Expertise + AWS Architecture + GenAI Governance",
+  name: "Decision Layer Analytics",
+  tagline: "Decision Layer Analytics",
+  subtitle: "Advanced Analytics. AI/ML Engineering. Cloud Architecture.",
   domain: "decision-layer.com",
   url: "https://decision-layer.com",
   email: "leducse@gmail.com",
