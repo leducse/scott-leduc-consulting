@@ -6,78 +6,76 @@ A modern, professional consulting website built with Next.js, featuring an AI-po
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                              Frontend (Next.js)                              │
+│                              Frontend (Next.js on Amplify)                   │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐ │
 │  │   Pages      │  │  Components  │  │  API Routes  │  │   ChatWidget     │ │
 │  │  (App Router)│  │   (React)    │  │  (/api/*)    │  │   (WebSocket)    │ │
-│  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────────┘ │
-│                                          │                      │           │
-└──────────────────────────────────────────┼──────────────────────┼───────────┘
-                                           │                      │
-                    ┌──────────────────────┼──────────────────────┼───────────┐
-                    │                AWS Cloud                     │           │
-                    │  ┌───────────────────┴───────────────────────┴─────────┐ │
-                    │  │              AWS Amplify (Hosting)                  │ │
-                    │  └─────────────────────────────────────────────────────┘ │
-                    │                         │                                │
-                    │  ┌──────────────────────┼──────────────────────────────┐ │
-                    │  │           ┌──────────┴──────────┐                   │ │
-                    │  │           │  /api/chat Route    │                   │ │
-                    │  │           │ (Presigned URL Gen) │                   │ │
-                    │  │           └──────────┬──────────┘                   │ │
-                    │  │                      │                              │ │
-                    │  │  ┌───────────────────┴────────────────────────────┐ │ │
-                    │  │  │         Amazon Bedrock AgentCore               │ │ │
-                    │  │  │  ┌─────────────────────────────────────────┐   │ │ │
-                    │  │  │  │           Runtime Endpoint               │   │ │ │
-                    │  │  │  │   scottleduc_consultant-vKDki47sNm      │   │ │ │
-                    │  │  │  │                                         │   │ │ │
-                    │  │  │  │  ┌─────────────────────────────────────┐│   │ │ │
-                    │  │  │  │  │        Multi-Agent System           ││   │ │ │
-                    │  │  │  │  │  ┌────────────────────────────────┐ ││   │ │ │
-                    │  │  │  │  │  │     Routing Agent (Haiku)      │ ││   │ │ │
-                    │  │  │  │  │  │   Routes to specialized agents │ ││   │ │ │
-                    │  │  │  │  │  └────────────────────────────────┘ ││   │ │ │
-                    │  │  │  │  │           ┌───────┴───────┐         ││   │ │ │
-                    │  │  │  │  │  ┌────────┴────┐  ┌───────┴───────┐ ││   │ │ │
-                    │  │  │  │  │  │  Interview  │  │   Consultant  │ ││   │ │ │
-                    │  │  │  │  │  │   Agent     │  │    Agent      │ ││   │ │ │
-                    │  │  │  │  │  │  (Sonnet)   │  │   (Sonnet)    │ ││   │ │ │
-                    │  │  │  │  │  └─────────────┘  └───────────────┘ ││   │ │ │
-                    │  │  │  │  └─────────────────────────────────────┘│   │ │ │
-                    │  │  │  └─────────────────────────────────────────┘   │ │ │
-                    │  │  └────────────────────────────────────────────────┘ │ │
-                    │  │                      │                              │ │
-                    │  │  ┌───────────────────┴────────────────────────────┐ │ │
-                    │  │  │         Amazon Bedrock Knowledge Base          │ │ │
-                    │  │  │              (QFNR1QV59Y)                       │ │ │
-                    │  │  │  ┌──────────────────────────────────────────┐  │ │ │
-                    │  │  │  │  - Resume & Experience                   │  │ │ │
-                    │  │  │  │  - Case Studies (G3, ML, AWS Dashboard)  │  │ │ │
-                    │  │  │  │  - Services & Methodology                │  │ │ │
-                    │  │  │  │  - Expertise & About                     │  │ │ │
-                    │  │  │  └──────────────────────────────────────────┘  │ │ │
-                    │  │  └───────────────────┬────────────────────────────┘ │ │
-                    │  │                      │                              │ │
-                    │  │  ┌───────────────────┴────────────────────────────┐ │ │
-                    │  │  │              S3 Bucket                         │ │ │
-                    │  │  │    scottleduc-consulting-kb                    │ │ │
-                    │  │  │  (Knowledge Base Source Documents)             │ │ │
-                    │  │  └────────────────────────────────────────────────┘ │ │
-                    │  │                                                     │ │
-                    │  │  ┌──────────────────┐  ┌─────────────────────────┐ │ │
-                    │  │  │   AWS SES        │  │   OpenSearch Serverless │ │ │
-                    │  │  │ (Contact Form)   │  │   (Vector Store)        │ │ │
-                    │  │  └──────────────────┘  └─────────────────────────┘ │ │
-                    │  │                                                     │ │
-                    │  │  ┌──────────────────────────────────────────────┐   │ │
-                    │  │  │            CloudWatch Observability           │   │ │
-                    │  │  │  - Logs: /aws/bedrock-agentcore/runtimes/*   │   │ │
-                    │  │  │  - GenAI Dashboard                           │   │ │
-                    │  │  │  - X-Ray Traces                              │   │ │
-                    │  │  └──────────────────────────────────────────────┘   │ │
-                    │  └─────────────────────────────────────────────────────┘ │
-                    └──────────────────────────────────────────────────────────┘
+│  └──────────────┘  └──────────────┘  └──────────────┘  └────────┬─────────┘ │
+└─────────────────────────────────────────────────────────────────┼───────────┘
+                                                                  │
+              ┌───────────────────────────────────────────────────┘
+              │
+┌─────────────┼───────────────────────────────────────────────────────────────┐
+│             │              AWS Cloud                                         │
+│  ┌──────────┴────────────┐                                                  │
+│  │  API Gateway (HTTP)   │    fmfvkrcjl7.execute-api.us-east-1.amazonaws.com│
+│  │  GET /prod/ws-url     │                                                  │
+│  └──────────┬────────────┘                                                  │
+│             │                                                               │
+│  ┌──────────┴────────────┐                                                  │
+│  │  Lambda Function      │    agentcore-presigned-url                       │
+│  │  (Presigned URL Gen)  │    Generates SigV4 signed WebSocket URLs         │
+│  └──────────┬────────────┘                                                  │
+│             │                                                               │
+│             │  Returns: wss://bedrock-agentcore.us-east-1.amazonaws.com/... │
+│             │                                                               │
+│  ┌──────────┴──────────────────────────────────────────────────────────────┐│
+│  │                    Amazon Bedrock AgentCore                             ││
+│  │  ┌────────────────────────────────────────────────────────────────────┐ ││
+│  │  │  Runtime: scottleduc_consultant-vKDki47sNm                         │ ││
+│  │  │  Endpoint: bedrock-agentcore.us-east-1.amazonaws.com               │ ││
+│  │  │                                                                    │ ││
+│  │  │  ┌──────────────────────────────────────────────────────────────┐  │ ││
+│  │  │  │                Multi-Agent System (app.py)                   │  │ ││
+│  │  │  │  ┌─────────────────────────────────────────────────────────┐ │  │ ││
+│  │  │  │  │  ROUTING AGENT (Claude 3 Haiku) - Fast intent detection │ │  │ ││
+│  │  │  │  └──────────────────────┬──────────────────────────────────┘ │  │ ││
+│  │  │  │                         │                                    │  │ ││
+│  │  │  │           ┌─────────────┼─────────────┐                      │  │ ││
+│  │  │  │           ▼             ▼             ▼                      │  │ ││
+│  │  │  │  ┌──────────────┐ ┌───────────┐ ┌─────────────────┐         │  │ ││
+│  │  │  │  │INTERVIEW_AGENT│ │CONSULTANT │ │CONTACT_HANDLER  │         │  │ ││
+│  │  │  │  │(Claude Sonnet)│ │  AGENT    │ │(Collect info,   │         │  │ ││
+│  │  │  │  │1st person,    │ │(Sonnet)   │ │ send via SES)   │         │  │ ││
+│  │  │  │  │uses KB for RAG│ │Advisory   │ │                 │         │  │ ││
+│  │  │  │  └───────┬───────┘ └─────┬─────┘ └─────────────────┘         │  │ ││
+│  │  │  │          └───────┬───────┘                                   │  │ ││
+│  │  │  │                  ▼                                           │  │ ││
+│  │  │  │  ┌───────────────────────────────────────────────────────┐   │  │ ││
+│  │  │  │  │  KNOWLEDGE BASE (QFNR1QV59Y) - RAG Retrieval          │   │  │ ││
+│  │  │  │  │  - Resume, Case Studies, Services, Methodology        │   │  │ ││
+│  │  │  │  └───────────────────────────────────────────────────────┘   │  │ ││
+│  │  │  └──────────────────────────────────────────────────────────────┘  │ ││
+│  │  └────────────────────────────────────────────────────────────────────┘ ││
+│  └─────────────────────────────────────────────────────────────────────────┘│
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────────┐│
+│  │  Supporting Services                                                    ││
+│  │  ┌──────────────────┐  ┌─────────────────┐  ┌────────────────────────┐  ││
+│  │  │  S3 Bucket       │  │ OpenSearch      │  │  AWS SES               │  ││
+│  │  │  scottleduc-     │  │ Serverless      │  │  Contact form emails   │  ││
+│  │  │  consulting-kb   │  │ (Vector Store)  │  │  leducse@gmail.com     │  ││
+│  │  └──────────────────┘  └─────────────────┘  └────────────────────────┘  ││
+│  └─────────────────────────────────────────────────────────────────────────┘│
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────────┐│
+│  │  Observability                                                          ││
+│  │  - CloudWatch Logs: /aws/bedrock-agentcore/runtimes/*                  ││
+│  │  - Lambda Logs: /aws/lambda/agentcore-presigned-url                    ││
+│  │  - X-Ray Traces, GenAI Dashboard                                       ││
+│  │  - AWS Budget: $50/month with email alerts                             ││
+│  └─────────────────────────────────────────────────────────────────────────┘│
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ## 🚀 Features
@@ -108,12 +106,15 @@ A modern, professional consulting website built with Next.js, featuring an AI-po
 |---------|------------------|---------|
 | **AgentCore Runtime** | `scottleduc_consultant-vKDki47sNm` | Hosts the multi-agent chatbot |
 | **AgentCore Memory** | `scottleduc_consultant_mem-er6lzH3Wp1` | Session memory (STM only) |
+| **Lambda** | `agentcore-presigned-url` | Generates presigned WebSocket URLs |
+| **API Gateway** | `fmfvkrcjl7` (HTTP API) | Exposes Lambda for presigned URL generation |
 | **Bedrock Knowledge Base** | `QFNR1QV59Y` | RAG for resume, case studies, services |
 | **S3 Bucket** | `scottleduc-consulting-kb` | Knowledge base documents + deployment packages |
 | **OpenSearch Serverless** | `scottleduc-kb` (Collection) | Vector store for knowledge base |
 | **SES** | `leducse@gmail.com` (verified) | Contact form email notifications |
-| **Amplify** | `scott-leduc-consulting` | Website hosting with CI/CD |
+| **Amplify** | `scott-leduc-consulting` (`d3jq7pom4n937u`) | Website hosting with CI/CD |
 | **CloudWatch Log Group** | `/aws/bedrock-agentcore/runtimes/scottleduc_consultant-vKDki47sNm-DEFAULT` | Chatbot logs |
+| **CloudWatch Log Group** | `/aws/lambda/agentcore-presigned-url` | Lambda logs |
 | **AWS Budget** | `scottleduc-consulting-monthly` | $50/month budget with alerts |
 
 ### IAM Roles & Policies
@@ -339,11 +340,34 @@ Access the AgentCore observability dashboard:
 https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#gen-ai-observability/agent-core
 ```
 
+### CloudWatch Alarms
+
+The following alarms are configured (SNS topic: `scottleduc-alerts` → leducse@gmail.com):
+
+| Alarm Name | Metric | Threshold | Purpose |
+|------------|--------|-----------|---------|
+| `Chatbot-Lambda-Errors` | Lambda Errors | >5 in 5 min | Catches presigned URL generation failures |
+| `Chatbot-Lambda-Throttles` | Lambda Throttles | >1 in 5 min | Catches capacity issues |
+| `Chatbot-Lambda-HighDuration` | Lambda Duration | >5s avg | Catches slow/stuck functions |
+| `Chatbot-API-5xxErrors` | API Gateway 5xx | >10 in 5 min | Catches server errors |
+| `Chatbot-API-HighLatency` | API Gateway Latency | >3s avg | Catches performance issues |
+
+Check alarm status:
+```bash
+aws cloudwatch describe-alarms \
+  --alarm-name-prefix "Chatbot-" \
+  --query 'MetricAlarms[].{Name:AlarmName,State:StateValue}' \
+  --output table \
+  --region us-east-1
+```
+
 ### Cost Monitoring
 
 AWS Budget: `scottleduc-consulting-monthly`
-- **Limit**: $50/month
+- **Limit**: $100/month
 - **Alerts**: 50%, 80%, 100% thresholds → leducse@gmail.com
+
+**Note**: You'll receive a confirmation email from AWS SNS - you must confirm it to receive alarm notifications.
 
 ```bash
 # Check current spend
@@ -461,6 +485,76 @@ aws aoss create-access-policy \
   --policy '[{"Rules":[{"Resource":["collection/scottleduc-kb"],"Permission":["aoss:*"],"ResourceType":"collection"},{"Resource":["index/scottleduc-kb/*"],"Permission":["aoss:*"],"ResourceType":"index"}],"Principal":["arn:aws:iam::441383083571:user/<your-user>"]}]'
 ```
 
+#### 7. AgentCore Runtime cannot access Knowledge Base (AccessDeniedException)
+
+**Cause**: The AgentCore runtime's execution role doesn't have `bedrock:Retrieve` permission.
+
+**Symptoms**: CloudWatch logs show:
+```
+ERROR: User: arn:aws:sts::441383083571:assumed-role/AmazonBedrockAgentCoreSDKRuntime-us-east-1-*/...
+is not authorized to perform: bedrock:Retrieve on resource: 
+arn:aws:bedrock:us-east-1:441383083571:knowledge-base/QFNR1QV59Y
+```
+
+**Fix**: Add inline policy to the AgentCore runtime role:
+```bash
+aws iam put-role-policy \
+  --role-name AmazonBedrockAgentCoreSDKRuntime-us-east-1-855e130581 \
+  --policy-name BedrockKnowledgeBaseAccess \
+  --policy-document '{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "BedrockKnowledgeBaseRetrieve",
+        "Effect": "Allow",
+        "Action": [
+          "bedrock:Retrieve",
+          "bedrock:RetrieveAndGenerate"
+        ],
+        "Resource": [
+          "arn:aws:bedrock:us-east-1:441383083571:knowledge-base/*"
+        ]
+      }
+    ]
+  }'
+```
+
+#### 8. WebSocket connection fails with 500 error
+
+**Cause**: Lambda cannot generate presigned URL (missing env vars or permissions)
+
+**Debug**:
+```bash
+# Check Lambda logs
+aws logs tail /aws/lambda/agentcore-presigned-url --since 10m
+
+# Verify Lambda has correct environment variables
+aws lambda get-function-configuration --function-name agentcore-presigned-url --query 'Environment'
+```
+
+**Fix**: Ensure Lambda has:
+- `AGENTCORE_RUNTIME_ARN` environment variable set
+- IAM role with `bedrock-agentcore:*` permissions
+
+#### 9. WebSocket connects but no response
+
+**Cause**: Message format mismatch or runtime issue
+
+**Debug**:
+```bash
+# Check latest runtime logs
+aws logs tail /aws/bedrock-agentcore/runtimes/scottleduc_consultant-vKDki47sNm-DEFAULT --since 10m
+
+# Look for routing and processing logs
+aws logs filter-log-events \
+  --log-group-name "/aws/bedrock-agentcore/runtimes/scottleduc_consultant-vKDki47sNm-DEFAULT" \
+  --filter-pattern "?Routed ?ERROR ?Exception" \
+  --start-time $(($(date +%s) * 1000 - 600000)) \
+  --region us-east-1
+```
+
+**Fix**: Check the chatbot logs for specific error messages and address accordingly.
+
 ---
 
 ## 📁 Project Structure
@@ -521,6 +615,10 @@ consulting-website/
 ├── public/                      # Static assets
 │   ├── favicon.svg
 │   └── headshot-placeholder.svg
+│
+├── lambda/                      # AWS Lambda functions
+│   └── presigned-url/
+│       └── index.py             # Generates SigV4 presigned WebSocket URLs
 │
 ├── agentcore-sdk/               # Cloned AgentCore SDK (reference)
 ├── amplify.yml                  # AWS Amplify build config
@@ -640,24 +738,63 @@ agentcore invoke '{"prompt": "I want to get in touch with Scott"}'
 
 ## 📊 Cost Optimization
 
-### Current Cost Estimates
+### Detailed Cost Estimates (Low Traffic: ~100-500 conversations/month)
 
-| Service | Estimated Monthly Cost |
-|---------|----------------------|
-| AgentCore Runtime | ~$5-10 (usage-based) |
-| Bedrock Model Invocations | ~$5-15 (usage-based) |
-| OpenSearch Serverless | ~$10-20 |
-| S3 | <$1 |
-| Amplify Hosting | ~$5 |
-| SES | <$1 |
-| **Total** | **~$25-50/month** |
+| Service | Description | Estimated Monthly Cost |
+|---------|-------------|----------------------|
+| **OpenSearch Serverless** | 2 OCUs minimum (1 indexing, 1 search) × $0.24/hr | ~$175 (minimum) |
+| **Bedrock - Claude 3 Haiku** | Routing: ~500 calls × ~500 input/100 output tokens | ~$0.15 |
+| **Bedrock - Claude 3.5 Sonnet** | Responses: ~500 calls × ~2K input/500 output tokens | ~$5-10 |
+| **Bedrock - Titan Embeddings** | Knowledge Base queries | ~$0.10 |
+| **AgentCore Runtime** | Compute time (serverless) | ~$2-5 |
+| **Lambda** | Presigned URL generation (~500 invocations) | ~$0.01 |
+| **API Gateway** | HTTP API (~500 requests) | ~$0.01 |
+| **S3** | Storage (~10MB) + requests | ~$0.05 |
+| **Amplify Hosting** | SSR compute + bandwidth | ~$5-10 |
+| **SES** | ~10-50 emails/month | ~$0.01 |
+| **CloudWatch Logs** | Log storage and queries | ~$1-3 |
+| **TOTAL** | | **~$190-210/month** |
 
-### Cost Reduction Tips
+### ⚠️ Major Cost Driver: OpenSearch Serverless
 
-1. **Use Haiku for routing**: Already implemented, much cheaper than Sonnet
-2. **Set idle timeout**: Configure in `.bedrock_agentcore.yaml`
-3. **Monitor Knowledge Base**: Only sync when content changes
-4. **Review CloudWatch retention**: Set to 30 days (already configured)
+OpenSearch Serverless has a **minimum of 2 OCUs** that run 24/7 at $0.24/hour each = **~$175/month minimum**.
+
+**Options to reduce costs:**
+
+1. **Delete OpenSearch and use simpler retrieval** (not recommended if you need RAG)
+2. **Accept the cost** as the price of semantic search capability
+3. **Switch to OpenSearch provisioned** (cheaper if you manage it yourself)
+4. **Use a different vector store** (Pinecone free tier, Supabase, etc.)
+
+### Cost Reduction Already Implemented
+
+1. ✅ **Use Haiku for routing**: ~10x cheaper than Sonnet ($0.25 vs $3 per 1M tokens)
+2. ✅ **CloudWatch retention**: Set to 30 days (reduces log storage costs)
+3. ✅ **Lambda for presigned URLs**: Serverless, pay only for invocations
+4. ✅ **HTTP API Gateway**: 70% cheaper than REST API
+5. ✅ **Budget alert**: $50/month threshold with email notifications
+
+### Monitoring Costs
+
+```bash
+# Check current month spending
+aws ce get-cost-and-usage \
+  --time-period Start=$(date +%Y-%m-01),End=$(date +%Y-%m-%d) \
+  --granularity MONTHLY \
+  --metrics BlendedCost \
+  --group-by Type=DIMENSION,Key=SERVICE \
+  --region us-east-1
+
+# Check OpenSearch Serverless specifically
+aws cloudwatch get-metric-statistics \
+  --namespace AWS/AOSS \
+  --metric-name SearchOCU \
+  --start-time $(date -u -v-7d +%Y-%m-%dT%H:%M:%SZ) \
+  --end-time $(date -u +%Y-%m-%dT%H:%M:%SZ) \
+  --period 3600 \
+  --statistics Average \
+  --region us-east-1
+```
 
 ---
 
