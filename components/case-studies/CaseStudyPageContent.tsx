@@ -23,6 +23,7 @@ const caseStudyGradients: Record<CaseStudyKey, string> = {
   "activity-analysis": "from-teal-500 to-cyan-500",
   "data-audit-platform": "from-cyan-500 to-teal-500",
   "bi-regression-guardrails": "from-blue-500 to-sky-500",
+  "consulting-platform": "from-cyan-500 to-violet-500",
 };
 
 export default function CaseStudyPageContent({
