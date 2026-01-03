@@ -80,9 +80,9 @@ export const SERVICES = [
   },
   {
     id: "genai-governance",
-    title: "GenAI & Data Governance",
+    title: "GenAI & Team Enablement",
     slug: "genai-governance",
-    description: "GenAI readiness, data contracts, LLM evaluation, and metric governance frameworks",
+    description: "AI readiness assessments, team training workshops, data governance, and adoption coaching",
     icon: "Sparkles",
     gradient: "from-indigo-500 to-blue-500",
   },

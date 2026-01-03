@@ -137,12 +137,12 @@ export default function ResumePage() {
               "Statistical Analysis & Causal Inference",
               "Machine Learning & AI/ML Engineering",
               "AWS Architecture (Certified ML Specialty)",
+              "GenAI & LLM Applications",
+              "AI Training & Team Enablement",
               "Business Intelligence & Visualization",
               "Data Engineering & ETL Pipelines",
-              "GenAI & LLM Applications",
               "Executive Storytelling",
               "Team Leadership & Mentoring",
-              "Agile / SAFe Methodologies",
             ].map((skill) => (
               <div
                 key={skill}
