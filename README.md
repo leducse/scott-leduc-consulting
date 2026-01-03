@@ -1,14 +1,21 @@
-# Decision Layer - Scott LeDuc Consulting
+# Decision Layer Analytics
 
-**Live Site**: [decision-layer.com](https://decision-layer.com)
+**Live Site**: [decision-layer.com](https://www.decision-layer.com)
 
-A modern consulting website built with Next.js, featuring an AI-powered chatbot using Amazon Bedrock AgentCore. The site positions Scott LeDuc as a "full-stack data strategist" who builds the critical layer between raw data and confident business decisions.
+A modern consulting website built with Next.js, featuring an AI-powered chatbot using Amazon Bedrock AgentCore. The site positions Scott LeDuc as a "Full-Stack Analytics & AI Practice Leader" who builds the critical layer between raw data and confident business decisions.
 
 ## 🎯 Brand Positioning
 
-**Decision Layer** = The foundation that transforms uncertainty into confidence: validated metrics, proven models, and governed data that leadership can trust.
+**Decision Layer Analytics** = The foundation that transforms uncertainty into confidence: validated metrics, proven models, and governed data that leadership can trust.
 
 **Core Message**: Organizations don't struggle with data—they struggle with trust. Decision Layer builds the missing layer that enables confident action.
+
+## 🌐 Domain & DNS
+
+- **Primary Domain**: `decision-layer.com` (via Route53)
+- **DNS Provider**: AWS Route53 (Hosted Zone: `Z09581132N458QZSCIHJ4`)
+- **Registrar**: GoDaddy (nameservers pointed to Route53)
+- **SSL**: AWS Certificate Manager (auto-managed by Amplify)
 
 ## 🏗️ Architecture Overview
 
@@ -92,16 +99,16 @@ A modern consulting website built with Next.js, featuring an AI-powered chatbot 
 - **Modern Tech Stack**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4
 - **Responsive Design**: Mobile-first design with smooth animations using Framer Motion
 - **Dark Theme**: Consistent `#0a1628` dark navy theme across all pages
-- **Welcome Modal**: First-time visitor overlay showcasing services with AI enhancement
-- **About Page**: "Decision Layer" branded value proposition with CTAs (Contact, Chat, Explore)
+- **About Page**: Recruiter-focused bio with profile photo, career timeline, and organizations worked with
+- **Homepage**: Problem → Solution cards linking to case studies, engagement approach, testimonials
 - **SEO Optimized**: Metadata with canonical URL (decision-layer.com)
 - **Contact Form**: AWS SES integrated contact form with validation
 - **Case Studies**: Detailed case studies showcasing real-world impact
 - **Service Pages**: Comprehensive service offerings with methodology and deliverables
 
-### Custom Domains (AWS Amplify)
-- **Primary**: `decision-layer.com`
-- **Redirects**: `leducanalyticsconsulting.com`, `scottleduc.biz`, `bi-viz.com`, `bi-viz.biz`, `leducbiconsulting.com`
+### Custom Domains (AWS Amplify + Route53)
+- **Primary**: `decision-layer.com` and `www.decision-layer.com`
+- **DNS**: AWS Route53 (migrated from GoDaddy for seamless Amplify integration)
 
 ### AI Chatbot
 - **Multi-Agent Architecture**: Routing agent + specialized agents (Interview, Consultant)
@@ -586,8 +593,7 @@ consulting-website/
 │       ├── GradientButton.tsx
 │       ├── GradientCard.tsx
 │       ├── MetricCounter.tsx
-│       ├── Testimonials.tsx
-│       └── WelcomeModal.tsx      # First-time visitor modal (Decision Layer intro)
+│       └── Testimonials.tsx
 │
 ├── lib/                         # Utilities and content
 │   ├── constants.ts             # Site config, services, case studies
@@ -806,9 +812,9 @@ Private project - All rights reserved.
 ## 📞 Contact
 
 - **Email**: leducse@gmail.com
-- **LinkedIn**: [linkedin.com/in/sleduc](https://linkedin.com/in/sleduc)
+- **LinkedIn**: [linkedin.com/in/scott-leduc](https://www.linkedin.com/in/scott-leduc/)
 - **GitHub**: [github.com/leducse](https://github.com/leducse)
-- **Location**: Fairfax, VA
+- **Location**: Vienna, VA
 
 ---
 

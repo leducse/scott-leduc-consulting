@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sparkles } from "lucide-react";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -15,6 +17,11 @@ export default function Navbar() {
     { href: "/process", label: "Process" },
     { href: "/about", label: "About" },
   ];
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[var(--background)]/80 border-b border-[var(--card-border)]">
@@ -36,14 +43,22 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--foreground)] hover:bg-[var(--card-bg)] transition-all font-medium"
+                className={`px-4 py-2 rounded-lg transition-all font-medium ${
+                  isActive(link.href)
+                    ? "text-cyan-400 bg-cyan-500/10 border border-cyan-500/20"
+                    : "text-[var(--text-muted)] hover:text-[var(--foreground)] hover:bg-[var(--card-bg)]"
+                }`}
               >
                 {link.label}
               </Link>
             ))}
             <Link
               href="/contact"
-              className="ml-4 px-5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
+              className={`ml-4 px-5 py-2 rounded-lg font-semibold transition-all ${
+                pathname === "/contact"
+                  ? "bg-cyan-400 text-[#0a1628] shadow-lg shadow-cyan-500/25"
+                  : "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:shadow-lg hover:shadow-cyan-500/25"
+              }`}
             >
               Contact
             </Link>
@@ -78,7 +93,11 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block px-4 py-3 rounded-lg text-[var(--text-muted)] hover:text-[var(--foreground)] hover:bg-[var(--card-bg)] transition-all font-medium"
+                  className={`block px-4 py-3 rounded-lg transition-all font-medium ${
+                    isActive(link.href)
+                      ? "text-cyan-400 bg-cyan-500/10 border border-cyan-500/20"
+                      : "text-[var(--text-muted)] hover:text-[var(--foreground)] hover:bg-[var(--card-bg)]"
+                  }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -86,7 +105,11 @@ export default function Navbar() {
               ))}
               <Link
                 href="/contact"
-                className="block px-4 py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold text-center mt-4"
+                className={`block px-4 py-3 rounded-lg font-semibold text-center mt-4 ${
+                  pathname === "/contact"
+                    ? "bg-cyan-400 text-[#0a1628]"
+                    : "bg-gradient-to-r from-cyan-500 to-blue-500 text-white"
+                }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
