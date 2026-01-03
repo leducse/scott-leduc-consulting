@@ -14,11 +14,16 @@ import {
   GraduationCap,
   ExternalLink,
   Printer,
+  MessageCircle,
 } from "lucide-react";
 
 export default function ResumePage() {
   const handlePrint = () => {
     window.print();
+  };
+
+  const openChatbot = () => {
+    window.dispatchEvent(new CustomEvent("openChatbot"));
   };
 
   return (
@@ -29,13 +34,22 @@ export default function ResumePage() {
           <Link href="/" className="text-cyan-400 hover:text-cyan-300 text-sm">
             ← Back to Decision Layer Analytics
           </Link>
-          <button
-            onClick={handlePrint}
-            className="flex items-center gap-2 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 rounded-lg text-sm font-medium transition-colors"
-          >
-            <Printer className="w-4 h-4" />
-            Print / Save PDF
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={openChatbot}
+              className="flex items-center gap-2 px-4 py-2 bg-violet-500 hover:bg-violet-600 rounded-lg text-sm font-medium transition-colors"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Ask AI About Me
+            </button>
+            <button
+              onClick={handlePrint}
+              className="flex items-center gap-2 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 rounded-lg text-sm font-medium transition-colors"
+            >
+              <Printer className="w-4 h-4" />
+              Print / Save PDF
+            </button>
+          </div>
         </div>
       </div>
 
@@ -220,6 +234,32 @@ export default function ResumePage() {
                   </li>
                 ))}
               </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* AI Chat CTA */}
+        <section className="mb-10 print:hidden">
+          <div className="bg-gradient-to-r from-violet-50 to-cyan-50 border border-violet-200 rounded-xl p-6">
+            <div className="flex flex-col md:flex-row items-center gap-4">
+              <div className="flex-shrink-0 w-12 h-12 bg-violet-500 rounded-full flex items-center justify-center">
+                <MessageCircle className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-lg font-semibold text-slate-900 mb-1">
+                  Want to learn more about my background?
+                </h3>
+                <p className="text-slate-600 text-sm">
+                  Chat with my AI assistant to ask questions about my experience, skills, projects, or approach to analytics challenges.
+                </p>
+              </div>
+              <button
+                onClick={openChatbot}
+                className="flex items-center gap-2 px-6 py-3 bg-violet-500 hover:bg-violet-600 text-white rounded-lg font-medium transition-colors shadow-md hover:shadow-lg"
+              >
+                <MessageCircle className="w-5 h-5" />
+                Chat with AI Assistant
+              </button>
             </div>
           </div>
         </section>
