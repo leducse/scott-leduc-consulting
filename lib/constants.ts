@@ -8,8 +8,8 @@ export const SITE_CONFIG = {
   url: "https://decision-layer.com",
   email: "leducse@gmail.com",
   location: "Fairfax, VA",
-  linkedin: "sleduc",
-  linkedinUrl: "https://linkedin.com/in/sleduc",
+  linkedin: "scott-leduc",
+  linkedinUrl: "https://www.linkedin.com/in/scott-leduc/",
   github: "leducse",
   githubUrl: "https://github.com/leducse",
 };
