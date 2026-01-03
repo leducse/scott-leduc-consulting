@@ -19,6 +19,56 @@ interface Message {
   timestamp: Date;
 }
 
+// Format message content with bullet points and paragraphs
+function formatMessageContent(content: string): React.ReactNode {
+  if (!content) return null;
+  
+  // Split by double newlines for paragraphs, or by single newlines
+  const lines = content.split(/\n+/);
+  
+  const elements: React.ReactNode[] = [];
+  let currentList: string[] = [];
+  
+  const flushList = () => {
+    if (currentList.length > 0) {
+      elements.push(
+        <ul key={`list-${elements.length}`} className="list-none space-y-1.5 my-2">
+          {currentList.map((item, i) => (
+            <li key={i} className="flex items-start gap-2">
+              <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      );
+      currentList = [];
+    }
+  };
+  
+  lines.forEach((line, index) => {
+    const trimmedLine = line.trim();
+    
+    // Check if it's a bullet point
+    if (trimmedLine.match(/^[-•*]\s+/)) {
+      currentList.push(trimmedLine.replace(/^[-•*]\s+/, ''));
+    } else if (trimmedLine.match(/^\d+\.\s+/)) {
+      // Numbered list item
+      currentList.push(trimmedLine.replace(/^\d+\.\s+/, ''));
+    } else if (trimmedLine) {
+      flushList();
+      elements.push(
+        <p key={`p-${index}`} className="mb-2 last:mb-0">
+          {trimmedLine}
+        </p>
+      );
+    }
+  });
+  
+  flushList();
+  
+  return elements.length > 0 ? elements : content;
+}
+
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
@@ -357,7 +407,7 @@ export default function ChatWidget() {
             }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className={`fixed bottom-6 right-6 z-50 w-[380px] ${
+            className={`fixed bottom-6 right-6 z-50 w-[420px] ${
               isMinimized ? "h-[60px]" : "h-[600px]"
             } max-h-[80vh] bg-[#0a1628] border border-cyan-500/30 rounded-2xl shadow-2xl shadow-black/50 flex flex-col overflow-hidden`}
           >
@@ -421,13 +471,21 @@ export default function ChatWidget() {
                         )}
                       </div>
                       <div
-                        className={`max-w-[80%] px-4 py-2.5 rounded-2xl text-sm ${
+                        className={`max-w-[85%] rounded-2xl text-sm leading-relaxed ${
                           message.role === "user"
-                            ? "bg-cyan-500 text-[#0a1628] rounded-tr-md font-medium"
-                            : "bg-[#0f2744] text-slate-100 rounded-tl-md border border-cyan-500/20"
+                            ? "bg-cyan-500 text-[#0a1628] rounded-tr-md font-medium px-4 py-2.5"
+                            : "bg-[#0f2744] text-slate-100 rounded-tl-md border border-cyan-500/20 px-4 py-3"
                         }`}
                       >
-                        {message.content || (
+                        {message.content ? (
+                          message.role === "assistant" ? (
+                            <div className="space-y-1">
+                              {formatMessageContent(message.content)}
+                            </div>
+                          ) : (
+                            message.content
+                          )
+                        ) : (
                           <span className="flex items-center gap-2">
                             <Loader2 className="w-3 h-3 animate-spin" />
                             Thinking...
