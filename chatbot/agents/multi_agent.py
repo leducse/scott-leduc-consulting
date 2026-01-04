@@ -55,8 +55,15 @@ class ConversationContext:
             self.interaction_count += 1
     
     def get_recent_messages(self, n: int = 10) -> List[Dict[str, str]]:
-        """Get the n most recent messages."""
-        return self.messages[-n:]
+        """Get the n most recent messages, ensuring it starts with a user message."""
+        recent = self.messages[-n:]
+        
+        # Bedrock Converse API requires conversations to start with a user message
+        # Skip any leading assistant messages
+        while recent and recent[0]["role"] == "assistant":
+            recent = recent[1:]
+        
+        return recent
     
     def has_complete_contact_info(self) -> bool:
         """Check if all contact info fields are filled."""
