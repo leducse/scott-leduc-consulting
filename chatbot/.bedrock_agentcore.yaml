@@ -88,7 +88,7 @@ agents:
     bedrock_agentcore:
       agent_id: scottleduc_consultant-vKDki47sNm
       agent_arn: arn:aws:bedrock-agentcore:us-east-1:441383083571:runtime/scottleduc_consultant-vKDki47sNm
-      agent_session_id: 2d0db29f-a35a-40e5-853f-e3fa09b630a4
+      agent_session_id: null
     codebuild:
       project_name: null
       execution_role: null

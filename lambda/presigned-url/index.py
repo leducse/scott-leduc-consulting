@@ -1,4 +1,7 @@
-"""Lambda function to generate presigned WebSocket URLs for AgentCore."""
+"""Lambda function to generate presigned WebSocket URLs for AgentCore.
+
+Includes simple rate limiting to prevent abuse.
+"""
 
 import json
 import os
@@ -6,7 +9,9 @@ import uuid
 import base64
 import secrets
 import datetime
+import time
 from urllib.parse import quote, urlencode
+from collections import defaultdict
 
 import boto3
 from botocore.auth import SigV4QueryAuth
@@ -22,13 +27,74 @@ REGION = os.environ.get("AWS_REGION", "us-east-1")
 ENDPOINT_NAME = os.environ.get("ENDPOINT_NAME", "DEFAULT")
 PRESIGNED_URL_EXPIRY = int(os.environ.get("PRESIGNED_URL_EXPIRY", "300"))
 
-# CORS headers
-CORS_HEADERS = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key",
-    "Access-Control-Allow-Methods": "GET,OPTIONS",
-    "Content-Type": "application/json"
-}
+# Rate limiting configuration
+RATE_LIMIT_REQUESTS_PER_MINUTE = int(os.environ.get("RATE_LIMIT_PER_MINUTE", "10"))
+RATE_LIMIT_WINDOW_SECONDS = 60
+
+# In-memory rate limit tracking (resets on cold start, but that's fine for basic protection)
+# For production-grade rate limiting, use DynamoDB or ElastiCache
+_request_counts = defaultdict(list)
+
+# CORS headers - restrict to known domains
+ALLOWED_ORIGINS = [
+    "https://main.d5x6v3bghz7jh.amplifyapp.com",
+    "https://decision-layer.com",
+    "https://www.decision-layer.com",
+    "http://localhost:3000",
+    "http://localhost:3001",
+]
+
+def get_cors_headers(origin: str = None) -> dict:
+    """Get CORS headers with proper origin validation."""
+    # Check if origin is allowed
+    if origin and origin in ALLOWED_ORIGINS:
+        allowed_origin = origin
+    else:
+        # Default to production domain
+        allowed_origin = "https://decision-layer.com"
+    
+    return {
+        "Access-Control-Allow-Origin": allowed_origin,
+        "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key",
+        "Access-Control-Allow-Methods": "GET,OPTIONS",
+        "Content-Type": "application/json"
+    }
+
+# Fallback for backwards compatibility
+CORS_HEADERS = get_cors_headers()
+
+
+def check_rate_limit(ip_address: str) -> bool:
+    """Check if IP has exceeded rate limit. Returns True if allowed, False if blocked."""
+    now = time.time()
+    window_start = now - RATE_LIMIT_WINDOW_SECONDS
+    
+    # Clean up old requests
+    _request_counts[ip_address] = [
+        t for t in _request_counts[ip_address] if t > window_start
+    ]
+    
+    # Check if under limit
+    if len(_request_counts[ip_address]) >= RATE_LIMIT_REQUESTS_PER_MINUTE:
+        return False
+    
+    # Record this request
+    _request_counts[ip_address].append(now)
+    return True
+
+
+def get_client_ip(event: dict) -> str:
+    """Extract client IP from the Lambda event."""
+    # Try different sources for IP
+    request_context = event.get("requestContext", {})
+    
+    # API Gateway v2 (HTTP API)
+    if "http" in request_context:
+        return request_context["http"].get("sourceIp", "unknown")
+    
+    # API Gateway v1 (REST API)
+    identity = request_context.get("identity", {})
+    return identity.get("sourceIp", "unknown")
 
 
 def get_data_plane_endpoint(region: str) -> str:
@@ -86,14 +152,34 @@ def generate_presigned_url(runtime_arn: str, session_id: str, expires: int = 300
 
 
 def lambda_handler(event, context):
-    """Lambda handler for generating presigned URLs."""
+    """Lambda handler for generating presigned URLs with rate limiting."""
+    
+    # Get origin for CORS
+    headers = event.get("headers", {}) or {}
+    origin = headers.get("origin") or headers.get("Origin")
+    cors_headers = get_cors_headers(origin)
     
     # Handle CORS preflight
-    if event.get("httpMethod") == "OPTIONS":
+    http_method = event.get("httpMethod") or event.get("requestContext", {}).get("http", {}).get("method")
+    if http_method == "OPTIONS":
         return {
             "statusCode": 200,
-            "headers": CORS_HEADERS,
+            "headers": cors_headers,
             "body": ""
+        }
+    
+    # Rate limiting check
+    client_ip = get_client_ip(event)
+    if not check_rate_limit(client_ip):
+        print(f"Rate limit exceeded for IP: {client_ip}")
+        return {
+            "statusCode": 429,
+            "headers": cors_headers,
+            "body": json.dumps({
+                "error": "Too many requests",
+                "message": "Rate limit exceeded. Please wait before trying again.",
+                "retry_after": RATE_LIMIT_WINDOW_SECONDS
+            })
         }
     
     try:
@@ -117,7 +203,7 @@ def lambda_handler(event, context):
         
         return {
             "statusCode": 200,
-            "headers": CORS_HEADERS,
+            "headers": cors_headers,
             "body": json.dumps(response_body)
         }
         
@@ -125,7 +211,7 @@ def lambda_handler(event, context):
         print(f"Error generating presigned URL: {e}")
         return {
             "statusCode": 500,
-            "headers": CORS_HEADERS,
+            "headers": cors_headers,
             "body": json.dumps({
                 "error": "Failed to generate WebSocket URL",
                 "message": str(e)

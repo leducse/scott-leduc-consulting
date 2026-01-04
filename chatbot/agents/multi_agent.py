@@ -43,6 +43,10 @@ class ConversationContext:
         "topic": None
     })
     interaction_count: int = 0
+    conversation_ended: bool = False  # Track if conversation has reached limit
+    
+    # Maximum messages before prompting contact
+    MAX_MESSAGES = 10
     
     def add_message(self, role: str, content: str):
         """Add a message to the conversation history."""
@@ -57,6 +61,10 @@ class ConversationContext:
     def has_complete_contact_info(self) -> bool:
         """Check if all contact info fields are filled."""
         return all(self.contact_info.values())
+    
+    def has_reached_message_limit(self) -> bool:
+        """Check if conversation has reached the message limit."""
+        return self.interaction_count >= self.MAX_MESSAGES
 
 
 class ScottLeducAgent:
@@ -369,8 +377,34 @@ Sent via Scott LeDuc Consulting AI Assistant
         """Process a user message and return a streaming response."""
         context = self.get_or_create_context(session_id)
         
+        # Check if conversation has already ended
+        if context.conversation_ended:
+            closing_message = (
+                "Look... we've covered a lot of ground here. Good ground. "
+                "But the best conversations happen face to face—or at least, email to email.\n\n"
+                "Scott's at leducse@gmail.com. Or hit the contact form at decision-layer.com/contact.\n\n"
+                "He'll get back to you within 24-48 hours. And trust me... it'll be worth it."
+            )
+            yield closing_message
+            return
+        
         # Add user message to history
         context.add_message("user", user_message)
+        
+        # Check if this message hits the limit (after adding it)
+        if context.has_reached_message_limit():
+            context.conversation_ended = True
+            closing_message = (
+                "You know what? We've been at this for a while now. And that's a good sign.\n\n"
+                "It means you've got something real—a problem worth solving, a question worth answering. "
+                "But here's the thing... some conversations shouldn't happen in a chat window.\n\n"
+                "Scott's email is leducse@gmail.com. Or use the contact form at decision-layer.com/contact. "
+                "Tell him what you're working on. He reads every message.\n\n"
+                "24-48 hours. That's all it takes to find out if this is the right fit."
+            )
+            yield closing_message
+            context.add_message("assistant", closing_message)
+            return
         
         # Route the message
         route_data = self._route_message(user_message, context)

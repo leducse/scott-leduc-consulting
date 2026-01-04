@@ -40,14 +40,26 @@ export default function CaseStudyPageContent({
     ? `${meta.metrics[0].value} ${meta.metrics[0].label}`
     : undefined;
 
+  // Meaningful labels for scale/scope stats based on the case study
+  const scaleLabels: Record<CaseStudyKey, string[]> = {
+    "g3-analysis": ["Data Volume", "Opportunities", "Engagement Types"],
+    "ml-recommender": ["Features Engineered", "Models Trained", "Validation Folds"],
+    "aws-dashboard": ["Active Users", "Response Time", "Records Processed"],
+    "activity-analysis": ["Scenarios Analyzed", "Activities Tracked", "Win Rate Impact"],
+    "data-audit-platform": ["Dashboards Audited", "Quality Checks", "Lineage Tracked"],
+    "bi-regression-guardrails": ["Regressions Caught", "Dashboards Protected", "CI/CD Integration"],
+    "consulting-platform": ["Deploy Time", "Architecture", "AI Agents"],
+  };
+
   const visualizationStats =
     ("scale" in content && content.scale
       ? content.scale.slice(0, 3).map((item, index) => {
           const match = item.match(/^([\w\d$,.+%<> ]+?)(?:\s+-\s+|\s)(.*)$/);
           const value = match ? match[1].trim() : item;
           const description = match ? match[2].trim() : item;
+          const labels = scaleLabels[caseStudyKey] || ["Scope", "Scale", "Impact"];
           return {
-            label: `Detail ${index + 1}`,
+            label: labels[index] || `Metric ${index + 1}`,
             value,
             description,
           };

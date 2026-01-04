@@ -108,3 +108,4 @@ College of William and Mary (2021-2022)
 Relevant coursework in AI/Deep Learning, Machine Learning, Big Data, Optimization, Advanced Statistics, and Data Engineering.
 
 
+
