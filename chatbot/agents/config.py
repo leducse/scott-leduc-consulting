@@ -28,7 +28,7 @@ CONTACT_MODEL = "anthropic.claude-3-haiku-20240307-v1:0"
 # EMBEDDED KNOWLEDGE BASE
 # =============================================================================
 # This is all the content that was previously stored in S3/OpenSearch.
-# Total: ~6,750 tokens - well within Claude's 200K context limit.
+# Updated with comprehensive Body of Work details.
 
 EMBEDDED_KNOWLEDGE = """
 # DECISION LAYER ANALYTICS - COMPLETE KNOWLEDGE BASE
@@ -48,13 +48,14 @@ Most companies are drowning in data. They have dashboards, reports, data scienti
 
 ## SCOTT LEDUC - FOUNDER
 
-Award-winning analytics leader with 10+ years of experience bridging digital marketing, media performance, and advanced data science. First dedicated SA operations member for AWS SLG & EDU vertical, supporting 1,200+ builders across 18 global sub-regions serving 10,200+ customers.
+AI/ML leader with 10+ years building production AI systems from ML to generative and agentic AI. Expert in RAG pipelines, multi-agent systems (STRANDS), and LLM orchestration with $17M+ validated business impact. First dedicated SA operations member for AWS SLG & EDU vertical, supporting 1,200+ builders across 18 global sub-regions serving 10,200+ customers.
 
 ### Contact Information
 - Email: leducse@gmail.com
 - Location: Fairfax, VA
-- LinkedIn: linkedin.com/in/sleduc
+- LinkedIn: linkedin.com/in/scott-leduc
 - GitHub: github.com/leducse
+- Phone: 703-984-9803
 
 ### Key Achievements
 - Drove 45% revenue increase contributing to 19% of WWPS 2023 revenue through predictive modeling
@@ -63,10 +64,13 @@ Award-winning analytics leader with 10+ years of experience bridging digital mar
 - Achieved 1,220 new customer adoptions (exceeded annual target 4 months early)
 - Generated $706K annual revenue with 6:1 ROI through G3 security engagement program
 - Recognized with PMO 'Awesome Award' for operational excellence
+- Mentored junior team members and delivered GenAI training to audiences of 10-250 people
+- Coordinated cross-functional initiatives with 20+ stakeholders
 
 ### Education
-Master of Science, Business Analytics - College of William and Mary (2021-2022)
-Coursework: AI/Deep Learning, Machine Learning, Big Data, Optimization, Advanced Statistics, Data Engineering
+- Master of Science, Business Analytics - College of William and Mary (2022)
+  Coursework: AI/Deep Learning, Machine Learning, Big Data, Optimization, Advanced Statistics, Data Engineering
+- BBA - James Madison University (2013)
 
 ### Certifications
 - AWS Certified Machine Learning Engineer – Associate (2025)
@@ -78,148 +82,262 @@ Coursework: AI/Deep Learning, Machine Learning, Big Data, Optimization, Advanced
 
 ## TECHNICAL EXPERTISE
 
-### 1. Statistical Analysis & Causal Inference
-- Propensity Score Matching (PSM) - 100% success rate in G3 analysis
-- Difference-in-Differences (DiD)
-- Experimental Design, A/B Testing
-- Bootstrap Confidence Intervals
-- Regression Analysis, Time Series Analysis
-Track Record: Statistical validation of $17M+ program impact
+### 1. GenAI & Agentic AI Systems
+- RAG (Retrieval-Augmented Generation) Pipelines
+- STRANDS Multi-Agent Systems
+- LLM Orchestration and Prompt Engineering
+- Amazon Bedrock (Claude AI integration)
+- AI Safety, Guardrails, and Evaluation Frameworks
+- NLP: TF-IDF, extractive summarization, semantic classification
+Track Record: Built BEAM Platform with RAG + STRANDS agents processing 74K+ records with <2s response
 
 ### 2. Machine Learning & AI
-- Supervised: XGBoost, Random Forest, Neural Networks, Logistic Regression
+- Supervised: XGBoost (89.1% accuracy), Random Forest (87.3%), Neural Networks, Logistic Regression
 - Unsupervised: K-means Clustering, PCA
-- NLP: Text classification, sentiment analysis
-- Recommendation Systems
+- Recommendation Systems (53% conversion improvement)
 - Feature Engineering (50+ features from raw data)
-- Model Interpretability: SHAP values
-- GenAI: Amazon Bedrock, LLM evaluation
-Track Record: 89.1% model accuracy, 53% conversion improvement
+- Model Interpretability: SHAP values, feature importance
+- Win probability models (23% win rate improvement)
+Track Record: ML recommendation engine improving conversion rates 53%
 
-### 3. AWS Cloud Architecture
+### 3. Statistical Analysis & Causal Inference
+- Propensity Score Matching (PSM) - 100% success rate
+- Difference-in-Differences (DiD)
+- Experimental Design, A/B Testing
+- Bootstrap Confidence Intervals (10,000 iterations)
+- Regression Analysis, Time Series Analysis
+Track Record: Statistical validation of $17M+ program impact, 638K+ observations analyzed
+
+### 4. AWS Cloud Architecture
 - Serverless: Lambda, API Gateway, Step Functions
 - Storage: S3, DynamoDB, RDS, Aurora PostgreSQL
 - Analytics: Redshift, Athena, QuickSight, Glue
 - AI/ML: SageMaker, Bedrock, Comprehend
-- Security: IAM, Secrets Manager, KMS
+- Security: IAM, Secrets Manager, KMS, Cognito
 - IaC: CloudFormation, CDK
 Track Record: Dashboard serving 1,313+ users, 22,000+ annual views
 
-### 4. Business Intelligence
+### 5. Retail & E-commerce Analytics
+- Funnel Analysis and Conversion Optimization
+- A/B Testing (Optimizely)
+- Demand Forecasting and Sales Prediction
+- Customer Segmentation
+- Recommendation Systems
+- Unit Economics Analysis
+Track Record: Led analytics for BoostMobile.com, 35% campaign ROI improvement
+
+### 6. Business Intelligence
 - Tableau (Certified Specialist), QuickSight, Power BI
 - Executive and operational dashboards
-- KPI standardization
-Track Record: 53% reduction in quarterly data curation time
+- KPI standardization (200+ metrics taxonomized)
+Track Record: Power BI platform used by 1/3 of digital organization
 
-### 5. Data Engineering
-- ETL/ELT Pipelines (Python, SQL, AWS Glue)
-- Data Warehousing (Redshift, dimensional modeling)
-- Data Contracts, Data Quality
-- Real-time Processing (Kinesis, Lambda)
-Track Record: Processing 74K+ records with <2 second response times
-
-### 6. Programming
-- Python (expert): pandas, numpy, scikit-learn, scipy, boto3
-- TypeScript/JavaScript: React, Node.js
+### 7. Programming & Tools
+- Python (expert): pandas, numpy, scikit-learn, scipy, boto3, FastAPI
+- TypeScript/JavaScript: React, Node.js, Material-UI
 - SQL (expert): PostgreSQL, Redshift, Athena
 - R: tidyverse, statistical modeling
 
 ---
 
-## CASE STUDIES
+## DETAILED PROJECT PORTFOLIO
 
-### Case Study 1: G3 Pipeline Impact Analysis
-Category: Statistical Analysis & Causal Inference
+### Project 1: G3 SSR Goal Tracking System (2024-2025)
+Role: Sole builder (primary dashboards), cross-team coordinator
+Scale: 10,000+ users across AWS
 
-Challenge: Measure causal impact of G3 (security specialist) engagements on customer security service adoption. Key challenge was isolating true program impact from selection bias.
+Challenge: AWS launched Global Goal 3 to strengthen customer security. Leadership had no unified way to track progress or prove the program actually drove customer outcomes.
 
 Solution:
-- Propensity Score Matching on 11 characteristics (100% success rate, all p-values > 0.05)
-- Difference-in-Differences to isolate treatment effect
-- K-means clustering for heterogeneous treatment effects
-- Bootstrap (10,000 iterations) for confidence intervals
+- Automated data pipelines aggregating Salesforce, employee systems, account hierarchies
+- Daily-refreshed Tableau executive dashboard with drill-down (AWS-wide to territory level)
+- Unified Data Model combining actuals with distributed targets
+- Rigorous causal inference to prove program effectiveness
 
 Results:
-- $706K Annual Revenue with 6:1 ROI validation
-- 219.8% ARR Lift ($219,942 additional ARR per engaged account)
-- 19% Security Revenue Increase (p < 0.05)
-- 1,220 New Customer Adoptions (exceeded annual target 4 months early)
-- 68.7% Win Rate for direct engagements
-- Data: 638,178 customer-month observations, 53,367 unique customers
+- Serves 10,000+ SAs and CSMs tracking 20+ program types
+- Dashboard used in weekly leadership and monthly executive reviews
+- 19% security revenue increase (p < 0.05) via propensity score matching
+- $706K annual revenue with 6:1 ROI validated
+- 219.8% ARR lift ($219,942 additional per engaged account)
+- 1,220 new customer adoptions (exceeded target 4 months early)
+- Analysis influenced $17M+ program investment decisions
 
-Business Impact: Directly influenced 2026 goal setting (750 engagements, 70% win rate), justified $17M+ program investment
+What I Learned: Initial analysis showed 400-500% revenue increases—clearly inflated due to selection bias. Rebuilt with PSM achieving 100% covariate balance. Now I always ask "what would make this result false?" before presenting.
 
-### Case Study 2: ML Engagement Recommender
-Category: Machine Learning & Predictive Analytics
+### Project 2: DRIVE Performance Metrics Framework (Talent Card System) (2024)
+Role: Lead developer
+Scale: 30,000+ views, 1,000+ users
 
-Challenge: Optimize SA engagement strategies by predicting which customer approaches will be most successful, replacing intuition with data-driven recommendations.
+Challenge: Managers spent 2-4 hours manually compiling performance data before reviews, often reaching different conclusions about the same employee.
 
 Solution:
-- Created 50+ engineered features
-- Trained Random Forest, XGBoost, Logistic Regression
-- 5-fold cross-validation
+- 21-metric performance system (Customer Impact, Service Engagement, Industry Impact, Scaling Internally)
+- ETL pipeline with 12+ SQL scripts
+- Peer ranking across 7 dimensions (job family, level, tenure, segment, vertical, region, manager)
+- AI-optimized knowledge base for metric definitions
+
+Results:
+- 30,000+ dashboard views
+- 6th most viewed dashboard on WWPS Tableau site
+- Performance review prep: 2-4 hours → instant
+- Metrics tracked: ~5 inconsistent → 21 standardized
+- Daily automated refresh vs. manual ad-hoc
+
+What I Learned: Built what I thought managers needed. Adoption was slow until I learned they cared most about "how does my team compare?" Peer ranking became the killer feature.
+
+### Project 3: Project Prism - AI Documentation Generator (2024)
+Role: Creator
+Scale: Org-wide tool
+
+Challenge: When a dashboard developer left, it took 3 weeks to understand the workbook. Institutional knowledge walked out the door with every departure.
+
+Solution:
+- Parses Tableau workbook XML (calculations, parameters, data sources)
+- AWS Bedrock Claude AI generates human-readable documentation
+- Enriched with usage analytics from Redshift
+- Validation layer reduces hallucinations from ~15% to <2%
+
+Results:
+- Document one workbook: 4-8 hours → 5 minutes
+- Understand unfamiliar workbook: 1-3 days → 30 minutes
+- Onboard new team member: 2 weeks → 2 days
+- Processes workbooks with 100+ calculated fields
+
+### Project 4: BEAM Platform - Full-Stack AI Application (2024-2025)
+Role: Full-stack developer
+Scale: 1,000+ active users
+
+Challenge: Team members needed to access performance data, generate promotion documentation, and interact with data conversationally. Building body of work took 20+ hours.
+
+Solution:
+- React frontend with Material-UI
+- AWS Lambda backend connecting to Redshift
+- Conversational AI via AWS Bedrock with RAG pipelines and STRANDS agents
+- Document generation for promotions
+- AWS Cognito authentication
+
+Results:
+- 1,000+ active users
+- BI team request volume dropped 40%
+- Promotion prep: 20+ hours → 2-3 hours
+- <2 second response times processing 74K+ records
+- 80% reduction in manual effort
+
+Trade-off: Chose serverless (Lambda) over containers for faster deployment. Launched 6 weeks earlier, validated demand first.
+
+### Project 5: SA Activity Analysis & GTM Strategy (2024)
+Role: Analyst
+Scale: 19,770 opportunities, 52,643 activities
+
+Challenge: Leadership asked "Which SA activities actually drive wins?" No data-driven guidance existed.
+
+Solution:
+- ML clustering to identify customer segments
+- Scenario sequence analysis for activity combinations
+- Statistical significance testing (chi-square)
+- Go-to-market recommendations
+
+Results:
+- 5 high-impact activities identified
+- Optimal timing: Engage within first 39% of opportunity lifecycle
+- 11+ activities yield 68.8% win rate vs 45.2% baseline
+- Security Reviews: 84.8% win rate
+- Incorporated into 2025 planning
+
+### Project 6: Amazon Q Developer Enablement (2024)
+Role: Program lead
+Scale: 200+ team members
+
+Solution:
+- Standardized Amazon Q configuration with team-specific prompts
+- Coding standards for SQL, Python aligned with practices
+- Workshop materials and wiki mini-site
+
+Results:
+- 200+ team members enabled
+- Development time reduced 30-50%
+- New team members productive in hours vs. days
+
+### Project 7: SA Engagement Recommendation Engine
+Role: ML engineer
+Scale: Production prototype
+
+Solution:
+- PCA for engagement pattern identification
+- Random Forest, XGBoost, Logistic Regression models
+- 50+ engineered features
 - SHAP values for interpretability
 
 Results:
-- 53% Conversion Rate Improvement
-- 89.1% Model Accuracy (XGBoost best)
-- 87.3% Random Forest accuracy
-- 15-20% Win Rate Improvement
-- 30% Reduction in misallocated efforts
-- $500K+ Annual Impact
+- 53% conversion improvement
+- 89.1% XGBoost accuracy, 87.3% Random Forest, 82.7% Logistic Regression
+- 15-20% win rate improvement
 
-Top Features: Previous Engagement Success (0.23), Account Adoption Score (0.18), Industry (0.15), Account Size (0.12), Time Since Last Engagement (0.09)
+---
 
-### Case Study 3: AWS Serverless Dashboard
-Category: Enterprise Real-time Analytics Platform
+## RETAIL & E-COMMERCE EXPERIENCE
 
-Challenge: Replace manual data collection with real-time analytics for 1,200+ builders.
+### T-Mobile & Sprint (Manager, Digital Analytics) - 2018-2021
+Led retail e-commerce analytics for BoostMobile.com
 
-Solution:
-- React/TypeScript frontend with 90+ Lighthouse scores
-- Python Lambda backend processing 74K+ records
-- <2 second response times
-- AWS Secrets Manager, IAM security
-- API Gateway, S3, CloudFront CDN
+Key Accomplishments:
+- Managed funnel analysis, conversion optimization, A/B testing (Optimizely)
+- Built sales forecasting and propensity models (35% campaign ROI improvement)
+- Designed Power BI platform used by 1/3 of digital organization
+- Taxonomized 200+ metrics across 25+ categories
+- Demand forecasting for retail platform
+- Served as trusted partner to senior leadership on multimillion-dollar decisions
 
-Results:
-- 1,313 Active Users (scaled from 300)
-- 22,000+ Annual Views (highest-utilized tool in WWPS)
-- <2 Second Response Times
-- 53% Reduction in quarterly data curation time
-- 74K+ Records processed
+### Celerity/Randstad Digital (Digital Analytics Lead) - 2015-2018
+Analytics consulting for enterprise retail/telecom clients
+- Cross-channel marketing analytics
+- Data governance frameworks
+- Team training on Tableau, Google Analytics
+
+---
+
+## LEADERSHIP & COLLABORATION
+
+- Mentored junior team members through onboarding, code reviews, technical coaching
+- Delivered GenAI training sessions to audiences of 10-250 people
+- Coordinated G3 Security Initiative with 20+ stakeholders across enablement, PM, tech teams
+- Outcomes actioned by 1,200+ team members organization-wide
+- Published executive reports for L8+ leadership influencing $17M+ decisions
 
 ---
 
 ## SERVICES OFFERED
 
-### 1. Statistical Analysis & Causal Inference
+### 1. GenAI & Agentic AI Systems
+Build RAG pipelines, multi-agent systems, LLM orchestration for production.
+Deliverables: Production AI systems, prompt libraries, evaluation frameworks
+Related: BEAM Platform - RAG + STRANDS, 1,000+ users, <2s response
+
+### 2. Statistical Analysis & Causal Inference
 Apply PhD-level rigor to measure business impact. PSM, DiD, experimental design.
 Deliverables: Statistical reports, executive presentations, validated metrics with CIs
-Related: G3 Analysis - $706K revenue, 6:1 ROI
+Related: G3 Analysis - $706K revenue, 6:1 ROI, $17M+ investment justified
 
-### 2. Machine Learning & AI Consulting
-Build predictive models from problem definition to production. XGBoost, Random Forest, Neural Networks.
+### 3. Machine Learning & AI Consulting
+Build predictive models from problem definition to production.
 Deliverables: Trained models, feature analysis, production APIs, monitoring frameworks
 Related: ML Recommender - 53% conversion improvement, 89.1% accuracy
 
-### 3. AWS Cloud Architecture
+### 4. AWS Cloud Architecture
 Enterprise serverless applications, React/TypeScript frontends, Python Lambda backends.
 Deliverables: Production applications, architecture docs, CI/CD, security implementation
 Related: Serverless Dashboard - 1,313 users, 22,000+ views
 
-### 4. Business Intelligence & Analytics
-Executive dashboards, KPI standardization, regression guardrails, automated reporting.
-Deliverables: Dashboards, automated pipelines, BI regression test suites
+### 5. Retail & E-commerce Analytics
+Funnel analysis, conversion optimization, demand forecasting, recommendation systems.
+Deliverables: Analytics frameworks, forecasting models, A/B test analysis
+Related: BoostMobile.com analytics, 35% ROI improvement
 
-### 5. Data Engineering
-Scalable pipelines, data warehouses, data contracts, real-time processing on AWS.
-Deliverables: Production pipelines, data warehouse, data quality frameworks
-
-### 6. GenAI & Data Governance
-Safe GenAI adoption, data contracts, LLM evaluation frameworks, metric governance.
-Deliverables: GenAI readiness assessment, data contracts, LLM evaluation pipelines
-Related: Data Audit Platform - 150+ dashboards audited, 85% reduction in issues
+### 6. Performance Measurement & Team Analytics
+Build systems to measure and compare team performance fairly.
+Deliverables: Performance frameworks, peer ranking systems, automated dashboards
+Related: DRIVE Framework - 21 metrics, 30,000+ views, instant self-service
 
 ---
 
