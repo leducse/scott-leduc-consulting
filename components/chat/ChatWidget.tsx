@@ -156,8 +156,8 @@ export default function ChatWidget() {
           const data = JSON.parse(event.data);
           
           // Handle different message types from AgentCore
-          if (data.type === "chunk" || data.content) {
-            const content = data.content || data.text || "";
+          if (data.type === "chunk") {
+            const content = data.content ?? data.text ?? "";
             currentResponseRef.current += content;
             
             setMessages((prev) => {
@@ -186,11 +186,12 @@ export default function ChatWidget() {
           } else if (data.type === "error") {
             setIsLoading(false);
             setMessages((prev) => [
-              ...prev.filter(m => m.id !== "streaming"),
+              ...prev.filter((m) => m.id !== "streaming"),
               {
                 id: `error-${Date.now()}`,
                 role: "assistant",
-                content: data.message || "Sorry, I encountered an error. Please try again.",
+                content:
+                  data.message || data.content || "Sorry, I encountered an error. Please try again.",
                 timestamp: new Date(),
               },
             ]);
@@ -231,6 +232,29 @@ export default function ChatWidget() {
         setIsConnected(false);
         setIsConnecting(false);
         console.log("WebSocket disconnected");
+
+        // If we were mid-generation, the empty "streaming" placeholder can
+        // cause the UI to keep showing the spinner. Replace it with a short error.
+        setIsLoading(false);
+        currentResponseRef.current = "";
+        setMessages((prev) => {
+          const streamingMsg = prev.find((m) => m.id === "streaming");
+          if (!streamingMsg) return prev;
+
+          // Only replace if the streaming message never received content.
+          if (streamingMsg.content && streamingMsg.content.trim().length > 0) return prev;
+
+          return [
+            ...prev.filter((m) => m.id !== "streaming"),
+            {
+              id: `error-${Date.now()}`,
+              role: "assistant",
+              content:
+                "Connection lost while generating a response. Please try again.",
+              timestamp: new Date(),
+            },
+          ];
+        });
         
         // Attempt to reconnect after a delay if chat is still open
         if (isOpen && !reconnectTimeoutRef.current) {

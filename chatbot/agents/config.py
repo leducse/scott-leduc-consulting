@@ -19,10 +19,11 @@ CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "leducse@gmail.com")
 SES_FROM_EMAIL = os.environ.get("SES_FROM_EMAIL", "leducse@gmail.com")
 
 # Model Configuration
-ROUTING_MODEL = "anthropic.claude-3-haiku-20240307-v1:0"
-INTERVIEW_MODEL = "anthropic.claude-3-5-sonnet-20240620-v1:0"
-CONSULTANT_MODEL = "anthropic.claude-3-5-sonnet-20240620-v1:0"
-CONTACT_MODEL = "anthropic.claude-3-haiku-20240307-v1:0"
+# Prefer Amazon Nova models because they generally work with on-demand throughput.
+ROUTING_MODEL = "amazon.nova-lite-v1:0"     # Fast routing
+INTERVIEW_MODEL = "amazon.nova-pro-v1:0"    # Higher quality responses
+CONSULTANT_MODEL = "amazon.nova-pro-v1:0"
+CONTACT_MODEL = "amazon.nova-micro-v1:0"    # Lightweight contact prompt generation
 
 # =============================================================================
 # EMBEDDED KNOWLEDGE BASE

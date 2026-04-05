@@ -91,23 +91,51 @@ class ScottLeducAgent:
         max_tokens: int = 1024
     ) -> str:
         """Invoke a Bedrock model with the given prompts."""
-        try:
-            response = self.bedrock_runtime.converse(
-                modelId=model_id,
-                system=[{"text": system_prompt}],
-                messages=[
-                    {"role": m["role"], "content": [{"text": m["content"]}]}
-                    for m in messages
-                ],
-                inferenceConfig={
-                    "maxTokens": max_tokens,
-                    "temperature": 0.7,
-                }
-            )
-            return response["output"]["message"]["content"][0]["text"]
-        except Exception as e:
-            logger.error(f"Error invoking model {model_id}: {e}")
-            raise
+        # If a model is marked legacy, Bedrock may return a ResourceNotFoundException / AccessDenied.
+        # Retry with non-legacy Claude 4.x models to keep chat working.
+        fallback_model_ids = [
+            # Default to Nova because it typically works with on-demand throughput.
+            "amazon.nova-pro-v1:0",
+            "amazon.nova-lite-v1:0",
+            "amazon.nova-micro-v1:0",
+        ]
+
+        system = [{"text": system_prompt}]
+        bedrock_messages = [
+            {"role": m["role"], "content": [{"text": m["content"]}]}
+            for m in messages
+        ]
+        inference_config = {
+            "maxTokens": max_tokens,
+            "temperature": 0.7,
+        }
+
+        last_error: Optional[Exception] = None
+        candidate_model_ids = [model_id] + [m for m in fallback_model_ids if m != model_id]
+
+        for candidate_model_id in candidate_model_ids:
+            try:
+                response = self.bedrock_runtime.converse(
+                    modelId=candidate_model_id,
+                    system=system,
+                    messages=bedrock_messages,
+                    inferenceConfig=inference_config,
+                )
+                return response["output"]["message"]["content"][0]["text"]
+            except Exception as e:
+                last_error = e
+                err_str = str(e)
+                logger.error(f"Error invoking model {candidate_model_id}: {e}")
+
+                # Only do the fallback dance for legacy/access-denied class failures.
+                if candidate_model_id == model_id and not any(
+                    term in err_str
+                    for term in ["Legacy", "legacy", "ResourceNotFoundException", "Access denied", "AccessDenied"]
+                ):
+                    raise
+
+        assert last_error is not None
+        raise last_error
     
     async def _invoke_model_streaming(
         self,
@@ -117,28 +145,57 @@ class ScottLeducAgent:
         max_tokens: int = 1024
     ) -> AsyncGenerator[str, None]:
         """Invoke a Bedrock model with streaming response."""
-        try:
-            response = self.bedrock_runtime.converse_stream(
-                modelId=model_id,
-                system=[{"text": system_prompt}],
-                messages=[
-                    {"role": m["role"], "content": [{"text": m["content"]}]}
-                    for m in messages
-                ],
-                inferenceConfig={
-                    "maxTokens": max_tokens,
-                    "temperature": 0.7,
-                }
-            )
-            
-            for event in response["stream"]:
-                if "contentBlockDelta" in event:
-                    delta = event["contentBlockDelta"]["delta"]
-                    if "text" in delta:
-                        yield delta["text"]
-        except Exception as e:
-            logger.error(f"Error invoking model {model_id}: {e}")
-            raise
+        # If a model is marked legacy, Bedrock may return a ResourceNotFoundException / AccessDenied.
+        # Retry with non-legacy Claude 4.x models to keep chat working.
+        fallback_model_ids = [
+            # Default to Nova because it typically works with on-demand throughput.
+            "amazon.nova-pro-v1:0",
+            "amazon.nova-lite-v1:0",
+            "amazon.nova-micro-v1:0",
+        ]
+
+        system = [{"text": system_prompt}]
+        bedrock_messages = [
+            {"role": m["role"], "content": [{"text": m["content"]}]}
+            for m in messages
+        ]
+        inference_config = {
+            "maxTokens": max_tokens,
+            "temperature": 0.7,
+        }
+
+        last_error: Optional[Exception] = None
+        candidate_model_ids = [model_id] + [m for m in fallback_model_ids if m != model_id]
+
+        for candidate_model_id in candidate_model_ids:
+            try:
+                response = self.bedrock_runtime.converse_stream(
+                    modelId=candidate_model_id,
+                    system=system,
+                    messages=bedrock_messages,
+                    inferenceConfig=inference_config,
+                )
+
+                for event in response["stream"]:
+                    if "contentBlockDelta" in event:
+                        delta = event["contentBlockDelta"]["delta"]
+                        if "text" in delta:
+                            yield delta["text"]
+                return
+            except Exception as e:
+                last_error = e
+                err_str = str(e)
+                logger.error(f"Error invoking model {candidate_model_id}: {e}")
+
+                # Only do the fallback dance for legacy/access-denied class failures.
+                if candidate_model_id == model_id and not any(
+                    term in err_str
+                    for term in ["Legacy", "legacy", "ResourceNotFoundException", "Access denied", "AccessDenied"]
+                ):
+                    raise
+
+        assert last_error is not None
+        raise last_error
     
     def _retrieve_from_knowledge_base(self, query: str, top_k: int = 5) -> str:
         """Retrieve relevant context from the knowledge base."""
