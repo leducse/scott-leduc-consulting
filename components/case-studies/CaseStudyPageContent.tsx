@@ -1,5 +1,3 @@
-"use client";
-
 import { CASE_STUDIES } from "@/lib/constants";
 import { CASE_STUDY_CONTENT } from "@/lib/content";
 import CaseStudyHeader from "./CaseStudyHeader";
@@ -8,8 +6,24 @@ import Methodology from "./Methodology";
 import StatsVisualization from "../shared/StatsVisualization";
 import GradientCard from "../shared/GradientCard";
 import ServiceCTA from "../services/ServiceCTA";
+import ArchitectureDiagram, {
+  type ArchitectureDiagramKey,
+} from "./ArchitectureDiagram";
 
 type CaseStudyKey = keyof typeof CASE_STUDY_CONTENT;
+
+const ARCHITECTURE_DIAGRAM_KEYS = [
+  "ai-coding-spillover",
+  "mcp-query-governance",
+  "tableau-knowledge-platform",
+  "tableau-quicksight-migration",
+] as const;
+
+function isArchitectureDiagramKey(
+  key: CaseStudyKey
+): key is ArchitectureDiagramKey {
+  return (ARCHITECTURE_DIAGRAM_KEYS as readonly string[]).includes(key);
+}
 
 interface CaseStudyPageContentProps {
   caseStudyKey: CaseStudyKey;
@@ -24,6 +38,10 @@ const caseStudyGradients: Record<CaseStudyKey, string> = {
   "data-audit-platform": "from-cyan-500 to-teal-500",
   "bi-regression-guardrails": "from-blue-500 to-sky-500",
   "consulting-platform": "from-cyan-500 to-violet-500",
+  "ai-coding-spillover": "from-violet-500 to-indigo-500",
+  "mcp-query-governance": "from-amber-500 to-orange-500",
+  "tableau-knowledge-platform": "from-emerald-500 to-cyan-500",
+  "tableau-quicksight-migration": "from-sky-500 to-blue-500",
 };
 
 export default function CaseStudyPageContent({
@@ -49,6 +67,10 @@ export default function CaseStudyPageContent({
     "data-audit-platform": ["Dashboards Audited", "Quality Checks", "Lineage Tracked"],
     "bi-regression-guardrails": ["Regressions Caught", "Dashboards Protected", "CI/CD Integration"],
     "consulting-platform": ["Deploy Time", "Architecture", "AI Agents"],
+    "ai-coding-spillover": ["Panel Scale", "Methods", "Reproducibility"],
+    "mcp-query-governance": ["Principals Scored", "Detection", "Governance Path"],
+    "tableau-knowledge-platform": ["Validation", "Doc Passes", "AWS Path"],
+    "tableau-quicksight-migration": ["Checks", "Parity", "Deploy Mode"],
   };
 
   const visualizationStats =
@@ -107,6 +129,16 @@ export default function CaseStudyPageContent({
             <p className="text-slate-100 leading-relaxed">{content.impact}</p>
           </GradientCard>
         </section>
+
+        {isArchitectureDiagramKey(caseStudyKey) && (
+          <section className="space-y-4">
+            <h2 className="text-3xl font-bold text-white">Architecture</h2>
+            <ArchitectureDiagram diagram={caseStudyKey} title={meta.title} />
+            {"portfolioNote" in content && content.portfolioNote && (
+              <p className="text-sm text-slate-400 leading-relaxed">{content.portfolioNote}</p>
+            )}
+          </section>
+        )}
 
         {content.methodology && (
           <Methodology title={content.methodology.title} steps={content.methodology.steps} />
@@ -179,7 +211,7 @@ export default function CaseStudyPageContent({
         <section>
           <ServiceCTA
             headline="Need a similar solution?"
-            subheadline="Let’s replicate this success within your organization with a tailored engagement plan."
+            subheadline="Let's replicate this success within your organization with a tailored engagement plan."
           />
         </section>
       </div>

@@ -10,12 +10,17 @@ KNOWLEDGE_BASE_ID = os.environ.get("KNOWLEDGE_BASE_ID", "QFNR1QV59Y")
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "leducse@gmail.com")
 SES_FROM_EMAIL = os.environ.get("SES_FROM_EMAIL", "leducse@gmail.com")
 
-# Model Configuration
-# Prefer Amazon Nova models because they generally work with on-demand throughput.
-ROUTING_MODEL = "amazon.nova-lite-v1:0"     # Fast routing
-INTERVIEW_MODEL = "amazon.nova-pro-v1:0"    # Higher quality responses
-CONSULTANT_MODEL = "amazon.nova-pro-v1:0"
-CONTACT_MODEL = "amazon.nova-micro-v1:0"    # Lightweight contact prompt generation
+# Model Configuration — Claude 4.5 (see chatbot/agents/config.py for embedded-knowledge path)
+ROUTING_MODEL = os.environ.get("BEDROCK_ROUTING_MODEL", "us.anthropic.claude-haiku-4-5-20251001-v1:0")
+INTERVIEW_MODEL = os.environ.get("BEDROCK_INTERVIEW_MODEL", "us.anthropic.claude-sonnet-4-5-20250929-v1:0")
+CONSULTANT_MODEL = os.environ.get("BEDROCK_CONSULTANT_MODEL", "us.anthropic.claude-sonnet-4-5-20250929-v1:0")
+CONTACT_MODEL = os.environ.get("BEDROCK_CONTACT_MODEL", "us.anthropic.claude-haiku-4-5-20251001-v1:0")
+MODEL_FALLBACK_CHAIN = [
+    "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+    "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "amazon.nova-pro-v1:0",
+    "amazon.nova-lite-v1:0",
+]
 
 # System Prompts
 ROUTING_SYSTEM_PROMPT = """You are a routing assistant for Decision Layer Analytics (decision-layer.com), Scott LeDuc's consulting practice. Your role is to analyze user messages and route them to the appropriate specialist agent.

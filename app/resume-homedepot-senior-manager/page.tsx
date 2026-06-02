@@ -340,6 +340,10 @@ export default function ResumeHomeDepotSeniorManager() {
               </h2>
               <ul className="space-y-1 text-xs">
                 <li className="flex items-start justify-between gap-2">
+                  <span className="text-slate-700">AWS Certified Generative AI Developer - Professional</span>
+                  <span className="text-slate-500 flex-shrink-0">2026</span>
+                </li>
+                <li className="flex items-start justify-between gap-2">
                   <span className="text-slate-700">AWS ML Engineer Associate</span>
                   <span className="text-slate-500 flex-shrink-0">2025</span>
                 </li>

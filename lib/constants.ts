@@ -178,6 +178,62 @@ export const CASE_STUDIES = [
     ],
     gradient: "from-cyan-500 to-violet-500",
   },
+  {
+    id: "ai-coding-spillover",
+    slug: "ai-coding-spillover",
+    category: "portfolio" as const,
+    title: "AI Coding Tool Spillover Analysis",
+    tagline: "Causal Inference on Cloud Revenue Lift",
+    metrics: [
+      { label: "DiD Lift", value: "5.84%", suffix: "" },
+      { label: "95% CI", value: "3.5–8.2%", suffix: "" },
+      { label: "Placebo Test", value: "−0.31%", suffix: " (n.s.)" },
+      { label: "Methods", value: "4", suffix: " (DiD, SMOTE, clusters, bootstrap)" },
+    ],
+    gradient: "from-violet-500 to-indigo-500",
+  },
+  {
+    id: "mcp-query-governance",
+    slug: "mcp-query-governance",
+    category: "portfolio" as const,
+    title: "MCP Query Governance Platform",
+    tagline: "Anomaly Detection + Governed Data Access",
+    metrics: [
+      { label: "Abusers Detected", value: "2/2", suffix: "" },
+      { label: "False Positives", value: "0", suffix: "" },
+      { label: "ML Threshold", value: "3σ", suffix: " (RCF-ready)" },
+      { label: "Enforcement", value: "Notify", suffix: "-only (MVP)" },
+    ],
+    gradient: "from-amber-500 to-orange-500",
+  },
+  {
+    id: "tableau-knowledge-platform",
+    slug: "tableau-knowledge-platform",
+    category: "portfolio" as const,
+    title: "Tableau Workbook Knowledge Platform",
+    tagline: "Field-Trusted GenAI Documentation",
+    metrics: [
+      { label: "Validation Checks", value: "4/4", suffix: " passed" },
+      { label: "Doc Passes", value: "2", suffix: " (draft + refine)" },
+      { label: "Retrieval", value: "MCP", suffix: "-style tools" },
+      { label: "Bedrock Path", value: "CDK", suffix: " + Secrets Manager" },
+    ],
+    gradient: "from-emerald-500 to-cyan-500",
+  },
+  {
+    id: "tableau-quicksight-migration",
+    slug: "tableau-quicksight-migration",
+    category: "portfolio" as const,
+    title: "Tableau → QuickSight Migration Assistant",
+    tagline: "GenAI-Assisted BI Migration with Guardrails",
+    metrics: [
+      { label: "Deploy Gate", value: "PASS", suffix: "" },
+      { label: "Validation", value: "5", suffix: " check types" },
+      { label: "Parity Tolerance", value: "1%", suffix: "" },
+      { label: "Default Mode", value: "Dry-run", suffix: "" },
+    ],
+    gradient: "from-sky-500 to-blue-500",
+  },
 ];
 
 // Icon mapping for dynamic icon rendering

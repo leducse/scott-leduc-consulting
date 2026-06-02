@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-label="MCP query governance architecture">
+  <rect width="720" height="300" fill="#0a1628" rx="12"/>
+  <text x="360" y="32" text-anchor="middle" fill="#fbbf24" font-family="system-ui,sans-serif" font-size="14" font-weight="600">MCP Query Governance (MVP ’ AWS)</text>
+  <text x="180" y="58" text-anchor="middle" fill="#67e8f9" font-family="system-ui,sans-serif" font-size="11">Part 2  Governed Path</text>
+  <text x="540" y="58" text-anchor="middle" fill="#fb923c" font-family="system-ui,sans-serif" font-size="11">Part 1  Sentinel</text>
+  <rect x="40" y="72" width="100" height="44" rx="8" fill="#0f2744" stroke="#22d3ee"/>
+  <text x="90" y="100" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="system-ui">MCP / API</text>
+  <path d="M140 94 H170" stroke="#64748b" stroke-width="2"/>
+  <rect x="170" y="72" width="100" height="44" rx="8" fill="#0f2744" stroke="#22d3ee"/>
+  <text x="220" y="100" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="system-ui">Catalog</text>
+  <path d="M270 94 H300" stroke="#64748b" stroke-width="2"/>
+  <rect x="300" y="72" width="100" height="44" rx="8" fill="#0f2744" stroke="#34d399"/>
+  <text x="350" y="100" text-anchor="middle" fill="#6ee7b7" font-size="10" font-family="system-ui">RLS + Audit</text>
+  <rect x="420" y="72" width="100" height="44" rx="8" fill="#0f2744" stroke="#fb923c"/>
+  <text x="470" y="100" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="system-ui">Query Logs</text>
+  <path d="M520 94 H550" stroke="#64748b" stroke-width="2"/>
+  <rect x="550" y="72" width="130" height="44" rx="8" fill="#431407" stroke="#f97316"/>
+  <text x="615" y="92" text-anchor="middle" fill="#fdba74" font-size="10" font-family="system-ui">Feature Agg</text>
+  <text x="615" y="108" text-anchor="middle" fill="#fdba74" font-size="9" font-family="system-ui">(15m windows)</text>
+  <path d="M615 116 V140" stroke="#64748b" stroke-width="2"/>
+  <rect x="550" y="140" width="130" height="44" rx="8" fill="#431407" stroke="#f97316"/>
+  <text x="615" y="168" text-anchor="middle" fill="#fff" font-size="10" font-family="system-ui" font-weight="600">IsolationForest</text>
+  <text x="615" y="182" text-anchor="middle" fill="#fdba74" font-size="8" font-family="system-ui">’ SageMaker RCF</text>
+  <path d="M615 184 V208" stroke="#64748b" stroke-width="2"/>
+  <rect x="550" y="208" width="130" height="44" rx="8" fill="#0f2744" stroke="#fbbf24"/>
+  <text x="615" y="236" text-anchor="middle" fill="#fde68a" font-size="10" font-family="system-ui">Notify Only</text>
+  <rect x="40" y="140" width="280" height="112" rx="10" fill="#0f2744" stroke="#334155"/>
+  <text x="180" y="168" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="system-ui">Production Target</text>
+  <text x="180" y="196" text-anchor="middle" fill="#cbd5e1" font-size="10" font-family="system-ui">RDS " Lambda " API GW</text>
+  <text x="180" y="218" text-anchor="middle" fill="#cbd5e1" font-size="10" font-family="system-ui">EventBridge " SNS</text>
+  <text x="180" y="240" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Local MVP: SQLite + stdout alerts</text>
+  <text x="360" y="288" text-anchor="middle" fill="#64748b" font-size="10" font-family="system-ui">2/2 abusers detected " 0 false positives (synthetic demo)</text>
+</svg>

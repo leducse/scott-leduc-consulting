@@ -332,28 +332,27 @@ agentcore status
 
 ### Update Embedded Knowledge
 
-The chatbot's knowledge is embedded directly in `chatbot/agents/config.py`. To update:
+Edit markdown under `chatbot/knowledge-base/`, rebuild, and redeploy:
 
 ```bash
-# 1. Edit the knowledge content
-#    Modify EMBEDDED_KNOWLEDGE variable in chatbot/agents/config.py
+# 1. Edit source files (case studies, resume, services, etc.)
+#    chatbot/knowledge-base/
 
-# 2. Also update the source markdown files (for reference)
-#    Edit files in chatbot/knowledge-base/
+# 2. Rebuild embedded_knowledge.md (loaded by agents/config.py)
+python chatbot/scripts/build_embedded_knowledge.py
 
-# 3. Redeploy the agent
+# 3. Redeploy AgentCore
 cd chatbot
 source venv/bin/activate
 agentcore deploy
 
-# 4. Commit and push changes
-git add -A
-git commit -m "Update embedded knowledge"
+# 4. Commit and push
+git add chatbot/knowledge-base chatbot/agents/embedded_knowledge.md
+git commit -m "Update chatbot knowledge"
 git push origin main
 ```
 
-> **Note**: The markdown files in `chatbot/knowledge-base/` are kept for reference 
-> but are not used at runtime. The actual knowledge is in `EMBEDDED_KNOWLEDGE` in config.py.
+> **Models (2026):** Routing/contact use `us.anthropic.claude-haiku-4-5-20251001-v1:0`; interview/consultant use `us.anthropic.claude-sonnet-4-5-20250929-v1:0`. Override with `BEDROCK_*_MODEL` env vars.
 
 ---
 

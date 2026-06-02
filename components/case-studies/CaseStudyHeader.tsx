@@ -26,7 +26,7 @@ export default function CaseStudyHeader({
       
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
           className="text-sm uppercase tracking-[0.35em] text-cyan-400 font-semibold"
@@ -34,7 +34,7 @@ export default function CaseStudyHeader({
           {tagline}
         </motion.p>
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-4xl md:text-5xl font-bold text-white"
@@ -42,7 +42,7 @@ export default function CaseStudyHeader({
           {title}
         </motion.h1>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-lg md:text-xl text-slate-100 max-w-3xl mx-auto"
@@ -51,7 +51,7 @@ export default function CaseStudyHeader({
         </motion.p>
         {primaryMetric && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={false}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: 0.3 }}
             className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[#0f2744] border border-cyan-500/30 text-cyan-400 font-semibold shadow-lg shadow-cyan-500/10"
@@ -61,7 +61,7 @@ export default function CaseStudyHeader({
           </motion.div>
         )}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex justify-center"

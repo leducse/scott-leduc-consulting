@@ -1,382 +1,75 @@
 """Configuration for the Decision Layer Analytics chatbot agents.
 
-This version embeds all knowledge directly in prompts to avoid OpenSearch Serverless
-costs (~$175/month). The knowledge base content is small enough (~6,750 tokens) to
-include in system prompts.
+Knowledge is loaded from ``embedded_knowledge.md`` (built from ``knowledge-base/``)
+to avoid OpenSearch Serverless cost (~$175/month). Rebuild after KB edits::
+
+    python chatbot/scripts/build_embedded_knowledge.py
 """
 
+from __future__ import annotations
+
 import os
+from pathlib import Path
 
 # AWS Configuration
 AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
 
-# Knowledge Base is disabled to save costs - using embedded knowledge instead
-KNOWLEDGE_BASE_ID = None  # Disabled - was "QFNR1QV59Y"
+# Knowledge Base disabled — embedded markdown in system prompts
+KNOWLEDGE_BASE_ID = None  # was "QFNR1QV59Y"
 USE_EMBEDDED_KNOWLEDGE = True
 
 # Email Configuration
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "leducse@gmail.com")
 SES_FROM_EMAIL = os.environ.get("SES_FROM_EMAIL", "leducse@gmail.com")
 
-# Model Configuration
-# Prefer Amazon Nova models because they generally work with on-demand throughput.
-ROUTING_MODEL = "amazon.nova-lite-v1:0"     # Fast routing
-INTERVIEW_MODEL = "amazon.nova-pro-v1:0"    # Higher quality responses
-CONSULTANT_MODEL = "amazon.nova-pro-v1:0"
-CONTACT_MODEL = "amazon.nova-micro-v1:0"    # Lightweight contact prompt generation
-
-# =============================================================================
-# EMBEDDED KNOWLEDGE BASE
-# =============================================================================
-# This is all the content that was previously stored in S3/OpenSearch.
-# Updated with comprehensive Body of Work details.
-
-EMBEDDED_KNOWLEDGE = """
-# DECISION LAYER ANALYTICS - COMPLETE KNOWLEDGE BASE
-
-## ABOUT DECISION LAYER ANALYTICS
-
-Decision Layer Analytics is a consulting practice founded by Scott LeDuc. The name reflects the core value proposition: building the critical layer between raw data and confident business decisions.
-
-**The Decision Layer Philosophy:**
-Most companies are drowning in data. They have dashboards, reports, data scientists who speak a language no one else understands. They have more information than any generation of business leaders in history. And yet... they're guessing. Because data isn't a decision. A chart isn't conviction. A model isn't courage. Decision Layer Analytics builds that missing layer—the one that transforms information into the confidence to act.
-
-**Brand Positioning:** Advanced Analytics. AI/ML Engineering. Cloud Architecture.
-
-**Website:** decision-layer.com
-
----
-
-## SCOTT LEDUC - FOUNDER
-
-AI/ML leader with 10+ years building production AI systems from ML to generative and agentic AI. Expert in RAG pipelines, multi-agent systems (STRANDS), and LLM orchestration with $17M+ validated business impact. First dedicated SA operations member for AWS SLG & EDU vertical, supporting 1,200+ builders across 18 global sub-regions serving 10,200+ customers.
-
-### Contact Information
-- Email: leducse@gmail.com
-- Location: Fairfax, VA
-- LinkedIn: linkedin.com/in/scott-leduc
-- GitHub: github.com/leducse
-- Phone: 703-984-9803
-
-### Key Achievements
-- Drove 45% revenue increase contributing to 19% of WWPS 2023 revenue through predictive modeling
-- Delivered $17M+ in business impact through security engagement programs with statistical validation
-- Led Security Initiative supporting 1,000+ stakeholders including L8 managers and AWS leadership
-- Achieved 1,220 new customer adoptions (exceeded annual target 4 months early)
-- Generated $706K annual revenue with 6:1 ROI through G3 security engagement program
-- Recognized with PMO 'Awesome Award' for operational excellence
-- Mentored junior team members and delivered GenAI training to audiences of 10-250 people
-- Coordinated cross-functional initiatives with 20+ stakeholders
-
-### Education
-- Master of Science, Business Analytics - College of William and Mary (2022)
-  Coursework: AI/Deep Learning, Machine Learning, Big Data, Optimization, Advanced Statistics, Data Engineering
-- BBA - James Madison University (2013)
-
-### Certifications
-- AWS Certified Machine Learning Engineer – Associate (2025)
-- AWS Certified Machine Learning – Specialty (2024)
-- Tableau Certified Specialist (2021)
-- Certified SAFe 5 Agilist (2021)
-
----
-
-## TECHNICAL EXPERTISE
-
-### 1. GenAI & Agentic AI Systems
-- RAG (Retrieval-Augmented Generation) Pipelines
-- STRANDS Multi-Agent Systems
-- LLM Orchestration and Prompt Engineering
-- Amazon Bedrock (Claude AI integration)
-- AI Safety, Guardrails, and Evaluation Frameworks
-- NLP: TF-IDF, extractive summarization, semantic classification
-Track Record: Built BEAM Platform with RAG + STRANDS agents processing 74K+ records with <2s response
-
-### 2. Machine Learning & AI
-- Supervised: XGBoost (89.1% accuracy), Random Forest (87.3%), Neural Networks, Logistic Regression
-- Unsupervised: K-means Clustering, PCA
-- Recommendation Systems (53% conversion improvement)
-- Feature Engineering (50+ features from raw data)
-- Model Interpretability: SHAP values, feature importance
-- Win probability models (23% win rate improvement)
-Track Record: ML recommendation engine improving conversion rates 53%
-
-### 3. Statistical Analysis & Causal Inference
-- Propensity Score Matching (PSM) - 100% success rate
-- Difference-in-Differences (DiD)
-- Experimental Design, A/B Testing
-- Bootstrap Confidence Intervals (10,000 iterations)
-- Regression Analysis, Time Series Analysis
-Track Record: Statistical validation of $17M+ program impact, 638K+ observations analyzed
-
-### 4. AWS Cloud Architecture
-- Serverless: Lambda, API Gateway, Step Functions
-- Storage: S3, DynamoDB, RDS, Aurora PostgreSQL
-- Analytics: Redshift, Athena, QuickSight, Glue
-- AI/ML: SageMaker, Bedrock, Comprehend
-- Security: IAM, Secrets Manager, KMS, Cognito
-- IaC: CloudFormation, CDK
-Track Record: Dashboard serving 1,313+ users, 22,000+ annual views
-
-### 5. Retail & E-commerce Analytics
-- Funnel Analysis and Conversion Optimization
-- A/B Testing (Optimizely)
-- Demand Forecasting and Sales Prediction
-- Customer Segmentation
-- Recommendation Systems
-- Unit Economics Analysis
-Track Record: Led analytics for BoostMobile.com, 35% campaign ROI improvement
-
-### 6. Business Intelligence
-- Tableau (Certified Specialist), QuickSight, Power BI
-- Executive and operational dashboards
-- KPI standardization (200+ metrics taxonomized)
-Track Record: Power BI platform used by 1/3 of digital organization
-
-### 7. Programming & Tools
-- Python (expert): pandas, numpy, scikit-learn, scipy, boto3, FastAPI
-- TypeScript/JavaScript: React, Node.js, Material-UI
-- SQL (expert): PostgreSQL, Redshift, Athena
-- R: tidyverse, statistical modeling
-
----
-
-## DETAILED PROJECT PORTFOLIO
-
-### Project 1: G3 SSR Goal Tracking System (2024-2025)
-Role: Sole builder (primary dashboards), cross-team coordinator
-Scale: 10,000+ users across AWS
-
-Challenge: AWS launched Global Goal 3 to strengthen customer security. Leadership had no unified way to track progress or prove the program actually drove customer outcomes.
-
-Solution:
-- Automated data pipelines aggregating Salesforce, employee systems, account hierarchies
-- Daily-refreshed Tableau executive dashboard with drill-down (AWS-wide to territory level)
-- Unified Data Model combining actuals with distributed targets
-- Rigorous causal inference to prove program effectiveness
-
-Results:
-- Serves 10,000+ SAs and CSMs tracking 20+ program types
-- Dashboard used in weekly leadership and monthly executive reviews
-- 19% security revenue increase (p < 0.05) via propensity score matching
-- $706K annual revenue with 6:1 ROI validated
-- 219.8% ARR lift ($219,942 additional per engaged account)
-- 1,220 new customer adoptions (exceeded target 4 months early)
-- Analysis influenced $17M+ program investment decisions
-
-What I Learned: Initial analysis showed 400-500% revenue increases—clearly inflated due to selection bias. Rebuilt with PSM achieving 100% covariate balance. Now I always ask "what would make this result false?" before presenting.
-
-### Project 2: DRIVE Performance Metrics Framework (Talent Card System) (2024)
-Role: Lead developer
-Scale: 30,000+ views, 1,000+ users
-
-Challenge: Managers spent 2-4 hours manually compiling performance data before reviews, often reaching different conclusions about the same employee.
-
-Solution:
-- 21-metric performance system (Customer Impact, Service Engagement, Industry Impact, Scaling Internally)
-- ETL pipeline with 12+ SQL scripts
-- Peer ranking across 7 dimensions (job family, level, tenure, segment, vertical, region, manager)
-- AI-optimized knowledge base for metric definitions
-
-Results:
-- 30,000+ dashboard views
-- 6th most viewed dashboard on WWPS Tableau site
-- Performance review prep: 2-4 hours → instant
-- Metrics tracked: ~5 inconsistent → 21 standardized
-- Daily automated refresh vs. manual ad-hoc
-
-What I Learned: Built what I thought managers needed. Adoption was slow until I learned they cared most about "how does my team compare?" Peer ranking became the killer feature.
-
-### Project 3: Project Prism - AI Documentation Generator (2024)
-Role: Creator
-Scale: Org-wide tool
-
-Challenge: When a dashboard developer left, it took 3 weeks to understand the workbook. Institutional knowledge walked out the door with every departure.
-
-Solution:
-- Parses Tableau workbook XML (calculations, parameters, data sources)
-- AWS Bedrock Claude AI generates human-readable documentation
-- Enriched with usage analytics from Redshift
-- Validation layer reduces hallucinations from ~15% to <2%
-
-Results:
-- Document one workbook: 4-8 hours → 5 minutes
-- Understand unfamiliar workbook: 1-3 days → 30 minutes
-- Onboard new team member: 2 weeks → 2 days
-- Processes workbooks with 100+ calculated fields
-
-### Project 4: BEAM Platform - Full-Stack AI Application (2024-2025)
-Role: Full-stack developer
-Scale: 1,000+ active users
-
-Challenge: Team members needed to access performance data, generate promotion documentation, and interact with data conversationally. Building body of work took 20+ hours.
-
-Solution:
-- React frontend with Material-UI
-- AWS Lambda backend connecting to Redshift
-- Conversational AI via AWS Bedrock with RAG pipelines and STRANDS agents
-- Document generation for promotions
-- AWS Cognito authentication
-
-Results:
-- 1,000+ active users
-- BI team request volume dropped 40%
-- Promotion prep: 20+ hours → 2-3 hours
-- <2 second response times processing 74K+ records
-- 80% reduction in manual effort
-
-Trade-off: Chose serverless (Lambda) over containers for faster deployment. Launched 6 weeks earlier, validated demand first.
-
-### Project 5: SA Activity Analysis & GTM Strategy (2024)
-Role: Analyst
-Scale: 19,770 opportunities, 52,643 activities
-
-Challenge: Leadership asked "Which SA activities actually drive wins?" No data-driven guidance existed.
-
-Solution:
-- ML clustering to identify customer segments
-- Scenario sequence analysis for activity combinations
-- Statistical significance testing (chi-square)
-- Go-to-market recommendations
-
-Results:
-- 5 high-impact activities identified
-- Optimal timing: Engage within first 39% of opportunity lifecycle
-- 11+ activities yield 68.8% win rate vs 45.2% baseline
-- Security Reviews: 84.8% win rate
-- Incorporated into 2025 planning
-
-### Project 6: Amazon Q Developer Enablement (2024)
-Role: Program lead
-Scale: 200+ team members
-
-Solution:
-- Standardized Amazon Q configuration with team-specific prompts
-- Coding standards for SQL, Python aligned with practices
-- Workshop materials and wiki mini-site
-
-Results:
-- 200+ team members enabled
-- Development time reduced 30-50%
-- New team members productive in hours vs. days
-
-### Project 7: SA Engagement Recommendation Engine
-Role: ML engineer
-Scale: Production prototype
-
-Solution:
-- PCA for engagement pattern identification
-- Random Forest, XGBoost, Logistic Regression models
-- 50+ engineered features
-- SHAP values for interpretability
-
-Results:
-- 53% conversion improvement
-- 89.1% XGBoost accuracy, 87.3% Random Forest, 82.7% Logistic Regression
-- 15-20% win rate improvement
-
----
-
-## RETAIL & E-COMMERCE EXPERIENCE
-
-### T-Mobile & Sprint (Manager, Digital Analytics) - 2018-2021
-Led retail e-commerce analytics for BoostMobile.com
-
-Key Accomplishments:
-- Managed funnel analysis, conversion optimization, A/B testing (Optimizely)
-- Built sales forecasting and propensity models (35% campaign ROI improvement)
-- Designed Power BI platform used by 1/3 of digital organization
-- Taxonomized 200+ metrics across 25+ categories
-- Demand forecasting for retail platform
-- Served as trusted partner to senior leadership on multimillion-dollar decisions
-
-### Celerity/Randstad Digital (Digital Analytics Lead) - 2015-2018
-Analytics consulting for enterprise retail/telecom clients
-- Cross-channel marketing analytics
-- Data governance frameworks
-- Team training on Tableau, Google Analytics
-
----
-
-## LEADERSHIP & COLLABORATION
-
-- Mentored junior team members through onboarding, code reviews, technical coaching
-- Delivered GenAI training sessions to audiences of 10-250 people
-- Coordinated G3 Security Initiative with 20+ stakeholders across enablement, PM, tech teams
-- Outcomes actioned by 1,200+ team members organization-wide
-- Published executive reports for L8+ leadership influencing $17M+ decisions
-
----
-
-## SERVICES OFFERED
-
-### 1. GenAI & Agentic AI Systems
-Build RAG pipelines, multi-agent systems, LLM orchestration for production.
-Deliverables: Production AI systems, prompt libraries, evaluation frameworks
-Related: BEAM Platform - RAG + STRANDS, 1,000+ users, <2s response
-
-### 2. Statistical Analysis & Causal Inference
-Apply PhD-level rigor to measure business impact. PSM, DiD, experimental design.
-Deliverables: Statistical reports, executive presentations, validated metrics with CIs
-Related: G3 Analysis - $706K revenue, 6:1 ROI, $17M+ investment justified
-
-### 3. Machine Learning & AI Consulting
-Build predictive models from problem definition to production.
-Deliverables: Trained models, feature analysis, production APIs, monitoring frameworks
-Related: ML Recommender - 53% conversion improvement, 89.1% accuracy
-
-### 4. AWS Cloud Architecture
-Enterprise serverless applications, React/TypeScript frontends, Python Lambda backends.
-Deliverables: Production applications, architecture docs, CI/CD, security implementation
-Related: Serverless Dashboard - 1,313 users, 22,000+ views
-
-### 5. Retail & E-commerce Analytics
-Funnel analysis, conversion optimization, demand forecasting, recommendation systems.
-Deliverables: Analytics frameworks, forecasting models, A/B test analysis
-Related: BoostMobile.com analytics, 35% ROI improvement
-
-### 6. Performance Measurement & Team Analytics
-Build systems to measure and compare team performance fairly.
-Deliverables: Performance frameworks, peer ranking systems, automated dashboards
-Related: DRIVE Framework - 21 metrics, 30,000+ views, instant self-service
-
----
-
-## ENGAGEMENT METHODOLOGY (5 Phases)
-
-### Phase 1: Discovery & Assessment (1-2 weeks)
-Activities: Requirements gathering, stakeholder interviews, data availability, feasibility
-Deliverables: Requirements doc, feasibility assessment, project proposal
-
-### Phase 2: Analysis & Design (1-2 weeks)
-Activities: Methodology selection, architecture design, success metrics
-Deliverables: Architecture diagrams, technical design, KPIs
-
-### Phase 3: Development & Implementation (2-6 weeks)
-Activities: Model/system development, testing, optimization
-Deliverables: Working solution, test results, documentation
-
-### Phase 4: Deployment & Training (1-2 weeks)
-Activities: Production deployment, training, monitoring setup
-Deliverables: Deployed system, user docs, runbooks
-
-### Phase 5: Optimization & Support (Ongoing)
-Activities: Monitoring, retraining, enhancements, quarterly reviews
-Deliverables: Performance reports, recommendations
-
-### Engagement Models
-- Project-Based: Fixed scope, clear deliverables
-- Retainer: Ongoing support, monthly hours
-- Advisory: Strategic guidance, periodic check-ins
-"""
+# Model Configuration — Claude 4.5 inference profiles (avoid legacy Claude 3.x / Nova v1 deprecation)
+# Override per role via env vars without code changes.
+ROUTING_MODEL = os.environ.get(
+    "BEDROCK_ROUTING_MODEL",
+    "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+)
+INTERVIEW_MODEL = os.environ.get(
+    "BEDROCK_INTERVIEW_MODEL",
+    "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+)
+CONSULTANT_MODEL = os.environ.get(
+    "BEDROCK_CONSULTANT_MODEL",
+    "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+)
+CONTACT_MODEL = os.environ.get(
+    "BEDROCK_CONTACT_MODEL",
+    "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+)
+
+# Tried in order when primary model returns legacy / access-denied errors
+MODEL_FALLBACK_CHAIN: list[str] = [
+    "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+    "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "global.anthropic.claude-sonnet-4-5-20250929-v1:0",
+    "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "amazon.nova-pro-v1:0",
+    "amazon.nova-lite-v1:0",
+]
+
+
+def _load_embedded_knowledge() -> str:
+    path = Path(__file__).parent / "embedded_knowledge.md"
+    if not path.exists():
+        raise FileNotFoundError(
+            f"{path} missing. Run: python chatbot/scripts/build_embedded_knowledge.py"
+        )
+    return path.read_text(encoding="utf-8")
+
+
+EMBEDDED_KNOWLEDGE = _load_embedded_knowledge()
 
 # System Prompts
 ROUTING_SYSTEM_PROMPT = """You are a routing assistant for Decision Layer Analytics (decision-layer.com), Scott LeDuc's consulting practice. Your role is to analyze user messages and route them to the appropriate specialist agent.
 
 ROUTING RULES:
-1. INTERVIEW_AGENT: Questions about Scott's background, experience, skills, education, certifications, career history, "tell me about yourself", resume-related, interview-style questions, or questions about his AWS/ML/data science expertise.
+1. INTERVIEW_AGENT: Questions about Scott's background, experience, skills, education, certifications, career history, "tell me about yourself", resume-related, interview-style questions, case study outcomes, portfolio demos, or his AWS/ML/data science expertise.
 
-2. CONSULTANT_AGENT: Problem-solving requests, technical questions seeking advice, architecture discussions, "how would you approach...", methodology questions, best practices, or when users want consulting-style guidance on their own projects.
+2. CONSULTANT_AGENT: Problem-solving requests, technical questions seeking advice, architecture discussions, "how would you approach...", methodology questions, best practices, Tableau/QuickSight/MCP governance/causal inference projects, or consulting-style guidance on the user's own work.
 
 3. CONTACT_HANDLER: When the user explicitly asks to contact Scott, schedule a call, get in touch, discuss pricing/rates, or when the query cannot be adequately answered and requires human follow-up.
 
@@ -393,6 +86,11 @@ INTERVIEW_SYSTEM_PROMPT = """You are Scott LeDuc, founder of Decision Layer Anal
 
 ABOUT DECISION LAYER ANALYTICS:
 Decision Layer Analytics is your consulting practice. The name reflects your core belief: most companies are drowning in data but still guessing when it comes to decisions. You build the critical layer between raw data and the confidence to act. Your tagline: "Advanced Analytics. AI/ML Engineering. Cloud Architecture." Website: decision-layer.com
+
+CASE STUDIES YOU CAN DISCUSS (see REFERENCE KNOWLEDGE for details):
+- Client work: G3 analysis, ML recommender, AWS dashboard, activity analysis, data audit platform, BI regression guardrails, this consulting platform
+- Portfolio demos: AI coding spillover (causal DiD), MCP query governance, Tableau knowledge platform, Tableau→QuickSight migration
+- AWS CDK demos: portfolio-aws-demos stack (Bedrock + Lambda + Secrets Manager)
 
 PERSONA - THE DON DRAPER ENERGY:
 - You are supremely confident, but never arrogant. Confidence isn't loud.
@@ -416,10 +114,11 @@ GUARDRAILS:
 - Never discuss salary expectations or compensation
 - Never make up experiences not in the knowledge base
 - If unsure, say "That's a conversation worth having properly. Let's talk."
+- Portfolio demos use synthetic/sanitized data—say so when relevant
 
 When they want more, say something like: "This is the kind of thing that deserves more than a chat window. Let's connect."
 
-IMPORTANT: Keep responses concise and impactful (2-3 short paragraphs max). Every word should earn its place. This isn't a presentation. It's a conversation between two people who respect each other's time.
+IMPORTANT: Keep responses concise and impactful (2-3 short paragraphs max). Every word should earn its place.
 
 ---
 
@@ -430,13 +129,13 @@ CONSULTANT_SYSTEM_PROMPT = """You are an AI consultant representing Decision Lay
 
 Decision Layer Analytics builds the critical layer between raw data and confident business decisions—from statistical validation to production ML deployment.
 
-PERSONA - THE DON DRAPER ENERGY:
-- You are supremely confident, but never arrogant. Confidence isn't loud.
-- You cut through complexity to the essential truth. No jargon for jargon's sake.
-- You understand that behind every technical question is a business need: certainty, speed, or survival.
-- You use pauses. Silence is a tool. An ellipsis invites reflection.
-- When you cite results, frame them as inevitable outcomes of doing the work right.
-- You find the human "why" beneath the technical "what."
+CASE STUDIES TO REFERENCE (with specific metrics — see REFERENCE KNOWLEDGE):
+- Causal / ROI: G3 analysis ($706K, 6:1 ROI), AI coding spillover (5.84% DiD lift)
+- ML: SA recommender (53% conversion, 89.1% accuracy)
+- Cloud: AWS dashboard (1,313 users, 22K views), portfolio-aws-demos CDK stack
+- GenAI / BI: Tableau knowledge platform, data audit platform, activity analysis playbooks
+- Governance: MCP query governance (2/2 abusers, 0 FP), BI regression guardrails (45+ prevented)
+- Migration: Tableau→QuickSight assistant (validation gates, dry-run deploy)
 
 CONSULTING APPROACH:
 1. Ask one clarifying question to understand the real problem
@@ -449,26 +148,19 @@ SPEAKING STYLE:
 - Short sentences. Then longer ones for impact.
 - Use "Here's the thing..." or "Let me tell you what actually matters..." to draw people in.
 - No bullet lists in responses. Speak like a human, not a PowerPoint.
-- Instead of "We could implement propensity score matching," say: "We'd measure who really moved the needle—and prove it with statistical confidence."
 - End strong. Leave them thinking.
-
-AREAS OF EXPERTISE:
-- Proving ROI (not estimating it)
-- Predictive models that actually get used
-- Cloud systems that scale without headaches
-- Dashboards people trust
-- Getting organizations ready for AI
 
 GUARDRAILS:
 - No code dumps unless directly asked
 - No guarantees—but confidence in the approach
 - For complex work, say: "This is the kind of thing that deserves more than a chat window. Let's connect."
 - Never discuss pricing specifics
+- Portfolio MVPs are synthetic demos unless noted as production AWS deployments
 
 ESCALATION:
 If the problem is meaty enough to require a real engagement: "This sounds like a conversation worth having properly. Want me to help set that up?"
 
-IMPORTANT: Keep responses concise and impactful (2-3 short paragraphs max). Every word earns its place.
+IMPORTANT: Keep responses concise and impactful (2-3 short paragraphs max).
 
 ---
 
@@ -498,6 +190,6 @@ VALIDATION:
 - If validation fails, politely ask them to re-enter
 
 CONFIRMATION MESSAGE (only when you have all 3 pieces):
-"Thanks, [Name]! I've sent your message to Scott at leducse@gmail.com. He typically responds within 24-48 hours. In the meantime, feel free to explore the case studies on the website!"
+"Thanks, [Name]! I've sent your message to Scott at leducse@gmail.com. He typically responds within 24-48 hours. In the meantime, feel free to explore the case studies on the website — including the new portfolio demos on MCP governance, Tableau documentation, and QuickSight migration!"
 
 TONE: Friendly, efficient, reassuring. Keep messages very short and conversational."""

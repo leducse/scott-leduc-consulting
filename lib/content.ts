@@ -89,6 +89,7 @@ export const ABOUT_CONTENT = {
     ],
   },
   certifications: [
+    { name: "AWS Certified Generative AI Developer – Professional", year: "2026" },
     { name: "AWS Certified Machine Learning Engineer – Associate", year: "2025" },
     { name: "AWS Certified Machine Learning – Specialty", year: "2024" },
     { name: "Tableau Certified Specialist", year: "2021" },
@@ -160,7 +161,7 @@ export const SERVICE_CONTENT = {
       "Validated impact metrics with confidence intervals",
       "Reusable analysis frameworks",
     ],
-    caseStudy: "g3-analysis",
+    caseStudy: "ai-coding-spillover",
   },
   "machine-learning": {
     title: "Machine Learning & AI Consulting",
@@ -230,7 +231,7 @@ export const SERVICE_CONTENT = {
       "User training and documentation",
       "Self-service analytics enablement",
     ],
-    caseStudy: "aws-dashboard",
+    caseStudy: "tableau-quicksight-migration",
   },
   "data-engineering": {
     title: "Data Engineering Consulting",
@@ -281,7 +282,7 @@ export const SERVICE_CONTENT = {
       "Metric governance framework and semantic layer",
       "AI adoption roadmap and success metrics",
     ],
-    caseStudy: "data-audit-platform",
+    caseStudy: "tableau-knowledge-platform",
   },
 };
 
@@ -597,6 +598,224 @@ export const CASE_STUDY_CONTENT = {
     ],
     impact: "A working demonstration that bridges strategy and implementation. The site itself is the portfolio piece—proving the ability to deliver end-to-end from concept to production deployment.",
   },
+  "ai-coding-spillover": {
+    problem:
+      "When customers adopt AI-assisted coding tools, does semi-related cloud service revenue actually rise? Rare adopters, unbalanced panels, and selection bias make naive before/after comparisons unreliable for program investment decisions.",
+    solution:
+      "Built a reproducible causal analytics pipeline: panel construction with event-time alignment, K-means segmentation for heterogeneous effects, SMOTE + propensity matching for covariate balance, and difference-in-differences with clustered standard errors, bootstrap CIs, and placebo timing tests. Entire demo runs on synthetic data with a known injected lift.",
+    results: [
+      "5.84% DiD percent lift on semi-related service revenue (clustered 95% CI: 3.50%–8.23%)",
+      "Bootstrap mean lift 5.95% (95% CI 3.55%–8.37%)",
+      "Placebo adoption date lift −0.31% (p = 0.84) — no spurious effect",
+      "Recovered ~5% ground-truth lift baked into synthetic generator",
+      "Covariate balance improved via SMOTE + matching (SMD reports in outputs/)",
+    ],
+    methodology: {
+      title: "Causal Inference Pipeline",
+      steps: [
+        {
+          name: "Panel & Event Time",
+          description:
+            "Merge revenue and activity signals; align each account to first coding-tool adoption with a ±6 month event window.",
+        },
+        {
+          name: "Clustering",
+          description:
+            "K-means on pre-treatment features (elbow + silhouette) to segment customer archetypes for heterogeneous DiD.",
+        },
+        {
+          name: "Matching + SMOTE",
+          description:
+            "Balance treated vs control on pre-period covariates; report standardized mean differences before and after.",
+        },
+        {
+          name: "DiD + Robustness",
+          description:
+            "Estimate treat×post with account-clustered SEs; event-study plot, bootstrap CIs, and placebo adoption timing.",
+        },
+      ],
+    },
+    scale: [
+      "638K+ customer-month observations (synthetic panel design)",
+      "4 core methods — DiD, SMOTE, clustering, bootstrap",
+      "Reproducible CLI — generate data + run pipeline in one command",
+    ],
+    technologies: [
+      "Python 3.11 + pandas / statsmodels",
+      "scikit-learn (K-means, SMOTE)",
+      "Jupyter walkthrough notebook",
+      "matplotlib / seaborn figures",
+    ],
+    architectureDiagram: "/case-studies/ai-coding-spillover-arch.svg",
+    portfolioNote:
+      "Runnable portfolio MVP (synthetic data only). GitHub-ready repo with PLAN.md spec and case_study.md executive summary.",
+    impact:
+      "Demonstrates how to answer “did this initiative work?” with defensible causal methods—not just dashboards—so leaders can fund programs with confidence intervals, not anecdotes.",
+  },
+  "mcp-query-governance": {
+    problem:
+      "Programmatic database access through MCP and APIs creates shadow query paths: abusive principals can fan out scans, bypass governance, and exfiltrate data without traditional BI audit trails catching them in time.",
+    solution:
+      "Designed a two-part platform: Sentinel (Part 1) aggregates per-principal features, trains an anomaly detector with a SageMaker RCF–swappable interface, and emits notify-only alerts with explainable scores; Governed MCP (Part 2) serves a cataloged query path with param validation, server-side RLS injection, and full audit logging. Local MVP uses SQLite + IsolationForest; production maps to RDS, Lambda, EventBridge, and SageMaker.",
+    results: [
+      "2/2 injected abusers detected (shadow-abuser-01 via ML + hard cap; shadow-abuser-02 ML-only under cap)",
+      "0 false positives on baseline analyst principals",
+      "~4σ anomaly scores on abusers with 3.0σ default threshold",
+      "Governed query path demonstrates allowed + rejected catalog calls",
+      "Notify-only enforcement with simulated Slack/EventBridge payloads",
+    ],
+    methodology: {
+      title: "Sentinel + Governed Access",
+      steps: [
+        {
+          name: "Feature Aggregation",
+          description:
+            "Roll query_audit logs into per-principal / 15-minute features: volume, bytes scanned, off-hours fan-out.",
+        },
+        {
+          name: "Anomaly Detection",
+          description:
+            "Train IsolationForest on baseline window (RCF interface for SageMaker swap); hybrid ML + hard-cap rules.",
+        },
+        {
+          name: "Governed Catalog",
+          description:
+            "Cataloged queries with validation, RLS injection, and executed SQL audit trail—no ad-hoc SQL from agents.",
+        },
+        {
+          name: "AWS Production Path",
+          description:
+            "Documented CDK stack: RDS, Lambda feature_agg, SageMaker RCF, SNS/EventBridge, API Gateway + Cognito.",
+        },
+      ],
+    },
+    scale: [
+      "12 synthetic principals — 10 normal + 2 injected abusers",
+      "Hybrid detection — ML + hard cap rules",
+      "MVP_SPEC — full AWS target architecture documented",
+    ],
+    technologies: [
+      "Python + pandas feature pipeline",
+      "scikit-learn IsolationForest (SageMaker RCF–swappable)",
+      "SQLite demo warehouse (RDS in production)",
+      "Catalog + RLS executor (Lambda + API Gateway target)",
+    ],
+    architectureDiagram: "/case-studies/mcp-query-governance-arch.svg",
+    portfolioNote:
+      "Portfolio MVP runs locally with zero AWS credentials. Detector backend swaps via DETECTOR_BACKEND=sagemaker.",
+    impact:
+      "Shows how to govern agent and API database access without blocking innovation—catch abusive patterns early, route legitimate queries through auditable catalogs, and scale to enterprise AWS services.",
+  },
+  "tableau-knowledge-platform": {
+    problem:
+      "Tableau workbooks accumulate calculated fields, parameters, and dashboards that only original authors understand—blocking self-service analytics, safe GenAI answers, and consistent metric definitions across teams.",
+    solution:
+      "Built an end-to-end documentation platform: parse TWB/TWBX into condensed metadata, two-pass Amazon Bedrock generation (draft + metadata-grounded refine), rule-based validator for calc/param/datasource coverage, versioned doc store (S3 pattern), and MCP-style retrieval tools. Local demo uses template mock; real Bedrock via shared portfolio_aws library + CDK-deployed Lambda and Secrets Manager.",
+    results: [
+      "4/4 validation checks passed on demo workbook",
+      "Two-pass doc generation with grounding against metadata.json",
+      "MCP-style tools: list_workbooks, get_workbook_doc, search_docs",
+      "CDK stack: API Gateway → Lambda → Bedrock Converse → S3",
+      "No AWS credentials required for default local mock path",
+    ],
+    methodology: {
+      title: "Metadata → Trusted Docs",
+      steps: [
+        {
+          name: "Parse & Condense",
+          description:
+            "Extract data sources, calculated fields, parameters, sheets, and dashboards into minimal metadata.json.",
+        },
+        {
+          name: "Two-Pass Generation",
+          description:
+            "Bedrock Converse draft, then refine pass constrained to metadata—reduces hallucinated field names.",
+        },
+        {
+          name: "Rule Validator",
+          description:
+            "Non-LLM checks: calc coverage, param names, datasource references, required markdown sections.",
+        },
+        {
+          name: "Publish & Retrieve",
+          description:
+            "Versioned S3-style layout; keyword search and MCP read tools for agents and analysts.",
+        },
+      ],
+    },
+    scale: [
+      "Demo workbook — full pipeline under 2 minutes locally",
+      "4 validation dimensions — calc, param, datasource, sections",
+      "CDK PortfolioDemosStack — real Bedrock when deployed",
+    ],
+    technologies: [
+      "Python TWB XML parser",
+      "Amazon Bedrock Converse API",
+      "AWS CDK (Lambda, API Gateway, S3, Secrets Manager)",
+      "portfolio_aws shared library",
+      "MCP-style read server",
+    ],
+    architectureDiagram: "/case-studies/tableau-knowledge-arch.svg",
+    portfolioNote:
+      "Sibling to Tableau → QuickSight Migration Assistant; shares metadata ingest layer.",
+    impact:
+      "Turns tribal Tableau knowledge into field-trusted documentation that humans and agents can query—foundation for governed GenAI over BI assets.",
+  },
+  "tableau-quicksight-migration": {
+    problem:
+      "Tableau → Amazon QuickSight migrations stall on manual remapping of calculations, visuals, and Amazon Q topics—teams ship incomplete assets or break executive metrics without parity checks before production.",
+    solution:
+      "Built a migration assistant that maps condensed Tableau metadata to QuickSight datasets, calculations, and visuals; generates reviewable deployment packages and ordered API plans; runs five validation dimensions including metric parity fixtures; gates deploy on confidence and structural checks. GenAI behind a swappable interface (rule-based mock default; guarded Bedrock path). deploy.py defaults to dry-run.",
+    results: [
+      "migration_report.json deploy_allowed: true on demo package",
+      "5 validation types — structural, datasource, calculation, parity, visual",
+      "1% tolerance metric parity on high-confidence, non-LOD calcs",
+      "Ordered Create* API dry-run plan without AWS mutations",
+      "Documented gaps for LOD, table calcs, and pixel-perfect layouts",
+    ],
+    methodology: {
+      title: "Map → Generate → Validate → Deploy",
+      steps: [
+        {
+          name: "Metadata Mapping",
+          description:
+            "Datasource, calculation, and visual mappers from Tableau metadata to QuickSight asset YAML.",
+        },
+        {
+          name: "Package Builder",
+          description:
+            "Assemble manifest, layout gap report, and Amazon Q topic definitions for human review.",
+        },
+        {
+          name: "Validation Engine",
+          description:
+            "Structural references, datasource class checks, calc confidence gating, parity CSV fixtures, visual filters.",
+        },
+        {
+          name: "Deploy Planner",
+          description:
+            "Ordered QuickSight API plan; --dry-run default; --deploy-dev guarded for real AWS.",
+        },
+      ],
+    },
+    scale: [
+      "Demo metadata — end-to-end run_migration.py loop",
+      "5 validation dimensions — FAIL blocks deploy",
+      "Explicit non-goals — LOD, table calcs, ATTR() documented",
+    ],
+    technologies: [
+      "Python mapping + validation engine",
+      "YAML migration artifacts",
+      "Amazon QuickSight API planner",
+      "Guarded Amazon Bedrock generator path",
+      "Parity fixture CSVs",
+    ],
+    architectureDiagram: "/case-studies/tableau-quicksight-migration-arch.svg",
+    portfolioNote:
+      "Pairs with Tableau Workbook Knowledge Platform for documentation + migration.",
+    impact:
+      "Accelerates QuickSight adoption with reviewable artifacts and hard deploy gates—so teams migrate with eyes open, not surprise broken KPIs.",
+  },
 };
 
 // Problem → Solution cards for homepage
@@ -654,6 +873,15 @@ export const SOLUTION_CARDS = [
     proof: "85% reduction in data issues, 45+ regressions prevented",
     caseStudySlug: "bi-regression-guardrails",
     gradient: "from-emerald-500 to-cyan-500",
+  },
+  {
+    id: "agent-governance",
+    title: "Agent & MCP Data Governance",
+    problem: "AI agents can query your warehouse through MCP without the same controls as your BI stack.",
+    solution: "Anomaly detection on query patterns plus cataloged, RLS-enforced access paths with full audit trails.",
+    proof: "2/2 abusive patterns detected, 0 false positives in synthetic demo",
+    caseStudySlug: "mcp-query-governance",
+    gradient: "from-amber-500 to-orange-500",
   },
 ];
 

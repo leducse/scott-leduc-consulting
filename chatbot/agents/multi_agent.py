@@ -16,6 +16,7 @@ from .config import (
     AWS_REGION,
     KNOWLEDGE_BASE_ID,
     USE_EMBEDDED_KNOWLEDGE,
+    MODEL_FALLBACK_CHAIN,
     CONTACT_EMAIL,
     SES_FROM_EMAIL,
     ROUTING_MODEL,
@@ -107,15 +108,6 @@ class ScottLeducAgent:
         max_tokens: int = 1024
     ) -> str:
         """Invoke a Bedrock model with the given prompts."""
-        # If a model is marked legacy, Bedrock may return a ResourceNotFoundException / AccessDenied.
-        # Retry with non-legacy Claude 4.x models to keep chat working.
-        fallback_model_ids = [
-            # Default to Nova because it typically works with on-demand throughput.
-            "amazon.nova-pro-v1:0",
-            "amazon.nova-lite-v1:0",
-            "amazon.nova-micro-v1:0",
-        ]
-
         system = [{"text": system_prompt}]
         bedrock_messages = [
             {"role": m["role"], "content": [{"text": m["content"]}]}
@@ -127,7 +119,9 @@ class ScottLeducAgent:
         }
 
         last_error: Optional[Exception] = None
-        candidate_model_ids = [model_id] + [m for m in fallback_model_ids if m != model_id]
+        candidate_model_ids = [model_id] + [
+            m for m in MODEL_FALLBACK_CHAIN if m != model_id
+        ]
 
         for candidate_model_id in candidate_model_ids:
             try:
@@ -161,15 +155,6 @@ class ScottLeducAgent:
         max_tokens: int = 1024
     ) -> AsyncGenerator[str, None]:
         """Invoke a Bedrock model with streaming response."""
-        # If a model is marked legacy, Bedrock may return a ResourceNotFoundException / AccessDenied.
-        # Retry with non-legacy Claude 4.x models to keep chat working.
-        fallback_model_ids = [
-            # Default to Nova because it typically works with on-demand throughput.
-            "amazon.nova-pro-v1:0",
-            "amazon.nova-lite-v1:0",
-            "amazon.nova-micro-v1:0",
-        ]
-
         system = [{"text": system_prompt}]
         bedrock_messages = [
             {"role": m["role"], "content": [{"text": m["content"]}]}
@@ -181,7 +166,9 @@ class ScottLeducAgent:
         }
 
         last_error: Optional[Exception] = None
-        candidate_model_ids = [model_id] + [m for m in fallback_model_ids if m != model_id]
+        candidate_model_ids = [model_id] + [
+            m for m in MODEL_FALLBACK_CHAIN if m != model_id
+        ]
 
         for candidate_model_id in candidate_model_ids:
             try:

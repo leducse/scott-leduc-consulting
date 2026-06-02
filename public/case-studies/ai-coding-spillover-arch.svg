@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-label="AI coding spillover analysis pipeline">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="280" fill="#0a1628" rx="12"/>
+  <text x="360" y="32" text-anchor="middle" fill="#67e8f9" font-family="system-ui,sans-serif" font-size="14" font-weight="600">Causal Analytics Pipeline (Synthetic Demo)</text>
+  <rect x="24" y="56" width="120" height="48" rx="8" fill="#0f2744" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="84" y="86" text-anchor="middle" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="11">Panel Data</text>
+  <path d="M144 80 H168" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="168" y="56" width="120" height="48" rx="8" fill="#0f2744" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="228" y="86" text-anchor="middle" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="11">K-Means</text>
+  <path d="M288 80 H312" stroke="#64748b" stroke-width="2"/>
+  <rect x="312" y="56" width="120" height="48" rx="8" fill="#0f2744" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="372" y="86" text-anchor="middle" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="11">SMOTE Match</text>
+  <path d="M432 80 H456" stroke="#64748b" stroke-width="2"/>
+  <rect x="456" y="56" width="120" height="48" rx="8" fill="url(#g1)" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="516" y="86" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="600">DiD + CI</text>
+  <path d="M576 80 H600" stroke="#64748b" stroke-width="2"/>
+  <rect x="600" y="56" width="96" height="48" rx="8" fill="#0f2744" stroke="#34d399" stroke-width="1.5"/>
+  <text x="648" y="78" text-anchor="middle" fill="#6ee7b7" font-family="system-ui,sans-serif" font-size="10">5.84%</text>
+  <text x="648" y="94" text-anchor="middle" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="9">Lift</text>
+  <rect x="120" y="140" width="480" height="100" rx="10" fill="#0f2744" stroke="#334155" stroke-width="1"/>
+  <text x="360" y="168" text-anchor="middle" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="11">Robustness Layer</text>
+  <text x="200" y="198" text-anchor="middle" fill="#cbd5e1" font-family="system-ui,sans-serif" font-size="10">Event Study</text>
+  <text x="360" y="198" text-anchor="middle" fill="#cbd5e1" font-family="system-ui,sans-serif" font-size="10">Bootstrap 10k</text>
+  <text x="520" y="198" text-anchor="middle" fill="#cbd5e1" font-family="system-ui,sans-serif" font-size="10">Placebo Date</text>
+  <text x="360" y="248" text-anchor="middle" fill="#64748b" font-family="system-ui,sans-serif" font-size="10">Python " pandas " statsmodels " scikit-learn</text>
+</svg>
