@@ -191,6 +191,7 @@ export const CASE_STUDIES = [
       { label: "Methods", value: "4", suffix: " (DiD, SMOTE, clusters, bootstrap)" },
     ],
     gradient: "from-violet-500 to-indigo-500",
+    githubRepo: "https://github.com/leducse/ai-coding-spillover-analysis",
   },
   {
     id: "mcp-query-governance",
@@ -205,6 +206,7 @@ export const CASE_STUDIES = [
       { label: "Enforcement", value: "Notify", suffix: "-only (MVP)" },
     ],
     gradient: "from-amber-500 to-orange-500",
+    githubRepo: "https://github.com/leducse/mcp-query-governance",
   },
   {
     id: "tableau-knowledge-platform",
@@ -219,6 +221,7 @@ export const CASE_STUDIES = [
       { label: "Bedrock Path", value: "CDK", suffix: " + Secrets Manager" },
     ],
     gradient: "from-emerald-500 to-cyan-500",
+    githubRepo: "https://github.com/leducse/tableau-workbook-knowledge-platform",
   },
   {
     id: "tableau-quicksight-migration",
@@ -233,6 +236,7 @@ export const CASE_STUDIES = [
       { label: "Default Mode", value: "Dry-run", suffix: "" },
     ],
     gradient: "from-sky-500 to-blue-500",
+    githubRepo: "https://github.com/leducse/tableau-quicksight-migration-assistant",
   },
 ];
 

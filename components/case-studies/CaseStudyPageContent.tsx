@@ -95,6 +95,7 @@ export default function CaseStudyPageContent({
         tagline={meta.tagline}
         summary={content.solution}
         primaryMetric={primaryMetric}
+        githubRepo={"githubRepo" in meta ? meta.githubRepo : undefined}
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">

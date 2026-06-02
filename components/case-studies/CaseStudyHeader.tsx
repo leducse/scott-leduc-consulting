@@ -9,6 +9,7 @@ interface CaseStudyHeaderProps {
   summary: string;
   primaryMetric?: string;
   ctaHref?: string;
+  githubRepo?: string;
 }
 
 export default function CaseStudyHeader({
@@ -17,6 +18,7 @@ export default function CaseStudyHeader({
   summary,
   primaryMetric,
   ctaHref = "/contact",
+  githubRepo,
 }: CaseStudyHeaderProps) {
   return (
     <section className="relative overflow-hidden bg-[#0a1628] py-16 md:py-24">
@@ -64,11 +66,21 @@ export default function CaseStudyHeader({
           initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex justify-center"
+          className="flex flex-wrap justify-center gap-4"
         >
           <GradientButton href={ctaHref} size="lg">
             Start a project like this
           </GradientButton>
+          {githubRepo && (
+            <a
+              href={githubRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-500/50 text-slate-200 hover:border-cyan-400/60 hover:text-cyan-300 transition-colors text-sm font-semibold"
+            >
+              View source on GitHub
+            </a>
+          )}
         </motion.div>
       </div>
     </section>
