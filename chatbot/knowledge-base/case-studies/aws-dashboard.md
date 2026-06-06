@@ -44,7 +44,7 @@ Built enterprise-scale serverless dashboard with modern web technologies:
 ### Key Metrics
 
 - **1,313 Active Users** (scaled from 300 initial users)
-- **22,000+ Annual Dashboard Views** - highest-utilized tool in WWPS
+- **22,000+ Annual Dashboard Views** - highest-utilized analytics tool in the organization
 - **<2 Second Response Times** with consistent performance
 - **90+ Lighthouse Scores** for performance
 - **53% Reduction** in quarterly data curation time
@@ -52,7 +52,7 @@ Built enterprise-scale serverless dashboard with modern web technologies:
 
 ## Business Impact
 
-Eliminated manual data collection, reduced reporting turnaround from days to minutes, and became the highest-utilized tool in WWPS with 22,000+ annual views.
+Eliminated manual data collection, reduced reporting turnaround from days to minutes, and became the highest-utilized analytics tool in the organization with 22,000+ annual views.
 
 ## Tools & Technologies
 

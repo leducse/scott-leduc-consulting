@@ -12,7 +12,7 @@ Scott brings rigorous statistical methodology to every engagement, with deep exp
 - **Regression Analysis** - Linear, logistic, and advanced regression techniques
 - **Time Series Analysis** - Forecasting, trend analysis, seasonality detection
 
-**Track Record:** 100% PSM success rate in G3 analysis, statistical validation of $17M+ program impact
+**Track Record:** 100% PSM success rate in enterprise program analysis, statistical validation of $17M+ program impact
 
 ### 2. Machine Learning & AI
 
@@ -88,7 +88,7 @@ Building reliable, scalable data infrastructure:
 
 ## Industry Experience
 
-- **Cloud Computing** - AWS WWPS, supporting government and education sectors
+- **Cloud Computing** - AWS public sector, supporting government and education customers
 - **Digital Marketing** - Performance analytics, attribution modeling
 - **Media & Advertising** - Campaign optimization, audience insights
 - **Enterprise Software** - B2B analytics, customer engagement

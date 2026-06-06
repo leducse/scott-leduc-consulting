@@ -12,11 +12,11 @@ Award-winning analytics leader with 10+ years of experience bridging digital mar
 
 ## Key Achievements
 
-- Drove 45% revenue increase contributing to 19% of WWPS 2023 revenue through predictive modeling and performance forecasting
+- Drove 45% revenue increase contributing to 19% of segment revenue in 2023 through predictive modeling and performance forecasting
 - Delivered $17M+ in business impact through security engagement programs with statistical validation
 - Led Security Initiative supporting 1,000+ stakeholders including L8 managers and AWS leadership
 - Achieved 1,220 new customer adoptions (exceeded annual target 4 months early)
-- Generated $706K annual revenue with 6:1 ROI through G3 security engagement program
+- Generated $706K annual revenue with 6:1 ROI through a specialist engagement program
 - Recognized with PMO 'Awesome Award' for operational excellence
 
 ## Technical Skills
@@ -74,13 +74,13 @@ Award-winning analytics leader with 10+ years of experience bridging digital mar
 ## Professional Experience
 
 ### Amazon Web Services (AWS)
-**Solutions Architect Operations - WWPS SLG & EDU**
+**Solutions Architect Operations - Public Sector Cloud**
 
 First dedicated SA operations member for the AWS SLG & EDU vertical, supporting 1,200+ builders across 18 global sub-regions serving 10,200+ customers.
 
 Key accomplishments:
 - Built enterprise-scale serverless dashboard with 1,313 active users and 22,000+ annual views
-- Implemented G3 pipeline impact analysis generating $706K annual revenue with 6:1 ROI
+- Implemented enterprise program impact analysis generating $706K annual revenue with 6:1 ROI
 - Created ML engagement recommender achieving 53% conversion improvement with 89.1% model accuracy
 - Developed activity scenario analysis with 89% NLP accuracy using Amazon Bedrock
 - Led data audit platform development with 150+ dashboards audited and 85% reduction in data quality issues

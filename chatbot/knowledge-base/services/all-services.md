@@ -32,7 +32,7 @@ Apply PhD-level statistical rigor to measure business impact and eliminate selec
 - Reusable analysis frameworks
 
 ### Related Case Study
-G3 Pipeline Impact Analysis - $706K annual revenue with 6:1 ROI
+Enterprise Program Impact Analysis - $706K annual revenue with 6:1 ROI
 
 ---
 
