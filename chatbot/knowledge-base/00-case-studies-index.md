@@ -6,7 +6,7 @@ Use this index to answer questions about Scott's work. Each case study has a web
 
 | Slug | Title | Headline metrics |
 |------|-------|------------------|
-| g3-analysis | G3 Pipeline Impact Analysis | $706K annual revenue, 6:1 ROI, 219.8% ARR lift, PSM 100% balance |
+| g3-analysis | Enterprise Program Impact Analysis | $706K annual revenue, 6:1 ROI, 219.8% ARR lift, PSM 100% balance |
 | ml-recommender | ML Engagement Recommender | 53% conversion improvement, 89.1% XGBoost accuracy |
 | aws-dashboard | AWS Serverless Dashboard | 1,313 users, 22,000+ annual views, <2s response |
 | activity-analysis | Activity Scenario Analysis | 23% win rate improvement, 89% Bedrock NLP accuracy |
@@ -27,6 +27,6 @@ Use this index to answer questions about Scott's work. Each case study has a web
 
 | Topic | Description |
 |-------|-------------|
-| portfolio-aws-demos | CDK stack: API Gateway → Lambda → Bedrock Converse → S3 + Secrets Manager |
+| aws-demo-infrastructure | CDK stack: API Gateway → Lambda → Bedrock Converse → S3 + Secrets Manager |
 
 When asked about Tableau documentation, MCP governance, QuickSight migration, or causal spillover analysis, cite the matching portfolio case study above.

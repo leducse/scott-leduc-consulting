@@ -23,7 +23,7 @@ export const KEY_METRICS = [
   {
     value: "45%",
     label: "Revenue Increase",
-    description: "For 300+ builders contributing to 19% of WWPS 2023 revenue",
+    description: "For 300+ builders contributing to 19% of segment revenue in 2023",
   },
   {
     value: "1,200+",
@@ -92,7 +92,7 @@ export const CASE_STUDIES = [
   {
     id: "g3-analysis",
     slug: "g3-analysis",
-    title: "G3 Pipeline Impact Analysis",
+    title: "Enterprise Program Impact Analysis",
     tagline: "Advanced Statistical Analysis & Causal Inference",
     metrics: [
       { label: "Annual Revenue", value: "$706K", suffix: " (6:1 ROI)" },
@@ -305,7 +305,7 @@ export const CAREER_TIMELINE = [
     highlights: [
       "First dedicated SA operations member for AWS SLG & EDU vertical",
       "Supporting 1,200+ builders across 18 global sub-regions serving 10,200+ customers",
-      "Built enterprise dashboard with 22,000+ annual views (highest-utilized tool in WWPS)",
+      "Built enterprise dashboard with 22,000+ annual views (highest-utilized analytics tool in the organization)",
       "Delivered $17M+ in business impact through statistical validation programs",
     ],
   },

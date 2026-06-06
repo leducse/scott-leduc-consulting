@@ -17,7 +17,7 @@ Use this index to answer questions about Scott's work. Each case study has a web
 
 | Slug | Title | Headline metrics |
 |------|-------|------------------|
-| g3-analysis | G3 Pipeline Impact Analysis | $706K annual revenue, 6:1 ROI, 219.8% ARR lift, PSM 100% balance |
+| g3-analysis | Enterprise Program Impact Analysis | $706K annual revenue, 6:1 ROI, 219.8% ARR lift, PSM 100% balance |
 | ml-recommender | ML Engagement Recommender | 53% conversion improvement, 89.1% XGBoost accuracy |
 | aws-dashboard | AWS Serverless Dashboard | 1,313 users, 22,000+ annual views, <2s response |
 | activity-analysis | Activity Scenario Analysis | 23% win rate improvement, 89% Bedrock NLP accuracy |
@@ -38,7 +38,7 @@ Use this index to answer questions about Scott's work. Each case study has a web
 
 | Topic | Description |
 |-------|-------------|
-| portfolio-aws-demos | CDK stack: API Gateway → Lambda → Bedrock Converse → S3 + Secrets Manager |
+| aws-demo-infrastructure | CDK stack: API Gateway → Lambda → Bedrock Converse → S3 + Secrets Manager |
 
 When asked about Tableau documentation, MCP governance, QuickSight migration, or causal spillover analysis, cite the matching portfolio case study above.
 
@@ -414,18 +414,18 @@ Dashboard-first platform ingesting QuickSight and Redshift metadata to build lin
 ## SOURCE: case-studies/g3-analysis.md
 
 
-# G3 Pipeline Impact Analysis
+# Enterprise Program Impact Analysis
 
 ## Category
 Advanced Statistical Analysis & Causal Inference
 
 ## Overview
 
-Rigorous statistical analysis to measure the causal impact of G3 (security specialist) engagements on customer security service adoption and revenue growth.
+Rigorous statistical analysis to measure the causal impact of specialist technical engagements on customer service adoption and revenue growth.
 
 ## Business Challenge
 
-Measure the causal impact of G3 (security specialist) engagements on customer security service adoption and revenue growth. The key challenge was isolating the true program impact from selection bias—engaged customers may already be high-value accounts with natural growth trajectories.
+Measure the causal impact of a structured engagement program on customer adoption and revenue growth. The key challenge was isolating the true program impact from selection bias—engaged customers may already be high-value accounts with natural growth trajectories.
 
 ## Solution Approach
 
@@ -466,12 +466,12 @@ Implemented advanced statistical matching and causal inference techniques to cre
 - 30,567 opportunity records across 2,719 accounts
 - 25 different engagement types analyzed
 - 12-month observation period for revenue tracking
-- 235 G3 engaged accounts with complete data
+- 235 program-engaged accounts with complete data
 
 ## Business Impact
 
 This analysis directly influenced:
-- **2026 Goal Setting:** 750 G3 engagements target with 70% win rate
+- **Goal Setting:** 750 specialist engagements target with 70% win rate
 - **Resource Allocation:** Focus on high-performing engagement types
 - **Program Expansion:** $17M+ investment justified
 - **Field Strategy:** Engagement playbooks optimized by cluster and type
@@ -831,6 +831,49 @@ Ongoing (as needed)
 
 ---
 
+## SOURCE: projects/aws-demo-infrastructure.md
+
+
+# AWS Demo Infrastructure (CDK)
+
+**Repo:** aws-demo-infrastructure  
+**Purpose:** Real AWS resources for portfolio MVPs—not mock-only when Bedrock is claimed.
+
+## PortfolioDemosStack (AWS CDK → CloudFormation)
+
+| Service | Role |
+|---------|------|
+| S3 | Versioned bucket for generated workbook documentation |
+| Secrets Manager | `bedrock_model_id`, `docs_bucket` (no API keys in git) |
+| Lambda | BI metadata JSON → Bedrock Converse (draft + refine) → S3 |
+| API Gateway HTTP API | `POST /generate` |
+| IAM | Lambda can read secrets, write S3, invoke Bedrock Converse |
+
+## Shared library: portfolio_aws
+
+- `BedrockConverse` — same Converse API pattern as other projects
+- `load_config()` — merges env + Secrets Manager JSON
+- Used by Tableau Knowledge Platform locally (`DOC_GENERATOR=bedrock`) and Lambda
+
+## Models (current)
+
+- Primary: `us.anthropic.claude-sonnet-4-5-20250929-v1:0`
+- Routing/contact: `us.anthropic.claude-haiku-4-5-20251001-v1:0`
+
+## CI/CD
+
+- GitHub Actions: `cdk synth` on PR, manual `cdk deploy` via OIDC
+
+## Related case studies
+
+- tableau-knowledge-platform — doc generation pipeline
+- tableau-quicksight-migration — migration assistant (separate stack planned)
+- mcp-query-governance — future EventBridge/Lambda/SageMaker stack
+
+
+
+---
+
 ## SOURCE: projects/body-of-work.md
 
 
@@ -840,9 +883,9 @@ Ongoing (as needed)
 
 | Project | Role | Scale | Key Outcome |
 |---------|------|-------|-------------|
-| G3 SSR Goal Tracking | Sole builder (primary), cross-team coordinator | 10,000+ users | Proved 19% revenue lift with statistical significance |
+| Enterprise Security Goal Tracking | Sole builder (primary), cross-team coordinator | 10,000+ users | Proved 19% revenue lift with statistical significance |
 | DRIVE Framework (Talent Card) | Lead developer | 30,000+ views, 1,000+ users | 6th most viewed dashboard; instant self-service |
-| Project Prism | Creator | Org-wide tool | 4-8 hours → 5 minutes per workbook |
+| BI Workbook Documentation Platform | Creator | Org-wide tool | 4-8 hours → 5 minutes per workbook |
 | BEAM Application | Full-stack developer | 1,000+ users | 40% reduction in BI requests |
 | SA Activity Analysis | Analyst | 52,643 activities | $150M-$437M identified opportunity |
 | Amazon Q Enablement | Program lead | 200+ team members | Standardized AI coding practices |
@@ -850,13 +893,13 @@ Ongoing (as needed)
 
 ---
 
-## 1. G3 2025: Strengthen Security & Resiliency (SSR) Goal Tracking System
+## 1. Enterprise Security Goal Tracking System (2025)
 
 ### Challenge
-AWS launched a company-wide initiative (Global Goal 3) to strengthen customer security and resiliency through targeted technical engagements. With over 10,000 Solutions Architects and Customer Solutions Managers working toward this goal across multiple business units, leadership had no unified way to track progress against annual targets. Executives couldn't answer basic questions: Are we on track? Which regions are behind? Is this program actually driving customer outcomes? Without answers, the organization risked investing in a program with unproven impact.
+The organization launched a company-wide initiative to strengthen customer security and resiliency through targeted technical engagements. With over 10,000 field specialists working toward this goal across multiple business units, leadership had no unified way to track progress against annual targets. Executives couldn't answer basic questions: Are we on track? Which regions are behind? Is this program actually driving customer outcomes? Without answers, the organization risked investing in a program with unproven impact.
 
 ### Solution
-As the sole builder for the primary dashboards, I designed and built an end-to-end business intelligence system serving as the single source of truth for G3 goal tracking:
+As the sole builder for the primary dashboards, I designed and built an end-to-end business intelligence system serving as the single source of truth for program goal tracking:
 - Automated data pipelines aggregating engagement data from Salesforce, employee systems, and account hierarchies
 - Daily-refreshed Tableau executive dashboard with drill-down capabilities from AWS-wide to individual territory level
 - Unified Data Model (UDM) combining actuals with distributed targets for real-time attainment tracking
@@ -896,7 +939,7 @@ The initial analysis was embarrassingly wrong. I presented inflated numbers to l
 ## 2. DRIVE Individual Performance Metrics Framework (Talent Card System)
 
 ### Challenge
-The WWPS Tech Team's existing "Talent Card" system was a patchwork of inconsistent data sources. Managers spent hours manually compiling performance data before reviews, often reaching different conclusions about the same employee depending on which data they happened to pull. There was no objective way to compare performance across peers, identify top performers, or provide data-backed coaching. The previous dashboard existed but lacked the comprehensiveness and peer comparison capabilities teams needed.
+The enterprise technology team's existing "Talent Card" system was a patchwork of inconsistent data sources. Managers spent hours manually compiling performance data before reviews, often reaching different conclusions about the same employee depending on which data they happened to pull. There was no objective way to compare performance across peers, identify top performers, or provide data-backed coaching. The previous dashboard existed but lacked the comprehensiveness and peer comparison capabilities teams needed.
 
 ### Solution
 Created the DRIVE Framework—a comprehensive 21-metric performance measurement system organized into four categories: Customer Impact (13 metrics), Service Team Engagement (2 metrics), Industry Impact (3 metrics), and Scaling Internally (3 metrics). The system includes:
@@ -909,8 +952,8 @@ Created the DRIVE Framework—a comprehensive 21-metric performance measurement 
 
 **Adoption & Usage:**
 - **30,000+ dashboard views** on the front-end Tableau dashboard
-- **6th most viewed dashboard** on the WWPS Tableau site despite serving a limited audience (1,000+ users)
-- Serves Solutions Architects, CSMs, and Technical Account Managers across WWPS
+- **6th most viewed dashboard** on the enterprise Tableau site despite serving a limited audience (1,000+ users)
+- Serves solutions architects, CSMs, and technical account managers across the organization
 
 **Before vs. After:**
 | Metric | Before DRIVE | After DRIVE |
@@ -935,10 +978,10 @@ I initially built what I thought managers needed (comprehensive metrics). Adopti
 
 ---
 
-## 3. Project Prism - AI-Powered Tableau Documentation Generator
+## 3. BI Workbook Documentation Platform - AI-Powered Tableau Documentation Generator
 
 ### Challenge
-The WWPS organization maintains dozens of Tableau workbooks containing complex calculated fields, parameters, and business logic. When the original developer of a critical dashboard left the team, it took 3 weeks to understand the workbook well enough to make a simple change. This pattern repeated across the organization—institutional knowledge walked out the door with every departure, and no one had time to document workbooks manually.
+The organization maintains dozens of Tableau workbooks containing complex calculated fields, parameters, and business logic. When the original developer of a critical dashboard left the team, it took 3 weeks to understand the workbook well enough to make a simple change. This pattern repeated across the organization—institutional knowledge walked out the door with every departure, and no one had time to document workbooks manually.
 
 ### Solution
 Built an automated documentation system that uses AWS Bedrock (Claude AI) to generate comprehensive technical documentation for Tableau workbooks:
@@ -950,7 +993,7 @@ Built an automated documentation system that uses AWS Bedrock (Claude AI) to gen
 ### Impact & Results
 
 **Time Savings:**
-| Task | Manual Approach | With Project Prism |
+| Task | Manual Approach | With Documentation Platform |
 |------|-----------------|-------------------|
 | Document one workbook | 4-8 hours | 5 minutes |
 | Understand unfamiliar workbook | 1-3 days | 30 minutes (read generated docs) |
@@ -988,7 +1031,7 @@ Developed a full-stack AWS application providing:
 - Integration with RAG pipelines and STRANDS agents for multi-agent AI capabilities
 
 ### Impact & Results
-- **1,000+ active users** across the WWPS Tech Team
+- **1,000+ active users** across the enterprise technology team
 - **Self-service adoption**: BI team request volume dropped 40% after launch
 - **Promotion prep time**: Reduced from 20+ hours to 2-3 hours for body of work compilation
 - **Integration**: Serves as the primary user interface for the DRIVE metrics framework
@@ -1047,7 +1090,7 @@ The "$150M-$437M opportunity" is a theoretical maximum assuming perfect adoption
 ## 6. Amazon Q Developer Team Enablement Program
 
 ### Challenge
-The WWPS Tech Team wanted to adopt Amazon Q Developer (AI coding assistant) but had no standardized approach. Early adopters developed inconsistent practices, and most team members didn't know where to start. Without guidance, we risked fragmented adoption and missed productivity gains.
+The enterprise technology team wanted to adopt an AI coding assistant but had no standardized approach. Early adopters developed inconsistent practices, and most team members didn't know where to start. Without guidance, we risked fragmented adoption and missed productivity gains.
 
 ### Solution
 Created a comprehensive enablement package:
@@ -1119,7 +1162,7 @@ This is a working prototype that has been tested with historical data. The model
 2. "How do you handle statistical analysis?" - PSM, DiD, bootstrap, with validation
 3. "What's your experience with GenAI/LLMs?" - Bedrock, RAG, STRANDS agents, prompt engineering
 4. "How do you measure success?" - Always tie to business outcomes (revenue, adoption, time savings)
-5. "What's your biggest failure?" - The inflated G3 analysis before fixing selection bias
+5. "What's your biggest failure?" - The inflated initial program analysis before fixing selection bias
 6. "How do you handle stakeholder resistance?" - User feedback, feature prioritization (peer ranking example)
 
 ### Key Differentiators
@@ -1127,49 +1170,6 @@ This is a working prototype that has been tested with historical data. The model
 - **Business impact focus**: $17M+ validated impact, not just technical achievements
 - **Honest about limitations**: Acknowledges what didn't work and lessons learned
 - **Scale of work**: 10,000+ users, 30,000+ dashboard views, 1,000+ active users
-
-
-
----
-
-## SOURCE: projects/portfolio-aws-demos.md
-
-
-# Portfolio AWS Demos (CDK)
-
-**Repo:** portfolio-aws-demos (under portfolio monorepo)  
-**Purpose:** Real AWS resources for portfolio MVPs—not mock-only when Bedrock is claimed.
-
-## PortfolioDemosStack (AWS CDK → CloudFormation)
-
-| Service | Role |
-|---------|------|
-| S3 | Versioned bucket for generated workbook documentation |
-| Secrets Manager | `bedrock_model_id`, `docs_bucket` (no API keys in git) |
-| Lambda | Tableau metadata JSON → Bedrock Converse (draft + refine) → S3 |
-| API Gateway HTTP API | `POST /generate` |
-| IAM | Lambda can read secrets, write S3, invoke Bedrock Converse |
-
-## Shared library: portfolio_aws
-
-- `BedrockConverse` — same Converse API pattern as other projects
-- `load_config()` — merges env + Secrets Manager JSON
-- Used by Tableau Knowledge Platform locally (`DOC_GENERATOR=bedrock`) and Lambda
-
-## Models (current)
-
-- Primary: `us.anthropic.claude-sonnet-4-5-20250929-v1:0`
-- Routing/contact: `us.anthropic.claude-haiku-4-5-20251001-v1:0`
-
-## CI/CD
-
-- GitHub Actions: `cdk synth` on PR, manual `cdk deploy` via OIDC
-
-## Related case studies
-
-- tableau-knowledge-platform — doc generation pipeline
-- tableau-quicksight-migration — migration assistant (separate stack planned)
-- mcp-query-governance — future EventBridge/Lambda/SageMaker stack
 
 
 

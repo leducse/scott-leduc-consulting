@@ -68,11 +68,11 @@ export const ABOUT_CONTENT = {
   summary: "Award-winning analytics leader with 10+ years of experience bridging digital marketing, media performance, and advanced data science. First dedicated SA operations member for AWS SLG & EDU vertical, supporting 1,200+ builders across 18 global sub-regions serving 10,200+ customers.",
   headshot: "/headshot-placeholder.svg", // Replace with actual headshot
   achievements: [
-    "Drove 45% revenue increase contributing to 19% of WWPS 2023 revenue through predictive modeling and performance forecasting",
+    "Drove 45% revenue increase contributing to 19% of segment revenue in 2023 through predictive modeling and performance forecasting",
     "Delivered $17M+ in business impact through security engagement programs with statistical validation",
     "Led Security Initiative supporting 1,000+ stakeholders including L8 managers and AWS leadership",
     "Achieved 1,220 new customer adoptions (exceeded annual target 4 months early)",
-    "Generated $706K annual revenue with 6:1 ROI through G3 security engagement program",
+    "Generated $706K annual revenue with 6:1 ROI through a specialist engagement program",
     "Recognized with PMO 'Awesome Award' for operational excellence",
   ],
   education: {
@@ -288,7 +288,7 @@ export const SERVICE_CONTENT = {
 
 export const CASE_STUDY_CONTENT = {
   "g3-analysis": {
-    problem: "Measure the causal impact of G3 (security specialist) engagements on customer security service adoption and revenue growth. Challenge: Isolate true program impact from selection bias (engaged customers may already be high-value accounts).",
+    problem: "Measure the causal impact of specialist technical engagements on customer service adoption and revenue growth. Challenge: Isolate true program impact from selection bias (engaged customers may already be high-value accounts).",
     solution: "Implemented advanced statistical matching and causal inference techniques including propensity score matching (100% success rate), difference-in-differences analysis, cluster-based control groups, and bootstrap confidence intervals.",
     results: [
       "$706K Annual Revenue with 6:1 ROI validation",
@@ -323,9 +323,9 @@ export const CASE_STUDY_CONTENT = {
       "30,567 opportunity records across 2,719 accounts",
       "25 different engagement types analyzed",
       "12-month observation period for revenue tracking",
-      "235 G3 engaged accounts with complete data",
+      "235 program-engaged accounts with complete data",
     ],
-    impact: "This analysis directly influenced 2026 goal setting (750 G3 engagements target with 70% win rate), resource allocation (focus on high-performing engagement types), program expansion ($17M+ investment justified), and field strategy (engagement playbooks optimized by cluster and type).",
+    impact: "This analysis directly influenced goal setting (750 specialist engagements target with 70% win rate), resource allocation (focus on high-performing engagement types), program expansion ($17M+ investment justified), and field strategy (engagement playbooks optimized by cluster and type).",
   },
   "ml-recommender": {
     problem: "Optimize SA engagement strategies by predicting which customer engagement approaches will be most successful based on historical patterns.",
@@ -372,7 +372,7 @@ export const CASE_STUDY_CONTENT = {
     solution: "Built enterprise-scale serverless dashboard with React/TypeScript frontend, Python Lambda backend, API Gateway, and S3. Implemented comprehensive security with AWS Secrets Manager and IAM roles.",
     results: [
       "1,313 Active Users (scaled from 300 initial users)",
-      "22,000+ Annual Dashboard Views - highest-utilized tool in WWPS",
+      "22,000+ Annual Dashboard Views - highest-utilized analytics tool in the organization",
       "<2 Second Response Times with 90+ Lighthouse scores",
       "53% Reduction in quarterly data curation time",
       "74K+ Records processed with automated workflows",
@@ -406,7 +406,7 @@ export const CASE_STUDY_CONTENT = {
       "AWS S3 for storage",
       "CloudWatch for monitoring",
     ],
-    impact: "Eliminated manual data collection, reduced reporting turnaround from days to minutes, and became the highest-utilized tool in WWPS with 22,000+ annual views.",
+    impact: "Eliminated manual data collection, reduced reporting turnaround from days to minutes, and became the highest-utilized analytics tool in the organization with 22,000+ annual views.",
   },
   "activity-analysis": {
     problem: "Identify optimal SA activity sequences that lead to successful customer outcomes across different technical scenarios (AI/ML, Oracle migration, VMware, Landing Zone).",
@@ -861,7 +861,7 @@ export const SOLUTION_CARDS = [
     title: "BI & Dashboards",
     problem: "Everyone has different numbers. Reports take days. Executives don't trust what they're seeing.",
     solution: "Single source of truth with standardized KPIs, automated pipelines, and self-service access.",
-    proof: "22,000+ annual views—highest-utilized tool in WWPS",
+    proof: "22,000+ annual views—highest-utilized analytics tool in the organization",
     caseStudySlug: "aws-dashboard",
     gradient: "from-teal-500 to-emerald-500",
   },

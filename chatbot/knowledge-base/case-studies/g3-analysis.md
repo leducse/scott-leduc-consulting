@@ -1,15 +1,15 @@
-# G3 Pipeline Impact Analysis
+# Enterprise Program Impact Analysis
 
 ## Category
 Advanced Statistical Analysis & Causal Inference
 
 ## Overview
 
-Rigorous statistical analysis to measure the causal impact of G3 (security specialist) engagements on customer security service adoption and revenue growth.
+Rigorous statistical analysis to measure the causal impact of specialist technical engagements on customer service adoption and revenue growth.
 
 ## Business Challenge
 
-Measure the causal impact of G3 (security specialist) engagements on customer security service adoption and revenue growth. The key challenge was isolating the true program impact from selection bias—engaged customers may already be high-value accounts with natural growth trajectories.
+Measure the causal impact of a structured engagement program on customer adoption and revenue growth. The key challenge was isolating the true program impact from selection bias—engaged customers may already be high-value accounts with natural growth trajectories.
 
 ## Solution Approach
 
@@ -50,12 +50,12 @@ Implemented advanced statistical matching and causal inference techniques to cre
 - 30,567 opportunity records across 2,719 accounts
 - 25 different engagement types analyzed
 - 12-month observation period for revenue tracking
-- 235 G3 engaged accounts with complete data
+- 235 program-engaged accounts with complete data
 
 ## Business Impact
 
 This analysis directly influenced:
-- **2026 Goal Setting:** 750 G3 engagements target with 70% win rate
+- **Goal Setting:** 750 specialist engagements target with 70% win rate
 - **Resource Allocation:** Focus on high-performing engagement types
 - **Program Expansion:** $17M+ investment justified
 - **Field Strategy:** Engagement playbooks optimized by cluster and type
@@ -66,9 +66,3 @@ This analysis directly influenced:
 - Statistical modeling (statsmodels)
 - PostgreSQL
 - AWS Secrets Manager
-
-
-
-
-
-

@@ -35,7 +35,7 @@ export default function CaseStudiesPage() {
           <div className="space-y-2">
             <h2 className="text-2xl font-bold text-[var(--foreground)]">Client & field work</h2>
             <p className="text-[var(--text-muted)] max-w-2xl">
-              Outcomes from Amazon WWPS and enterprise analytics programs.
+              Outcomes from enterprise analytics and cloud programs.
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-2">
