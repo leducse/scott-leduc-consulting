@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import ChatWidgetLoader from "@/components/chat/ChatWidgetLoader";
+import SiteShell from "@/components/layout/SiteShell";
 import { SITE_CONFIG } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -54,10 +52,7 @@ export default function RootLayout({
         className="bg-[var(--background)] text-[var(--foreground)] antialiased min-h-screen flex flex-col bg-grid"
         suppressHydrationWarning
       >
-        <Navbar />
-        <main className="flex-1 relative">{children}</main>
-        <Footer />
-        <ChatWidgetLoader />
+        <SiteShell>{children}</SiteShell>
       </body>
     </html>
   );
