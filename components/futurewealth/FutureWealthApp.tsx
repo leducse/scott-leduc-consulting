@@ -8,7 +8,10 @@ import {
   formatCurrency,
   formatDate,
   horizonDisplayLabel,
+  paymentPeriodLabel,
   targetDateFromYears,
+  totalContributedForInput,
+  totalContributedForPurchase,
   type RecurrenceFrequency,
   type SavedPurchase,
   type TemptationInput,
@@ -186,7 +189,15 @@ export default function FutureWealthApp() {
                       </p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-sm text-white/60">{amountLabel(p)}</p>
+                      <p className="text-sm text-white/60">
+                        {(() => {
+                          const total = totalContributedForPurchase(p);
+                          if (total != null) {
+                            return `${amountLabel(p)} · ${formatCurrency(total)} total`;
+                          }
+                          return amountLabel(p);
+                        })()}
+                      </p>
                       <p className="text-xs font-semibold text-emerald-400 mt-1">
                         → {formatCurrency(projectedValueForPurchase(p))}{" "}
                         {horizonDisplayLabel(p)}
@@ -350,15 +361,36 @@ export default function FutureWealthApp() {
           <div className="flex-1 overflow-y-auto px-5 py-6 space-y-5">
             <p className="text-center text-white/80 leading-relaxed">
               {pendingInput.isRecurring ? (
-                <>
-                  If you skip <strong>{pendingInput.itemName}</strong> and invest{" "}
-                  <strong>
-                    {formatCurrency(pendingInput.amount)}/
-                    {pendingInput.frequency === "monthly" ? "mo" : "yr"}
-                  </strong>{" "}
-                  instead, here is what you&apos;ll have by{" "}
-                  <strong>{formatDate(pendingInput.targetDate)}</strong>:
-                </>
+                (() => {
+                  const total = totalContributedForInput(pendingInput);
+                  const periodLabel = paymentPeriodLabel(pendingInput);
+                  if (total != null && periodLabel) {
+                    return (
+                      <>
+                        If you skip <strong>{pendingInput.itemName}</strong> and save{" "}
+                        <strong>
+                          {formatCurrency(pendingInput.amount)}/
+                          {pendingInput.frequency === "monthly" ? "mo" : "yr"}
+                        </strong>{" "}
+                        for <strong>{periodLabel}</strong> (
+                        <strong>{formatCurrency(total)} total</strong>), here is what that
+                        grows to if invested by{" "}
+                        <strong>{formatDate(pendingInput.targetDate)}</strong>:
+                      </>
+                    );
+                  }
+                  return (
+                    <>
+                      If you skip <strong>{pendingInput.itemName}</strong> and invest{" "}
+                      <strong>
+                        {formatCurrency(pendingInput.amount)}/
+                        {pendingInput.frequency === "monthly" ? "mo" : "yr"}
+                      </strong>{" "}
+                      instead, here is what you&apos;ll have by{" "}
+                      <strong>{formatDate(pendingInput.targetDate)}</strong>:
+                    </>
+                  );
+                })()
               ) : (
                 <>
                   If you skip <strong>{pendingInput.itemName}</strong> today and invest{" "}
@@ -369,7 +401,10 @@ export default function FutureWealthApp() {
               )}
             </p>
 
-            {ASSET_BENCHMARKS.map((asset) => (
+            {ASSET_BENCHMARKS.map((asset) => {
+              const futureValue = projectedValueForInput(pendingInput, asset);
+              const contributed = totalContributedForInput(pendingInput);
+              return (
               <div
                 key={asset.id}
                 className="rounded-2xl border border-white/10 bg-white/5 p-4"
@@ -383,11 +418,30 @@ export default function FutureWealthApp() {
                     {(asset.annualRate * 100).toFixed(0)}%
                   </span>
                 </div>
-                <p className="text-3xl font-bold tabular-nums">
-                  {formatCurrency(projectedValueForInput(pendingInput, asset))}
-                </p>
+                {contributed != null ? (
+                  <div className="flex items-end gap-4">
+                    <div>
+                      <p className="text-xs text-white/50">Out of pocket</p>
+                      <p className="text-xl font-semibold tabular-nums">
+                        {formatCurrency(contributed)}
+                      </p>
+                    </div>
+                    <span className="text-white/40 pb-1">→</span>
+                    <div>
+                      <p className="text-xs text-white/50">Invested value</p>
+                      <p className="text-2xl font-bold text-emerald-400 tabular-nums">
+                        {formatCurrency(futureValue)}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-3xl font-bold tabular-nums">
+                    {formatCurrency(futureValue)}
+                  </p>
+                )}
               </div>
-            ))}
+            );
+            })}
           </div>
 
           <div className="p-4 border-t border-white/10 flex gap-3">

@@ -14,13 +14,20 @@ export function calculateFutureValue(
   return presentValue * Math.pow(1 + rate, years);
 }
 
+export function paymentPeriodCountFromYears(
+  years: number,
+  periodsPerYear: number
+): number {
+  return Math.max(1, Math.round(years * periodsPerYear));
+}
+
 export function futureValueOfAnnuity(
   payment: number,
   annualRate: number,
   years: number,
   periodsPerYear: number
 ): number {
-  const periods = Math.max(1, Math.round(years * periodsPerYear));
+  const periods = paymentPeriodCountFromYears(years, periodsPerYear);
   const ratePerPeriod = Math.pow(1 + annualRate, 1 / periodsPerYear) - 1;
   if (ratePerPeriod <= 0) return payment * periods;
   return (payment * (Math.pow(1 + ratePerPeriod, periods) - 1)) / ratePerPeriod;

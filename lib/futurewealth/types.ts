@@ -91,3 +91,46 @@ export function projectionYears(purchase: SavedPurchase): number {
   }
   return purchase.horizonYears;
 }
+
+export function paymentPeriodCount(
+  years: number,
+  frequency: RecurrenceFrequency
+): number {
+  const periodsPerYear = frequency === "monthly" ? 12 : 1;
+  return Math.max(1, Math.round(years * periodsPerYear));
+}
+
+export function totalContributed(
+  payment: number,
+  years: number,
+  frequency: RecurrenceFrequency
+): number {
+  return payment * paymentPeriodCount(years, frequency);
+}
+
+export function totalContributedForInput(input: TemptationInput): number | null {
+  if (!input.isRecurring || !input.frequency) return null;
+  const years = yearsBetween(new Date(), new Date(input.targetDate));
+  return totalContributed(input.amount, years, input.frequency);
+}
+
+export function totalContributedForPurchase(purchase: SavedPurchase): number | null {
+  if (!purchase.isRecurring || !purchase.recurrenceFrequency) return null;
+  return totalContributed(
+    purchase.cost,
+    projectionYears(purchase),
+    purchase.recurrenceFrequency
+  );
+}
+
+export function paymentPeriodLabel(
+  input: TemptationInput
+): string | null {
+  if (!input.isRecurring || !input.frequency) return null;
+  const years = yearsBetween(new Date(), new Date(input.targetDate));
+  const count = paymentPeriodCount(years, input.frequency);
+  if (input.frequency === "monthly") {
+    return `${count} month${count === 1 ? "" : "s"}`;
+  }
+  return `${count} year${count === 1 ? "" : "s"}`;
+}
