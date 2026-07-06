@@ -6,7 +6,7 @@ import Testimonials from "@/components/shared/Testimonials";
 import GradientButton from "@/components/shared/GradientButton";
 import { CASE_STUDIES, ORGANIZATIONS } from "@/lib/constants";
 import { PROCESS_CONTENT, SOLUTION_CARDS } from "@/lib/content";
-import { ArrowRight, Building2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -58,7 +58,7 @@ export default function Home() {
                 <div className="mb-4">
                   <p className="text-xs uppercase tracking-wider text-slate-500 mb-1">The Problem</p>
                   <p className="text-sm text-slate-300 leading-relaxed">
-                    "{card.problem}"
+                    &ldquo;{card.problem}&rdquo;
                   </p>
                 </div>
                 

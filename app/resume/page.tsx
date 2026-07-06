@@ -12,7 +12,6 @@ import {
   Calendar,
   Award,
   GraduationCap,
-  ExternalLink,
   Printer,
   MessageCircle,
 } from "lucide-react";

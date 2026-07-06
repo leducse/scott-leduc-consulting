@@ -3,6 +3,7 @@
 export type ArchitectureDiagramKey =
   | "ai-coding-spillover"
   | "mcp-query-governance"
+  | "recallgraph-ai"
   | "tradingview-webhook-aws-poc"
   | "tableau-knowledge-platform"
   | "tableau-quicksight-migration";
@@ -33,11 +34,82 @@ export default function ArchitectureDiagram({ diagram, title }: ArchitectureDiag
       >
         {diagram === "ai-coding-spillover" && <AiCodingSpilloverDiagram />}
         {diagram === "mcp-query-governance" && <McpGovernanceDiagram />}
+        {diagram === "recallgraph-ai" && <RecallGraphDiagram />}
         {diagram === "tradingview-webhook-aws-poc" && <TradingViewWebhookDiagram />}
         {diagram === "tableau-knowledge-platform" && <TableauKnowledgeDiagram />}
         {diagram === "tableau-quicksight-migration" && <TableauMigrationDiagram />}
       </svg>
     </figure>
+  );
+}
+
+function RecallGraphDiagram() {
+  const steps = [
+    { x: 68, label: "Public", sublabel: "CPSC / FDA / NHTSA" },
+    { x: 188, label: "Ingest", sublabel: "fixtures + backfill" },
+    { x: 308, label: "Store", sublabel: "SQLite / pgvector" },
+    { x: 428, label: "Retrieve", sublabel: "hybrid ranking" },
+    { x: 548, label: "Agents", sublabel: "verify + score" },
+    { x: 668, label: "Brief", sublabel: "cited answer" },
+  ];
+
+  return (
+    <>
+      <text x={360} y={28} textAnchor="middle" fill="#67e8f9" fontSize={14} fontWeight={600}>
+        RecallGraph AI: RAG, Agents, Evals, and LLMOps
+      </text>
+      {steps.map((step, i) => (
+        <g key={step.label}>
+          {i > 0 && (
+            <path d={`M${steps[i - 1].x + 48} 78 H${step.x - 48}`} stroke={muted} strokeWidth={2} />
+          )}
+          <rect
+            x={step.x - 48}
+            y={52}
+            width={96}
+            height={58}
+            rx={8}
+            fill={i === 5 ? "#1e1b4b" : box}
+            stroke={i === 5 ? "#a78bfa" : stroke}
+            strokeWidth={1.5}
+          />
+          <text x={step.x} y={76} textAnchor="middle" fill={i === 5 ? "#ddd6fe" : text} fontSize={9} fontWeight={600}>
+            {step.label}
+          </text>
+          <text x={step.x} y={94} textAnchor="middle" fill={muted} fontSize={8}>
+            {step.sublabel}
+          </text>
+        </g>
+      ))}
+      <rect x={72} y={138} width={160} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={152} y={160} textAnchor="middle" fill="#bae6fd" fontSize={10} fontWeight={600}>
+        Source Health
+      </text>
+      <text x={152} y={178} textAnchor="middle" fill={muted} fontSize={9}>
+        4/4 fixture coverage
+      </text>
+      <rect x={280} y={138} width={160} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={360} y={160} textAnchor="middle" fill="#bae6fd" fontSize={10} fontWeight={600}>
+        Quality Gates
+      </text>
+      <text x={360} y={178} textAnchor="middle" fill={muted} fontSize={9}>
+        retrieval + faithfulness
+      </text>
+      <rect x={488} y={138} width={160} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={568} y={160} textAnchor="middle" fill="#bae6fd" fontSize={10} fontWeight={600}>
+        LLMOps Evidence
+      </text>
+      <text x={568} y={178} textAnchor="middle" fill={muted} fontSize={9}>
+        traces, audit, recovery
+      </text>
+      <rect x={112} y={216} width={496} height={36} rx={8} fill="#164e63" stroke="#22d3ee" />
+      <text x={360} y={239} textAnchor="middle" fill="#cffafe" fontSize={11} fontWeight={600}>
+        GitHub-ready local baseline: make validate, 85 tests, no credentials by default
+      </text>
+      <text x={360} y={270} textAnchor="middle" fill={muted} fontSize={10}>
+        Python • RAG • multi-agent workflow • eval harness • SQLite • pgvector path
+      </text>
+    </>
   );
 }
 

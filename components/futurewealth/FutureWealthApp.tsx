@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ASSET_BENCHMARKS,
   TIME_HORIZONS,
@@ -37,8 +37,7 @@ function tomorrowISO(): string {
 
 export default function FutureWealthApp() {
   const [screen, setScreen] = useState<Screen>("dashboard");
-  const [purchases, setPurchases] = useState<SavedPurchase[]>([]);
-  const [mounted, setMounted] = useState(false);
+  const [purchases, setPurchases] = useState<SavedPurchase[]>(() => loadPurchases());
 
   // Entry form state
   const [kind, setKind] = useState<"oneTime" | "recurring">("oneTime");
@@ -53,11 +52,6 @@ export default function FutureWealthApp() {
     return d.toISOString().slice(0, 10);
   });
   const [pendingInput, setPendingInput] = useState<TemptationInput | null>(null);
-
-  useEffect(() => {
-    setPurchases(loadPurchases());
-    setMounted(true);
-  }, []);
 
   const resolvedTargetDate =
     horizonMode === "preset"
@@ -130,14 +124,6 @@ export default function FutureWealthApp() {
 
   function handleDelete(id: string) {
     setPurchases(deletePurchase(id));
-  }
-
-  if (!mounted) {
-    return (
-      <div className="min-h-[100dvh] flex items-center justify-center bg-[#0f1419] text-white">
-        <p className="text-white/60">Loading…</p>
-      </div>
-    );
   }
 
   return (

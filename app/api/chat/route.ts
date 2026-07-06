@@ -5,13 +5,12 @@ import { Sha256 } from "@aws-crypto/sha256-js";
 import { fromEnv, fromIni } from "@aws-sdk/credential-providers";
 
 // AgentCore configuration
-const AWS_REGION = process.env.AWS_REGION || "us-east-1";
 const RUNTIME_ARN = process.env.AGENTCORE_RUNTIME_ARN || 
   "arn:aws:bedrock-agentcore:us-east-1:441383083571:runtime/scottleduc_consultant-vKDki47sNm";
 
 // Helper to get the data plane endpoint
 function getDataPlaneEndpoint(region: string): string {
-  return `agentruntime.bedrock-agentcore.${region}.amazonaws.com`;
+  return `bedrock-agentcore.${region}.amazonaws.com`;
 }
 
 // Generate a presigned WebSocket URL for AgentCore

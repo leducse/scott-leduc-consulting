@@ -706,6 +706,64 @@ export const CASE_STUDY_CONTENT = {
     impact:
       "Shows how to govern agent and API database access without blocking innovation—catch abusive patterns early, route legitimate queries through auditable catalogs, and scale to enterprise AWS services.",
   },
+  "recallgraph-ai": {
+    problem:
+      "Product-safety risk data is fragmented across recall agencies, enforcement feeds, complaints, tables, notices, and future PDFs/images. A basic chat wrapper cannot prove source coverage, retrieval quality, citation faithfulness, or operational readiness.",
+    solution:
+      "Built a production-style local AI engineering system: source-shaped CPSC/openFDA/NHTSA fixtures, normalized RecallRecord models, idempotent backfill, SQLite persistence with a Postgres/pgvector path, hybrid retrieval, deterministic multi-agent orchestration, cited risk briefs, eval gates, trace exports, readiness reports, audit trail, recovery drill, and GitHub Actions validation.",
+    results: [
+      "85-test validation suite passes with only 2 expected optional-dependency skips",
+      "4/4 configured public-source fixtures covered across CPSC, openFDA food, openFDA device, and NHTSA",
+      "4/4 labeled retrieval cases pass with 1.0 mean recall@k and 1.0 mean reciprocal rank",
+      "Citation faithfulness gate passes with 0 unsupported controlled risk terms and 0 unlinked source mentions",
+      "Backfill drill proves safe reruns with 4 records, 8 chunks, 4 raw payloads, and 2 ingestion-run history rows",
+    ],
+    methodology: {
+      title: "Production-Style AI Engineering Loop",
+      steps: [
+        {
+          name: "Source Contracts",
+          description:
+            "Represent CPSC, openFDA, and NHTSA as source adapters with dry-run URL builders, cached fixtures, freshness checks, and explicit live-network gates.",
+        },
+        {
+          name: "RAG Baseline",
+          description:
+            "Normalize records into evidence chunks, rank with local hybrid retrieval, and keep pgvector parity available behind an explicit Docker target.",
+        },
+        {
+          name: "Agent Orchestration",
+          description:
+            "Run a deterministic planner, retriever, evidence verifier, risk scorer, and report writer so the workflow can be tested before adding LLM variance.",
+        },
+        {
+          name: "Eval + Ops Gates",
+          description:
+            "Gate retrieval quality, answer quality, faithfulness, latency, readiness, audit coverage, recovery, and idempotent ingestion through local validation and CI.",
+        },
+      ],
+    },
+    scale: [
+      "85 local tests across ingestion, retrieval, agents, API, storage, evals, security, and ops",
+      "4 source-shaped fixture families with 4 records, 8 chunks, and raw payload persistence",
+      "9+ production gates including readiness, performance, faithfulness, audit, recovery, backfill, and migration checks",
+    ],
+    technologies: [
+      "Python 3.11 package with stdlib-first runtime",
+      "RAG and hybrid retrieval",
+      "Deterministic multi-agent orchestration",
+      "Offline retrieval, answer, and faithfulness evals",
+      "SQLite local repo with Postgres/pgvector migration path",
+      "FastAPI and LangGraph optional adapters",
+      "GitHub Actions validation workflow",
+      "Docker pgvector parity target",
+    ],
+    architectureDiagram: "/case-studies/recallgraph-ai-architecture.svg",
+    portfolioNote:
+      "Portfolio project runs locally without credentials, cloud resources, paid model APIs, or live network calls. Hosted auth, tenancy, source completeness, and model-provider integrations remain explicitly deferred.",
+    impact:
+      "Demonstrates senior AI engineering depth: not just prompt wiring, but the data contracts, retrieval gates, agent traces, LLMOps artifacts, and production boundaries needed to operate a trustworthy AI workflow.",
+  },
   "tradingview-webhook-aws-poc": {
     problem:
       "TradingView can generate strategy alerts, but a direct webhook-to-broker path is too brittle for serious paper trading. The execution lane needs payload validation, replay protection, risk controls, audit history, secret isolation, and a live-trading lock before any broker API is allowed to receive an order.",

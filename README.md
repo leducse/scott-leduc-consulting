@@ -106,6 +106,8 @@ A modern consulting website built with Next.js, featuring an AI-powered chatbot 
 - **Case Studies**: Detailed case studies showcasing real-world impact
 - **Service Pages**: Comprehensive service offerings with methodology and deliverables
 
+Production hardening checklist: [`docs/production_readiness_audit.md`](docs/production_readiness_audit.md).
+
 ### Custom Domains (AWS Amplify + Route53)
 - **Primary**: `decision-layer.com` and `www.decision-layer.com`
 - **DNS**: AWS Route53 (migrated from GoDaddy for seamless Amplify integration)

@@ -1,13 +1,10 @@
 "use client";
 
-import GradientCard from "@/components/shared/GradientCard";
 import GradientButton from "@/components/shared/GradientButton";
 import { SITE_CONFIG, ORGANIZATIONS, CAREER_TIMELINE, CASE_STUDIES } from "@/lib/constants";
 import { ABOUT_CONTENT } from "@/lib/content";
 import { 
   BarChart3, 
-  Rocket, 
-  Building2, 
   TrendingUp,
   Brain,
   Server,
@@ -19,8 +16,6 @@ import {
   Calendar,
   Award,
   GraduationCap,
-  Briefcase,
-  ExternalLink,
   MapPin,
   Linkedin,
   Github
@@ -127,7 +122,7 @@ export default function AboutPage() {
                 <p>
                   Most data professionals specialize. Data scientists build models but struggle with production deployment. 
                   BI developers create dashboards but lack statistical rigor. Cloud architects design infrastructure but 
-                  don't speak the language of business outcomes.
+                  don&apos;t speak the language of business outcomes.
                 </p>
                 <p>
                   <span className="text-white font-medium">Scott bridges all three.</span> With an MS in Business Analytics, 
@@ -135,8 +130,8 @@ export default function AboutPage() {
                   he delivers end-to-end: from whiteboard strategy sessions to Lambda functions in production.
                 </p>
                 <p>
-                  The result? Validated impact you can defend. Not "we think it worked" but{" "}
-                  <span className="text-cyan-400">"$706K annual revenue with 6:1 ROI, p &lt; 0.05."</span>
+                  The result? Validated impact you can defend. Not &ldquo;we think it worked&rdquo; but{" "}
+                  <span className="text-cyan-400">&ldquo;$706K annual revenue with 6:1 ROI, p &lt; 0.05.&rdquo;</span>
                 </p>
               </div>
             </div>
@@ -153,7 +148,7 @@ export default function AboutPage() {
           </div>
           
           <div className="space-y-6">
-            {CAREER_TIMELINE.map((role, index) => (
+            {CAREER_TIMELINE.map((role) => (
               <div
                 key={role.period}
                 className="relative pl-8 border-l-2 border-cyan-500/30"
@@ -192,7 +187,7 @@ export default function AboutPage() {
             <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
               Organizations
             </p>
-            <h2 className="text-3xl font-bold text-white">Where I've Made Impact</h2>
+            <h2 className="text-3xl font-bold text-white">Where I&apos;ve Made Impact</h2>
           </div>
           
           <div className="flex flex-wrap justify-center gap-3">
@@ -350,11 +345,11 @@ export default function AboutPage() {
           <div className="p-8 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-violet-500/10 border border-cyan-500/20">
             <div className="text-center space-y-6">
               <h2 className="text-3xl font-bold text-white">
-                Let's Connect
+                Let&apos;s Connect
               </h2>
               <p className="text-slate-300 max-w-2xl mx-auto">
-                Whether you're exploring a potential collaboration, discussing an opportunity, 
-                or just want to talk data—I'd enjoy the conversation.
+                Whether you&apos;re exploring a potential collaboration, discussing an opportunity,
+                or just want to talk data—I&apos;d enjoy the conversation.
               </p>
               
               <div className="flex flex-wrap items-center justify-center gap-4 pt-4">

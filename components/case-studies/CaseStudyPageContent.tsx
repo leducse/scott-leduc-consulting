@@ -16,6 +16,7 @@ type CaseStudyKey = keyof typeof CASE_STUDY_CONTENT;
 const ARCHITECTURE_DIAGRAM_KEYS = [
   "ai-coding-spillover",
   "mcp-query-governance",
+  "recallgraph-ai",
   "tradingview-webhook-aws-poc",
   "tableau-knowledge-platform",
   "tableau-quicksight-migration",
@@ -42,6 +43,7 @@ const caseStudyGradients: Record<CaseStudyKey, string> = {
   "consulting-platform": "from-cyan-500 to-violet-500",
   "ai-coding-spillover": "from-violet-500 to-indigo-500",
   "mcp-query-governance": "from-amber-500 to-orange-500",
+  "recallgraph-ai": "from-cyan-500 to-violet-500",
   "tradingview-webhook-aws-poc": "from-emerald-500 to-sky-500",
   "tableau-knowledge-platform": "from-emerald-500 to-cyan-500",
   "tableau-quicksight-migration": "from-sky-500 to-blue-500",
@@ -72,6 +74,7 @@ export default function CaseStudyPageContent({
     "consulting-platform": ["Deploy Time", "Architecture", "AI Agents"],
     "ai-coding-spillover": ["Panel Scale", "Methods", "Reproducibility"],
     "mcp-query-governance": ["Principals Scored", "Detection", "Governance Path"],
+    "recallgraph-ai": ["Validation", "Source Coverage", "Operational Gates"],
     "tradingview-webhook-aws-poc": ["Validation", "AWS Components", "Broker Mode"],
     "tableau-knowledge-platform": ["Validation", "Doc Passes", "AWS Path"],
     "tableau-quicksight-migration": ["Checks", "Parity", "Deploy Mode"],

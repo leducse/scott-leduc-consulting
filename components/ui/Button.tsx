@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type HTMLMotionProps } from "framer-motion";
 import { forwardRef } from "react";
 
 const variants = {
@@ -17,21 +17,20 @@ const sizes = {
   lg: "px-6 py-3 text-lg",
 };
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends HTMLMotionProps<"button"> {
   variant?: keyof typeof variants;
   size?: keyof typeof sizes;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className = "", variant = "primary", size = "md", ...props }, ref) => {
-    const { onAnimationStart, onAnimationEnd, ...restProps } = props;
     return (
       <motion.button
         ref={ref}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className={`rounded-lg font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 ${variants[variant]} ${sizes[size]} ${className}`}
-        {...(restProps as any)}
+        {...props}
       />
     );
   }
@@ -40,5 +39,4 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button";
 
 export default Button;
-
 

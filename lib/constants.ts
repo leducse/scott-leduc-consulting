@@ -224,6 +224,20 @@ export const CASE_STUDIES = [
     githubRepo: "https://github.com/leducse/tradingview-webhook-aws-poc",
   },
   {
+    id: "recallgraph-ai",
+    slug: "recallgraph-ai",
+    category: "portfolio" as const,
+    title: "RecallGraph AI",
+    tagline: "RAG, Agents, Evals, and LLMOps for Product Safety",
+    metrics: [
+      { label: "Validation", value: "85", suffix: " tests" },
+      { label: "Sources", value: "4/4", suffix: " fixture coverage" },
+      { label: "Retrieval", value: "4/4", suffix: " labeled cases" },
+      { label: "Backfill", value: "2", suffix: " idempotent runs" },
+    ],
+    gradient: "from-cyan-500 to-violet-500",
+  },
+  {
     id: "tableau-knowledge-platform",
     slug: "tableau-knowledge-platform",
     category: "portfolio" as const,
