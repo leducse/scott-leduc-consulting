@@ -69,6 +69,15 @@ aws amplify get-app \
   --output json
 
 echo ""
+echo "Current Amplify branch env vars:"
+aws amplify get-branch \
+  --region "$REGION" \
+  --app-id "$APP_ID" \
+  --branch-name "$BRANCH_NAME" \
+  --query 'branch.environmentVariables' \
+  --output json
+
+echo ""
 echo "Current role inline policies:"
 aws iam list-role-policies \
   --role-name "$ROLE_NAME" \
@@ -94,7 +103,7 @@ fi
 echo ""
 echo "This will:"
 echo "1. Put inline policy ${POLICY_NAME} on ${ROLE_NAME}."
-echo "2. Update Amplify app-level env vars for the existing chatbot and VDS app."
+echo "2. Update Amplify app-level and branch-level env vars for the existing chatbot and VDS app."
 echo "3. Trigger a RELEASE job on ${BRANCH_NAME}."
 echo ""
 read -r -p "Type APPLY to continue: " CONFIRM
@@ -111,6 +120,13 @@ aws iam put-role-policy \
 aws amplify update-app \
   --region "$REGION" \
   --app-id "$APP_ID" \
+  --environment-variables "$ENV_JSON" \
+  --output json
+
+aws amplify update-branch \
+  --region "$REGION" \
+  --app-id "$APP_ID" \
+  --branch-name "$BRANCH_NAME" \
   --environment-variables "$ENV_JSON" \
   --output json
 

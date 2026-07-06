@@ -90,9 +90,12 @@ Backend dependency:
   - platform: `WEB_COMPUTE`
   - SSR compute role:
     `arn:aws:iam::441383083571:role/AmplifySSRComputeRole`
-  - existing app-level env vars to preserve:
+  - existing app-level and branch-level env vars to preserve:
     `AGENTCORE_REGION=us-east-1` and
     `AGENTCORE_RUNTIME_ARN=arn:aws:bedrock-agentcore:us-east-1:441383083571:runtime/scottleduc_consultant-vKDki47sNm`
+  - SSR routes need the VDS env vars on the `main` branch as well as the app
+    object. If branch env vars are missing, the public app can render while API
+    routes still return `setup_required`.
 - The local bridge remains enabled for localhost development. For non-IAM
   backends, set `DATA_SCIENCE_MCP_BRIDGE_ENABLED=true` only after that backend
   has authentication, tenant isolation, quotas, and artifact access controls.
@@ -144,13 +147,27 @@ aws iam put-role-policy \
   --policy-document '{"Version":"2012-10-17","Statement":[{"Sid":"InvokeVirtualDataScientistBackendFunctionUrl","Effect":"Allow","Action":"lambda:InvokeFunctionUrl","Resource":"arn:aws:lambda:us-east-1:441383083571:function:virtual-data-scientist-backend-dev","Condition":{"StringEquals":{"lambda:FunctionUrlAuthType":"AWS_IAM"}}}]}'
 ```
 
-2. Add the Virtual Data Scientist env vars while preserving the existing chatbot
-   env vars:
+2. Add the Virtual Data Scientist env vars at both app and branch scope while
+   preserving the existing chatbot env vars:
 
 ```bash
 aws amplify update-app \
   --region us-east-1 \
   --app-id d3jq7pom4n937u \
+  --environment-variables '{
+    "AGENTCORE_REGION":"us-east-1",
+    "AGENTCORE_RUNTIME_ARN":"arn:aws:bedrock-agentcore:us-east-1:441383083571:runtime/scottleduc_consultant-vKDki47sNm",
+    "DATA_SCIENTIST_AGENTCORE_RUNTIME_ARN":"arn:aws:bedrock-agentcore:us-east-1:441383083571:runtime/vdsagentcore_VirtualDataScientistAgent-iSOiop5y80",
+    "DATA_SCIENTIST_AGENTCORE_ENDPOINT_NAME":"DEFAULT",
+    "DATA_SCIENCE_MCP_BASE_URL":"https://fdzrbtz4sewn6nrnlnbgbykbpu0jcutl.lambda-url.us-east-1.on.aws",
+    "DATA_SCIENCE_MCP_AUTH_MODE":"aws_iam",
+    "DATA_SCIENCE_MCP_AWS_SIGNING_SERVICE":"lambda"
+  }'
+
+aws amplify update-branch \
+  --region us-east-1 \
+  --app-id d3jq7pom4n937u \
+  --branch-name main \
   --environment-variables '{
     "AGENTCORE_REGION":"us-east-1",
     "AGENTCORE_RUNTIME_ARN":"arn:aws:bedrock-agentcore:us-east-1:441383083571:runtime/scottleduc_consultant-vKDki47sNm",
