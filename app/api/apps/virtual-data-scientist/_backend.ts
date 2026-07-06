@@ -1,5 +1,5 @@
 import { Sha256 } from "@aws-crypto/sha256-js";
-import { fromEnv, fromIni } from "@aws-sdk/credential-providers";
+import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import { HttpRequest } from "@smithy/protocol-http";
 import { SignatureV4 } from "@smithy/signature-v4";
 
@@ -43,13 +43,7 @@ function getBackendRegion(url: string) {
   return "us-east-1";
 }
 
-async function getAwsCredentials() {
-  try {
-    return await fromEnv()();
-  } catch {
-    return await fromIni()();
-  }
-}
+const getAwsCredentials = defaultProvider();
 
 function isLocalBackend(url: string) {
   try {
