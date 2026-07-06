@@ -96,6 +96,9 @@ Backend dependency:
   - SSR routes need the VDS env vars on the `main` branch as well as the app
     object. If branch env vars are missing, the public app can render while API
     routes still return `setup_required`.
+  - The public Next API routes also include production-only defaults for the VDS
+    runtime ARN, deployed backend URL, and IAM auth mode. These values are not
+    secrets; AWS credentials still come from the Amplify SSR compute role.
 - The local bridge remains enabled for localhost development. For non-IAM
   backends, set `DATA_SCIENCE_MCP_BRIDGE_ENABLED=true` only after that backend
   has authentication, tenant isolation, quotas, and artifact access controls.

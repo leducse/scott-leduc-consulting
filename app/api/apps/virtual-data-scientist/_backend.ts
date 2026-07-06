@@ -5,6 +5,8 @@ import { SignatureV4 } from "@smithy/signature-v4";
 
 type BackendRequest = Record<string, unknown>;
 
+const DEPLOYED_BACKEND_URL = "https://fdzrbtz4sewn6nrnlnbgbykbpu0jcutl.lambda-url.us-east-1.on.aws";
+
 export class BackendError extends Error {
   status: number;
   setupRequired: boolean;
@@ -18,11 +20,13 @@ export class BackendError extends Error {
 }
 
 export function getDataScienceBackendUrl() {
-  return (process.env.DATA_SCIENCE_MCP_BASE_URL || "http://127.0.0.1:8765").replace(/\/+$/, "");
+  const fallbackUrl = process.env.NODE_ENV === "production" ? DEPLOYED_BACKEND_URL : "http://127.0.0.1:8765";
+  return (process.env.DATA_SCIENCE_MCP_BASE_URL || fallbackUrl).replace(/\/+$/, "");
 }
 
 function getBackendAuthMode() {
-  return (process.env.DATA_SCIENCE_MCP_AUTH_MODE || "none").trim().toLowerCase();
+  const fallbackAuthMode = process.env.NODE_ENV === "production" ? "aws_iam" : "none";
+  return (process.env.DATA_SCIENCE_MCP_AUTH_MODE || fallbackAuthMode).trim().toLowerCase();
 }
 
 function getSigningService() {

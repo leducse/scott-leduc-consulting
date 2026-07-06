@@ -5,6 +5,8 @@ import { randomUUID } from "crypto";
 export const runtime = "nodejs";
 
 const MIN_AGENTCORE_SESSION_ID_LENGTH = 33;
+const DEPLOYED_VDS_RUNTIME_ARN =
+  "arn:aws:bedrock-agentcore:us-east-1:441383083571:runtime/vdsagentcore_VirtualDataScientistAgent-iSOiop5y80";
 
 function getRuntimeSessionId(candidate: string | null) {
   const value = candidate?.trim();
@@ -16,7 +18,9 @@ function getRuntimeSessionId(candidate: string | null) {
 
 export async function GET(request: NextRequest) {
   try {
-    const runtimeArn = process.env.DATA_SCIENTIST_AGENTCORE_RUNTIME_ARN;
+    const runtimeArn =
+      process.env.DATA_SCIENTIST_AGENTCORE_RUNTIME_ARN ||
+      (process.env.NODE_ENV === "production" ? DEPLOYED_VDS_RUNTIME_ARN : "");
     if (!runtimeArn) {
       return NextResponse.json({
         error: "DATA_SCIENTIST_AGENTCORE_RUNTIME_ARN is not configured.",
