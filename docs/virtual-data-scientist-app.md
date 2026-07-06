@@ -198,3 +198,47 @@ aws amplify start-job \
 curl -I https://www.decision-layer.com/apps/virtual-data-scientist
 curl https://www.decision-layer.com/api/apps/virtual-data-scientist/sessions
 ```
+
+## Pause Handoff
+
+Current pushed state:
+
+- Website app route is deployed and live:
+  `https://www.decision-layer.com/apps/virtual-data-scientist`
+- Latest pushed commit for this work:
+  `5afba11 Use AWS runtime credential chain for VDS`
+- Amplify deployment job `59` for `5afba11` completed with BUILD, DEPLOY, and
+  VERIFY all `SUCCEED`.
+- Public page smoke test returns `HTTP 200`.
+- Public API smoke tests are still blocked:
+  - `/api/apps/virtual-data-scientist/sessions` returns `HTTP 503`.
+  - `/api/apps/virtual-data-scientist/ws-url` returns `HTTP 500`.
+- Amplify SSR CloudWatch logs show the direct blocker:
+  `CredentialsProviderError: Could not load credentials from any providers`.
+
+What is not blocked:
+
+- The frontend route exists and renders.
+- The VDS backend and AgentCore runtime were deployed separately.
+- Amplify has the expected VDS app-level and branch-level env vars.
+- The SSR role has the intended IAM permissions for AgentCore and the Lambda
+  Function URL.
+
+What is blocked:
+
+- The Next.js API routes running in Amplify SSR are not receiving usable AWS
+  credentials at runtime, so they cannot sign calls to AgentCore or the
+  IAM-protected Lambda Function URL.
+
+Next steps:
+
+1. Confirm whether Amplify WEB_COMPUTE exposes SSR compute role credentials to
+   Next.js API routes in this hosting mode.
+2. If it does, fix the credential source configuration and retest only:
+   `/sessions`, `/ws-url`, CSV upload, then one chat turn.
+3. If it does not, move the signing bridge out of Amplify SSR into a small AWS
+   Lambda/API Gateway or Lambda Function URL proxy that has an execution role.
+4. Keep the website API routes as thin pass-through routes to that proxy.
+5. After the bridge works, add basic production controls before broader sharing:
+   auth, per-user session ownership, rate limits, upload size/type controls,
+   artifact access checks, and better user-facing error messages.
