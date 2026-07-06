@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" role="img" aria-labelledby="title desc">
+  <title id="title">TradingView webhook AWS POC validation screenshot</title>
+  <desc id="desc">Sanitized validation evidence showing local build, local tests, and paper broker smoke test status.</desc>
+  <rect width="1400" height="860" fill="#07111f"/>
+  <rect x="56" y="48" width="1288" height="764" rx="18" fill="#0f172a" stroke="#155e75" stroke-width="2"/>
+  <rect x="56" y="48" width="1288" height="62" rx="18" fill="#111827"/>
+  <circle cx="92" cy="79" r="9" fill="#ef4444"/>
+  <circle cx="122" cy="79" r="9" fill="#f59e0b"/>
+  <circle cx="152" cy="79" r="9" fill="#22c55e"/>
+  <text x="190" y="86" fill="#cbd5e1" font-family="Menlo, Consolas, monospace" font-size="22">tradingview-webhook-aws-poc validation</text>
+
+  <text x="92" y="162" fill="#22d3ee" font-family="Menlo, Consolas, monospace" font-size="24">$ make build-template</text>
+  <text x="118" y="206" fill="#e2e8f0" font-family="Menlo, Consolas, monospace" font-size="22">build/cloudformation/tradingview-webhook-poc.template.json</text>
+  <text x="118" y="244" fill="#e2e8f0" font-family="Menlo, Consolas, monospace" font-size="22">build/lambda/tv-aws-poc-lambda.zip</text>
+  <text x="118" y="282" fill="#86efac" font-family="Menlo, Consolas, monospace" font-size="22">CloudFormation template built successfully</text>
+
+  <text x="92" y="356" fill="#22d3ee" font-family="Menlo, Consolas, monospace" font-size="24">$ make test</text>
+  <text x="118" y="400" fill="#e2e8f0" font-family="Menlo, Consolas, monospace" font-size="22">tests/test_config.py ........</text>
+  <text x="118" y="438" fill="#e2e8f0" font-family="Menlo, Consolas, monospace" font-size="22">tests/test_lambda_handlers.py ............</text>
+  <text x="118" y="476" fill="#e2e8f0" font-family="Menlo, Consolas, monospace" font-size="22">tests/test_risk.py ..............</text>
+  <text x="118" y="514" fill="#86efac" font-family="Menlo, Consolas, monospace" font-size="22">60 passed</text>
+
+  <text x="92" y="588" fill="#22d3ee" font-family="Menlo, Consolas, monospace" font-size="24">$ aws paper smoke test</text>
+  <text x="118" y="632" fill="#e2e8f0" font-family="Menlo, Consolas, monospace" font-size="22">mode: PAPER</text>
+  <text x="118" y="670" fill="#e2e8f0" font-family="Menlo, Consolas, monospace" font-size="22">broker: Alpaca paper endpoint</text>
+  <text x="118" y="708" fill="#e2e8f0" font-family="Menlo, Consolas, monospace" font-size="22">nonce: paper-20260706-003</text>
+  <text x="118" y="746" fill="#86efac" font-family="Menlo, Consolas, monospace" font-size="22">broker status: accepted</text>
+
+  <rect x="918" y="176" width="336" height="82" rx="12" fill="#064e3b" stroke="#34d399"/>
+  <text x="1086" y="210" fill="#bbf7d0" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">Paper only</text>
+  <text x="1086" y="238" fill="#d1fae5" font-family="Inter, Arial, sans-serif" font-size="15" text-anchor="middle">Live trading locked by design</text>
+
+  <rect x="918" y="302" width="336" height="82" rx="12" fill="#082f49" stroke="#38bdf8"/>
+  <text x="1086" y="336" fill="#bae6fd" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">Serverless AWS</text>
+  <text x="1086" y="364" fill="#e0f2fe" font-family="Inter, Arial, sans-serif" font-size="15" text-anchor="middle">API Gateway, Lambda, SQS, DynamoDB</text>
+
+  <rect x="918" y="428" width="336" height="82" rx="12" fill="#312e81" stroke="#818cf8"/>
+  <text x="1086" y="462" fill="#c7d2fe" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">Safety gates</text>
+  <text x="1086" y="490" fill="#e0e7ff" font-family="Inter, Arial, sans-serif" font-size="15" text-anchor="middle">Secret, timestamp, nonce, notional</text>
+</svg>

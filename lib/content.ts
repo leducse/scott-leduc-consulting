@@ -706,6 +706,76 @@ export const CASE_STUDY_CONTENT = {
     impact:
       "Shows how to govern agent and API database access without blocking innovation—catch abusive patterns early, route legitimate queries through auditable catalogs, and scale to enterprise AWS services.",
   },
+  "tradingview-webhook-aws-poc": {
+    problem:
+      "TradingView can generate strategy alerts, but a direct webhook-to-broker path is too brittle for serious paper trading. The execution lane needs payload validation, replay protection, risk controls, audit history, secret isolation, and a live-trading lock before any broker API is allowed to receive an order.",
+    solution:
+      "Built a paper-first AWS serverless execution path: TradingView strategy alerts hit API Gateway, a receiver Lambda validates and queues the signal, SQS buffers processing, a processor Lambda applies deterministic risk gates and idempotency checks, DynamoDB records redacted signal and order events, Secrets Manager isolates webhook and Alpaca paper credentials, and the Alpaca adapter submits paper orders only.",
+    results: [
+      "End-to-end AWS smoke test submitted one Alpaca paper order with accepted broker status",
+      "60-test local suite covers payload contracts, risk gates, broker adapters, Lambda handlers, and CloudFormation assets",
+      "CloudFormation template builds the AWS stack with API Gateway, Lambda, SQS, DynamoDB, Secrets Manager, IAM, CloudWatch, and S3 artifact flow",
+      "Live trading remains locked by design; broker adapter rejects live mode and non-paper Alpaca endpoints",
+      "TradingView setup guide and Pine strategy starter make the paper alert path reproducible",
+    ],
+    methodology: {
+      title: "Paper-First Execution Lane",
+      steps: [
+        {
+          name: "Webhook Contract",
+          description:
+            "TradingView Pine emits a structured JSON payload with symbol, action, quantity, mode, nonce, timestamp, and shared webhook secret.",
+        },
+        {
+          name: "AWS Ingestion",
+          description:
+            "API Gateway and receiver Lambda validate request shape, redact sensitive values, and enqueue valid signals into SQS for asynchronous processing.",
+        },
+        {
+          name: "Risk + Idempotency",
+          description:
+            "Processor Lambda checks kill switch, allowed symbols, max notional, stale timestamps, duplicate nonces, and explicit paper/live boundaries before broker submission.",
+        },
+        {
+          name: "Broker + Audit",
+          description:
+            "Alpaca paper adapter submits paper orders only, then records broker outcomes in DynamoDB with CloudWatch visibility for operational review.",
+        },
+      ],
+    },
+    scale: [
+      "60 local tests - build, template, payload, risk, broker, and Lambda coverage",
+      "AWS serverless stack - API Gateway, Lambda, SQS, DynamoDB, Secrets Manager",
+      "PAPER broker path - one accepted Alpaca paper smoke order",
+    ],
+    technologies: [
+      "TradingView Pine Script strategy alerts",
+      "AWS API Gateway HTTP API",
+      "AWS Lambda with Python",
+      "Amazon SQS and dead-letter queue",
+      "Amazon DynamoDB audit and idempotency tables",
+      "AWS Secrets Manager and IAM",
+      "AWS CloudFormation and S3 artifacts",
+      "Alpaca Paper Trading API",
+    ],
+    architectureDiagram: "/case-studies/tradingview-webhook-aws-poc-architecture.png",
+    screenshots: [
+      {
+        src: "/case-studies/tradingview-webhook-aws-poc-architecture.png",
+        alt: "TradingView webhook AWS paper trading architecture diagram",
+        caption: "Full AWS paper-trading architecture exported from the project README.",
+      },
+      {
+        src: "/case-studies/tradingview-webhook-aws-poc-validation.svg",
+        alt: "Sanitized build and test validation screenshot",
+        caption: "Sanitized validation evidence showing the local build, test, and paper smoke results.",
+      },
+    ],
+    portfolioNote:
+      "Portfolio POC uses paper trading only. The live path is intentionally unavailable until a separate live-readiness review, explicit approvals, stronger observability, and broker account controls are added.",
+    impact:
+      "Demonstrates production-minded automation for a high-risk domain: event-driven AWS infrastructure, deterministic safety controls, broker abstraction, and paper trading proof without enabling real-money execution.",
+  },
   "tableau-knowledge-platform": {
     problem:
       "Tableau workbooks accumulate calculated fields, parameters, and dashboards that only original authors understand—blocking self-service analytics, safe GenAI answers, and consistent metric definitions across teams.",
@@ -884,5 +954,3 @@ export const SOLUTION_CARDS = [
     gradient: "from-amber-500 to-orange-500",
   },
 ];
-
-

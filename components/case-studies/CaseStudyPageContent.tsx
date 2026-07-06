@@ -1,5 +1,6 @@
 import { CASE_STUDIES } from "@/lib/constants";
 import { CASE_STUDY_CONTENT } from "@/lib/content";
+import Image from "next/image";
 import CaseStudyHeader from "./CaseStudyHeader";
 import ImpactMetrics from "./ImpactMetrics";
 import Methodology from "./Methodology";
@@ -15,6 +16,7 @@ type CaseStudyKey = keyof typeof CASE_STUDY_CONTENT;
 const ARCHITECTURE_DIAGRAM_KEYS = [
   "ai-coding-spillover",
   "mcp-query-governance",
+  "tradingview-webhook-aws-poc",
   "tableau-knowledge-platform",
   "tableau-quicksight-migration",
 ] as const;
@@ -40,6 +42,7 @@ const caseStudyGradients: Record<CaseStudyKey, string> = {
   "consulting-platform": "from-cyan-500 to-violet-500",
   "ai-coding-spillover": "from-violet-500 to-indigo-500",
   "mcp-query-governance": "from-amber-500 to-orange-500",
+  "tradingview-webhook-aws-poc": "from-emerald-500 to-sky-500",
   "tableau-knowledge-platform": "from-emerald-500 to-cyan-500",
   "tableau-quicksight-migration": "from-sky-500 to-blue-500",
 };
@@ -69,6 +72,7 @@ export default function CaseStudyPageContent({
     "consulting-platform": ["Deploy Time", "Architecture", "AI Agents"],
     "ai-coding-spillover": ["Panel Scale", "Methods", "Reproducibility"],
     "mcp-query-governance": ["Principals Scored", "Detection", "Governance Path"],
+    "tradingview-webhook-aws-poc": ["Validation", "AWS Components", "Broker Mode"],
     "tableau-knowledge-platform": ["Validation", "Doc Passes", "AWS Path"],
     "tableau-quicksight-migration": ["Checks", "Parity", "Deploy Mode"],
   };
@@ -145,6 +149,32 @@ export default function CaseStudyPageContent({
           <Methodology title={content.methodology.title} steps={content.methodology.steps} />
         )}
 
+        {"screenshots" in content && content.screenshots && (
+          <section className="space-y-4">
+            <h2 className="text-3xl font-bold text-white">Screenshots</h2>
+            <div className="grid gap-6 lg:grid-cols-2">
+              {content.screenshots.map((screenshot) => (
+                <figure
+                  key={screenshot.src}
+                  className="overflow-hidden rounded-xl border border-cyan-500/25 bg-slate-900/90 shadow-lg shadow-cyan-500/5"
+                >
+                  <Image
+                    src={screenshot.src}
+                    alt={screenshot.alt}
+                    width={1400}
+                    height={860}
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="h-auto w-full bg-slate-950"
+                  />
+                  <figcaption className="border-t border-cyan-500/20 px-4 py-3 text-sm leading-relaxed text-slate-300">
+                    {screenshot.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+
         {visualizationStats.length > 0 && (
           <StatsVisualization
             title="Scale & Scope"
@@ -219,5 +249,3 @@ export default function CaseStudyPageContent({
     </div>
   );
 }
-
-

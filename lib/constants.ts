@@ -209,6 +209,21 @@ export const CASE_STUDIES = [
     githubRepo: "https://github.com/leducse/mcp-query-governance",
   },
   {
+    id: "tradingview-webhook-aws-poc",
+    slug: "tradingview-webhook-aws-poc",
+    category: "portfolio" as const,
+    title: "TradingView Paper Trading Automation",
+    tagline: "Serverless Webhook-to-Broker Execution",
+    metrics: [
+      { label: "Test Suite", value: "60", suffix: " tests" },
+      { label: "Execution Mode", value: "PAPER", suffix: " only" },
+      { label: "Broker Smoke", value: "1", suffix: " accepted order" },
+      { label: "AWS Pattern", value: "100%", suffix: " serverless" },
+    ],
+    gradient: "from-emerald-500 to-sky-500",
+    githubRepo: "https://github.com/leducse/tradingview-webhook-aws-poc",
+  },
+  {
     id: "tableau-knowledge-platform",
     slug: "tableau-knowledge-platform",
     category: "portfolio" as const,

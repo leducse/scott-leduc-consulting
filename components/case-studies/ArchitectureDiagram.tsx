@@ -3,6 +3,7 @@
 export type ArchitectureDiagramKey =
   | "ai-coding-spillover"
   | "mcp-query-governance"
+  | "tradingview-webhook-aws-poc"
   | "tableau-knowledge-platform"
   | "tableau-quicksight-migration";
 
@@ -30,9 +31,9 @@ export default function ArchitectureDiagram({ diagram, title }: ArchitectureDiag
         className="w-full h-auto max-h-[420px] mx-auto block"
         role="img"
       >
-        <title>{title} architecture</title>
         {diagram === "ai-coding-spillover" && <AiCodingSpilloverDiagram />}
         {diagram === "mcp-query-governance" && <McpGovernanceDiagram />}
+        {diagram === "tradingview-webhook-aws-poc" && <TradingViewWebhookDiagram />}
         {diagram === "tableau-knowledge-platform" && <TableauKnowledgeDiagram />}
         {diagram === "tableau-quicksight-migration" && <TableauMigrationDiagram />}
       </svg>
@@ -151,6 +152,76 @@ function McpGovernanceDiagram() {
       </text>
       <text x={360} y={268} textAnchor="middle" fill={muted} fontSize={10}>
         2/2 abusers detected • 0 false positives
+      </text>
+    </>
+  );
+}
+
+function TradingViewWebhookDiagram() {
+  const steps = [
+    { x: 70, label: "TradingView", sublabel: "Pine alert" },
+    { x: 190, label: "API Gateway", sublabel: "webhook" },
+    { x: 310, label: "Receiver", sublabel: "Lambda" },
+    { x: 430, label: "SQS", sublabel: "buffer + DLQ" },
+    { x: 550, label: "Processor", sublabel: "risk gate" },
+    { x: 670, label: "Alpaca", sublabel: "paper API" },
+  ];
+
+  return (
+    <>
+      <text x={360} y={28} textAnchor="middle" fill="#34d399" fontSize={14} fontWeight={600}>
+        TradingView to AWS Paper Trading Lane
+      </text>
+      {steps.map((step, i) => (
+        <g key={step.label}>
+          {i > 0 && (
+            <path d={`M${steps[i - 1].x + 48} 80 H${step.x - 48}`} stroke={muted} strokeWidth={2} />
+          )}
+          <rect
+            x={step.x - 48}
+            y={54}
+            width={96}
+            height={56}
+            rx={8}
+            fill={i === 5 ? "#064e3b" : box}
+            stroke={i === 5 ? "#34d399" : stroke}
+            strokeWidth={1.5}
+          />
+          <text x={step.x} y={78} textAnchor="middle" fill={i === 5 ? "#6ee7b7" : text} fontSize={9} fontWeight={600}>
+            {step.label}
+          </text>
+          <text x={step.x} y={94} textAnchor="middle" fill={muted} fontSize={8}>
+            {step.sublabel}
+          </text>
+        </g>
+      ))}
+      <rect x={86} y={138} width={168} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={170} y={160} textAnchor="middle" fill="#bae6fd" fontSize={10} fontWeight={600}>
+        Secrets Manager
+      </text>
+      <text x={170} y={178} textAnchor="middle" fill={muted} fontSize={9}>
+        webhook + Alpaca paper keys
+      </text>
+      <rect x={276} y={138} width={168} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={360} y={160} textAnchor="middle" fill="#bae6fd" fontSize={10} fontWeight={600}>
+        DynamoDB
+      </text>
+      <text x={360} y={178} textAnchor="middle" fill={muted} fontSize={9}>
+        idempotency + order audit
+      </text>
+      <rect x={466} y={138} width={168} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={550} y={160} textAnchor="middle" fill="#bae6fd" fontSize={10} fontWeight={600}>
+        CloudWatch
+      </text>
+      <text x={550} y={178} textAnchor="middle" fill={muted} fontSize={9}>
+        logs + alarm visibility
+      </text>
+      <rect x={210} y={216} width={300} height={36} rx={8} fill="#14532d" stroke="#4ade80" />
+      <text x={360} y={239} textAnchor="middle" fill="#bbf7d0" fontSize={11} fontWeight={600}>
+        Live trading locked; PAPER mode only
+      </text>
+      <text x={360} y={270} textAnchor="middle" fill={muted} fontSize={10}>
+        CloudFormation • Python Lambda • 60 tests • accepted Alpaca paper smoke
       </text>
     </>
   );
