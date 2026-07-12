@@ -104,9 +104,12 @@ A modern consulting website built with Next.js, featuring an AI-powered chatbot 
 - **SEO Optimized**: Metadata with canonical URL (decision-layer.com)
 - **Contact Form**: AWS SES integrated contact form with validation
 - **Case Studies**: Detailed case studies showcasing real-world impact
+- **Interactive Apps**: Fixture-safe portfolio apps including the RecallGraph AI
+  analyst workbench at `/apps/recallgraph-ai`
 - **Service Pages**: Comprehensive service offerings with methodology and deliverables
 
 Production hardening checklist: [`docs/production_readiness_audit.md`](docs/production_readiness_audit.md).
+RecallGraph workbench notes: [`docs/recallgraph_workbench.md`](docs/recallgraph_workbench.md).
 
 ### Custom Domains (AWS Amplify + Route53)
 - **Primary**: `decision-layer.com` and `www.decision-layer.com`

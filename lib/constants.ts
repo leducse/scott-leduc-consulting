@@ -177,6 +177,7 @@ export const CASE_STUDIES = [
       { label: "Page Load", value: "<2s", suffix: "" },
     ],
     gradient: "from-cyan-500 to-violet-500",
+    githubRepo: "https://github.com/leducse/recallgraph-ai",
   },
   {
     id: "ai-coding-spillover",

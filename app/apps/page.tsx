@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Brain, LineChart, ShieldCheck } from "lucide-react";
+import { ArrowRight, Brain, ClipboardCheck, LineChart, ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,12 +12,20 @@ export const metadata: Metadata = {
 
 const apps = [
   {
+    title: "RecallGraph AI Workbench",
+    href: "/apps/recallgraph-ai",
+    description:
+      "A product-safety analyst console with a risk queue, cited evidence, agent traces, eval gates, and a controlled dashboard copilot.",
+    icon: ClipboardCheck,
+    status: "Fixture-backed demo",
+  },
+  {
     title: "Virtual Data Scientist",
     href: "/apps/virtual-data-scientist",
     description:
-      "A native LLM chat surface for choosing analytical techniques, running light analysis, and handing deeper work to AgentCore.",
+      "A standalone agentic analytics app for profiling data, choosing analysis paths, and preserving code-backed artifacts.",
     icon: Brain,
-    status: "AgentCore live demo",
+    status: "Standalone project",
   },
   {
     title: "FutureWealth",

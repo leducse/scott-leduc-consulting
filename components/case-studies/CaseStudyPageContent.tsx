@@ -1,6 +1,8 @@
 import { CASE_STUDIES } from "@/lib/constants";
 import { CASE_STUDY_CONTENT } from "@/lib/content";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, MonitorCheck } from "lucide-react";
 import CaseStudyHeader from "./CaseStudyHeader";
 import ImpactMetrics from "./ImpactMetrics";
 import Methodology from "./Methodology";
@@ -145,6 +147,30 @@ export default function CaseStudyPageContent({
             {"portfolioNote" in content && content.portfolioNote && (
               <p className="text-sm text-slate-400 leading-relaxed">{content.portfolioNote}</p>
             )}
+          </section>
+        )}
+
+        {caseStudyKey === "recallgraph-ai" && (
+          <section className="rounded-lg border border-cyan-500/25 bg-[#0c1726] p-5">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <h2 className="flex items-center gap-2 text-xl font-semibold text-white">
+                  <MonitorCheck className="h-5 w-5 text-cyan-300" />
+                  Interactive Workbench
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                  Explore the fixture-backed analyst console with risk filtering, cited evidence,
+                  agent traces, eval gates, and a controlled natural-language panel.
+                </p>
+              </div>
+              <Link
+                href="/apps/recallgraph-ai"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-cyan-400 px-4 text-sm font-semibold text-[#07111f] transition-colors hover:bg-cyan-300"
+              >
+                Open Workbench
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </section>
         )}
 

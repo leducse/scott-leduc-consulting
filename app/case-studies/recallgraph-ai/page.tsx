@@ -1,7 +1,7 @@
 import CaseStudyPageContent from "@/components/case-studies/CaseStudyPageContent";
 
 export const metadata = {
-  title: "RecallGraph AI | Decision Layer Analytics",
+  title: "RecallGraph AI",
   description:
     "A portfolio-grade AI engineering project demonstrating RAG, multi-agent orchestration, eval gates, LLMOps, and production patterns over public product-safety data.",
 };
