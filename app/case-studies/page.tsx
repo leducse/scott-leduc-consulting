@@ -5,7 +5,7 @@ import { CASE_STUDIES } from "@/lib/constants";
 export const metadata = {
   title: "Case Studies | Decision Layer Analytics",
   description:
-    "Explore case studies showcasing statistical analysis, machine learning, AWS architecture, and analytics consulting outcomes.",
+    "Explore case studies and portfolio projects showcasing statistical analysis, machine learning, AWS architecture, and analytics outcomes.",
 };
 
 const clientWork = CASE_STUDIES.filter((s) => s.category !== "portfolio");
@@ -26,8 +26,8 @@ export default function CaseStudiesPage() {
             Strategy Transformed into Measurable Results
           </h1>
           <p className="text-lg text-[var(--text-muted)] max-w-3xl mx-auto">
-            Each engagement combines statistical rigor, machine learning expertise, and
-            AWS-native solutions to deliver proven business impact.
+            A curated mix of prior professional proof points and demo-safe portfolio projects,
+            showing how I translate data problems into measurable decision systems.
           </p>
         </section>
 
@@ -78,8 +78,12 @@ export default function CaseStudiesPage() {
 
         <section>
           <ServiceCTA
-            headline="Interested in results like these?"
-            subheadline="Tell us about your goals and we'll design an engagement plan to replicate this impact."
+            headline="Want the role-fit view?"
+            subheadline="Open the portfolio hub to see projects grouped by analytics, AI, BI, and AWS strengths."
+            primaryHref="/portfolio"
+            primaryLabel="Open Portfolio Hub"
+            secondaryHref="/apps"
+            secondaryLabel="View Interactive Apps"
           />
         </section>
       </div>

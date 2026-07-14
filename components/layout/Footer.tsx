@@ -20,7 +20,8 @@ export default function Footer() {
               <span className="text-lg font-bold">{SITE_CONFIG.name}</span>
             </Link>
             <p className="text-[var(--text-muted)] max-w-md mb-4">
-              Transforming complex data challenges into measurable business outcomes through rigorous analytics, machine learning, and cloud architecture.
+              A personal portfolio lab showcasing applied analytics, AI/ML engineering,
+              BI systems, and AWS-native decision products.
             </p>
             <div className="flex gap-4">
               <a
@@ -48,10 +49,10 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-[var(--foreground)] mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {["Services", "Case Studies", "Process", "About", "Contact"].map((item) => (
+              {["Portfolio", "Capabilities", "Case Studies", "Apps", "About"].map((item) => (
                 <li key={item}>
                   <Link
-                    href={`/${item.toLowerCase().replace(" ", "-")}`}
+                    href={`/${item === "Capabilities" ? "services" : item.toLowerCase().replace(" ", "-")}`}
                     className="text-[var(--text-muted)] hover:text-cyan-400 transition-colors"
                   >
                     {item}

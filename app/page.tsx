@@ -190,8 +190,12 @@ export default function Home() {
         {/* CTA */}
         <section>
           <ServiceCTA
-            headline="Ready to build your Decision Layer?"
-            subheadline="Let's scope a roadmap that turns your data into decisions leadership can trust."
+            headline="Explore the Decision Layer proof hub"
+            subheadline="See selected case studies, demo-safe portfolio projects, GitHub links, and interactive apps grouped by role fit."
+            primaryHref="/portfolio"
+            primaryLabel="Open Portfolio Hub"
+            secondaryHref="/apps"
+            secondaryLabel="View Interactive Apps"
           />
         </section>
       </div>

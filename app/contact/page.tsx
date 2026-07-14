@@ -6,7 +6,7 @@ import { Mail, Linkedin, Github, MapPin, Clock, Calendar, Users } from "lucide-r
 export const metadata = {
   title: "Contact | Decision Layer Analytics",
   description:
-    "Request a consultation to discuss statistical analysis, machine learning, AWS architecture, and analytics engagements.",
+    "Contact Scott LeDuc for hiring, collaboration, portfolio discussion, or future advisory inquiries.",
 };
 
 export default function ContactPage() {
@@ -25,7 +25,9 @@ export default function ContactPage() {
             Let&apos;s Start a Conversation
           </h1>
           <p className="text-lg text-[var(--text-muted)] max-w-2xl mx-auto">
-            Tell me about your goals, stakeholders, and timeline. I&apos;ll follow up within 24-48 hours.
+            Reach out for hiring conversations, collaboration, portfolio discussion, or future
+            advisory inquiries. I am not currently operating Decision Layer as an active
+            consulting business.
           </p>
         </section>
 
@@ -78,28 +80,28 @@ export default function ContactPage() {
 
             <GradientCard gradient="from-violet-500 to-purple-500" hover={false}>
               <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">
-                Engagement Types
+                Good reasons to reach out
               </h2>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3 text-[var(--text-muted)]">
                   <Clock className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-medium text-[var(--foreground)]">Discovery</div>
-                    <div className="text-sm">2-4 weeks</div>
+                    <div className="font-medium text-[var(--foreground)]">Hiring conversations</div>
+                    <div className="text-sm">Analytics, AI, BI, and AWS roles</div>
                   </div>
                 </li>
                 <li className="flex items-start gap-3 text-[var(--text-muted)]">
                   <Calendar className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-medium text-[var(--foreground)]">Implementation</div>
-                    <div className="text-sm">8-16 weeks</div>
+                    <div className="font-medium text-[var(--foreground)]">Project collaboration</div>
+                    <div className="text-sm">Portfolio, research, and build discussions</div>
                   </div>
                 </li>
                 <li className="flex items-start gap-3 text-[var(--text-muted)]">
                   <Users className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-medium text-[var(--foreground)]">Fractional Leadership</div>
-                    <div className="text-sm">3-12 months</div>
+                    <div className="font-medium text-[var(--foreground)]">Future advisory</div>
+                    <div className="text-sm">Limited availability may open later</div>
                   </div>
                 </li>
               </ul>
@@ -110,7 +112,7 @@ export default function ContactPage() {
           <div className="lg:col-span-2">
             <div className="glass-card rounded-xl p-8">
               <h2 className="text-2xl font-bold text-[var(--foreground)] mb-6">
-                Request a Consultation
+                Start a Conversation
               </h2>
               <ContactForm />
             </div>

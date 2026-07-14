@@ -37,7 +37,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl md:text-2xl text-[var(--text-muted)] mb-6 max-w-3xl mx-auto leading-relaxed"
           >
-            Advanced Analytics. AI/ML Engineering. Cloud Architecture.
+            A portfolio lab for applied analytics, AI/ML engineering, and AWS decision systems.
           </motion.p>
           
           {/* Value prop */}
@@ -59,10 +59,10 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Link
-              href="/contact"
+              href="/portfolio"
               className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold text-lg transition-all hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105 shimmer"
             >
-              Request Consultation
+              Explore Portfolio
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link

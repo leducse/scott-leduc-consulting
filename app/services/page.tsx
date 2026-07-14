@@ -5,9 +5,9 @@ import { SERVICES, SITE_CONFIG } from "@/lib/constants";
 import { CheckCircle, Layers } from "lucide-react";
 
 export const metadata = {
-  title: "Services | Decision Layer Analytics",
+  title: "Capabilities | Decision Layer Analytics",
   description:
-    "Statistical analysis, machine learning, AWS architecture, business intelligence, and data engineering consulting services.",
+    "Applied analytics, machine learning, AWS architecture, business intelligence, and data engineering capabilities.",
 };
 
 export default function ServicesPage() {
@@ -17,17 +17,18 @@ export default function ServicesPage() {
         {/* Header */}
         <section className="space-y-4 text-center">
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-400 font-semibold">
-            Services
+            Capabilities
           </p>
           <h1
             className="text-4xl md:text-5xl font-bold text-[var(--foreground)]"
             style={{ fontFamily: "'Cabinet Grotesk', sans-serif" }}
           >
-            Consulting Services for Measurable Impact
+            Capability Areas Demonstrated Through Projects
           </h1>
           <p className="text-lg text-[var(--text-muted)] max-w-3xl mx-auto">
-            Partner with {SITE_CONFIG.name} to apply rigorous analytics, machine learning, and
-            cloud architecture best practices to your most critical initiatives.
+            {SITE_CONFIG.name} is currently a personal portfolio lab. These practice areas
+            show how I frame business problems, build systems, and communicate measurable
+            outcomes through prior professional work and portfolio projects.
           </p>
         </section>
 
@@ -54,13 +55,13 @@ export default function ServicesPage() {
               </div>
               <div>
                 <h2 className="text-2xl font-semibold text-[var(--foreground)] mb-3">
-                  What makes our engagements successful?
+                  What makes this work credible?
                 </h2>
                 <ul className="space-y-3 text-[var(--text-muted)]">
                   <li>• Proven methodologies applied to multi-million dollar programs</li>
                   <li>• Cross-functional expertise spanning statistics, ML/AI, and AWS architecture</li>
                   <li>• Executive-ready storytelling grounded in data and causal inference</li>
-                  <li>• Repeatable frameworks, documentation, and enablement for your teams</li>
+                  <li>• Repeatable frameworks, documentation, and demo-safe implementation artifacts</li>
                 </ul>
               </div>
             </div>
@@ -73,13 +74,13 @@ export default function ServicesPage() {
               </div>
               <div>
                 <h2 className="text-2xl font-semibold text-[var(--foreground)] mb-3">
-                  Engagement models
+                  Future advisory paths
                 </h2>
                 <ul className="space-y-3 text-[var(--text-muted)]">
-                  <li>• Strategic assessments & roadmaps</li>
-                  <li>• End-to-end solution delivery</li>
-                  <li>• Embedded leadership & fractional support</li>
-                  <li>• Training, workshops, and playbook creation</li>
+                  <li>• Portfolio and hiring conversations</li>
+                  <li>• Collaboration around analytics, AI, and AWS projects</li>
+                  <li>• Limited advisory or project-based work in the future</li>
+                  <li>• Talks, workshops, and playbook creation when appropriate</li>
                 </ul>
               </div>
             </div>
@@ -89,8 +90,12 @@ export default function ServicesPage() {
         {/* CTA */}
         <section>
           <ServiceCTA
-            headline="Need a tailored engagement?"
-            subheadline="Let's build a roadmap that aligns with your goals, timeline, and stakeholder needs."
+            headline="Want the curated version?"
+            subheadline="Start with the portfolio hub for selected case studies, repos, apps, and architecture notes."
+            primaryHref="/portfolio"
+            primaryLabel="Open Portfolio Hub"
+            secondaryHref="/apps"
+            secondaryLabel="View Interactive Apps"
           />
         </section>
       </div>
