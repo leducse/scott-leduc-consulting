@@ -55,6 +55,8 @@ const featured = CASE_STUDIES.filter((study) =>
     "recallgraph-ai",
     "mcp-query-governance",
     "ai-coding-spillover",
+    "constrained-transformer-adaptation",
+    "governed-model-lifecycle",
   ].includes(study.id)
 );
 

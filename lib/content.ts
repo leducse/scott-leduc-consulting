@@ -944,6 +944,120 @@ export const CASE_STUDY_CONTENT = {
     impact:
       "Accelerates QuickSight adoption with reviewable artifacts and hard deploy gates—so teams migrate with eyes open, not surprise broken KPIs.",
   },
+  "constrained-transformer-adaptation": {
+    problem:
+      "A structured-generation workflow needed to run locally without depending on a network connection or a large inference service. The model had to fit a constrained compute budget, emit machine-readable output, and remain subordinate to deterministic safety and schema validation.",
+    solution:
+      "Fine-tuned a 4-bit Qwen2.5-1.5B model with MLX QLoRA on synthetic structured-task examples. The base weights remained frozen while low-rank adapters updated 0.171% of parameters. A fixed benchmark, unchanged external smoke set, resource profiler, deterministic validator, and request-level trace made both gains and failure modes visible.",
+    results: [
+      "Improved the fixed held-out benchmark from 0/8 to 7/8 passing scenarios",
+      "Maintained 100% valid JSON on the held-out benchmark",
+      "Measured 1.18-second mean local inference and 1.78 GB peak memory",
+      "Preserved the weaker 1/6 unchanged external-template result as a documented generalization limitation",
+      "Added 12 smoke scenarios, 25 automated tests, and terminal plus JSONL request tracing",
+    ],
+    methodology: {
+      title: "Adapt, Measure, and Constrain",
+      steps: [
+        {
+          name: "Define the Contract",
+          description:
+            "Fix the structured output schema, scenario set, validator rules, and resource measurements before judging the tuned model.",
+        },
+        {
+          name: "Adapt Efficiently",
+          description:
+            "Use 4-bit QLoRA so the frozen base model remains compact while a small set of low-rank adapter weights learns the task format.",
+        },
+        {
+          name: "Benchmark Behavior",
+          description:
+            "Compare the base and tuned checkpoints on held-out scenarios, JSON validity, unchanged external templates, latency, memory, and artifact size.",
+        },
+        {
+          name: "Keep Rules Authoritative",
+          description:
+            "Treat generated output as a proposal. Deterministic parsing and policy validation decide whether the system may accept it.",
+        },
+      ],
+    },
+    scale: [
+      "12 smoke cases - fixed structured-task coverage",
+      "25 automated tests - validation and observability checks",
+      "Offline local path - no cloud inference dependency",
+    ],
+    technologies: [
+      "Qwen2.5-1.5B",
+      "MLX and MLX-LM",
+      "4-bit QLoRA / LoRA adapters",
+      "Python evaluation harness",
+      "Deterministic JSON and policy validation",
+      "JSONL observability",
+      "Local browser workbench",
+    ],
+    portfolioNote:
+      "Portfolio research project using synthetic scenarios and local compute. It is not a production edge deployment, and the unchanged external-template result is included to make the remaining generalization gap explicit.",
+    impact:
+      "Demonstrates the full constrained-model loop: choose a small base model, adapt it with parameter-efficient training, measure latency and memory, evaluate task behavior, expose failure modes, and keep deterministic controls outside the model.",
+  },
+  "governed-model-lifecycle": {
+    problem:
+      "A model catalog is not useful if users can apply opaque artifacts to arbitrary warehouse tables. Reusable analytical models need a fixed prediction question, point-in-time feature meanings, leakage controls, comparable benchmarks, approval state, and traceable batch outputs.",
+    solution:
+      "Extended a Virtual Data Scientist workbench with a local deal-risk lifecycle: deterministic weekly opportunity snapshots, a versioned feature contract, chronological evaluation, fixed registration gates, explicit human approval, and approval-gated batch scoring with reason codes and model lineage.",
+    results: [
+      "Evaluated 360 deterministic weekly snapshots with 270 training and 90 later held-out records",
+      "Improved average precision from 0.312 to 0.716 and Brier score from 0.201 to 0.137",
+      "Raised recall within the top 10% review capacity from 12% to 28%",
+      "Rejected forbidden post-outcome fields before training or scoring",
+      "Caught and fixed a label-based tie-breaking defect in the average-precision implementation",
+      "Verified evaluate, review, approve, and batch-score behavior through 15 automated tests and browser checks",
+    ],
+    methodology: {
+      title: "Evaluate Before You Operationalize",
+      steps: [
+        {
+          name: "Fix the Use Case",
+          description:
+            "Define the weekly observation time, 30-day outcome horizon, intended user, prohibited use, and feature contract before selecting a model.",
+        },
+        {
+          name: "Protect the Holdout",
+          description:
+            "Split records chronologically and fail the audit when a feature contains information created after the prediction timestamp.",
+        },
+        {
+          name: "Beat a Transparent Baseline",
+          description:
+            "Compare constant-risk and logistic-regression candidates using calibration, average precision, and recall at human review capacity.",
+        },
+        {
+          name: "Register, Approve, Score",
+          description:
+            "Store evidence as a version, require explicit human approval, then emit batch predictions with reason codes and lineage.",
+        },
+      ],
+    },
+    scale: [
+      "360 synthetic snapshots - point-in-time weekly records",
+      "90 held-out records - strictly later evaluation window",
+      "4 lifecycle stages - evaluate, review, approve, batch score",
+    ],
+    technologies: [
+      "Python standard library",
+      "Logistic regression from first principles",
+      "Chronological evaluation",
+      "Versioned model cards",
+      "Human approval gates",
+      "Batch reason codes and lineage",
+      "AWS AgentCore runtime",
+      "SageMaker target architecture",
+    ],
+    portfolioNote:
+      "The benchmark uses deterministic synthetic sales data and validates the lifecycle, not expected production deal-risk accuracy. SageMaker Pipelines, Model Registry, Batch Transform, S3, Step Functions, and CloudWatch are documented target services rather than resources created for this local slice.",
+    impact:
+      "Shows how a Virtual Data Scientist can move beyond one-off analysis into governed model reuse while preserving point-in-time validity, human review, reproducibility, and an AWS-native path to managed training and batch inference.",
+  },
 };
 
 // Problem → Solution cards for homepage

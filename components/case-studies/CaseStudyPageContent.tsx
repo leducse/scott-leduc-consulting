@@ -22,6 +22,8 @@ const ARCHITECTURE_DIAGRAM_KEYS = [
   "tradingview-webhook-aws-poc",
   "tableau-knowledge-platform",
   "tableau-quicksight-migration",
+  "constrained-transformer-adaptation",
+  "governed-model-lifecycle",
 ] as const;
 
 function isArchitectureDiagramKey(
@@ -49,6 +51,8 @@ const caseStudyGradients: Record<CaseStudyKey, string> = {
   "tradingview-webhook-aws-poc": "from-emerald-500 to-sky-500",
   "tableau-knowledge-platform": "from-emerald-500 to-cyan-500",
   "tableau-quicksight-migration": "from-sky-500 to-blue-500",
+  "constrained-transformer-adaptation": "from-violet-500 to-cyan-500",
+  "governed-model-lifecycle": "from-emerald-500 to-cyan-500",
 };
 
 export default function CaseStudyPageContent({
@@ -80,6 +84,8 @@ export default function CaseStudyPageContent({
     "tradingview-webhook-aws-poc": ["Validation", "AWS Components", "Broker Mode"],
     "tableau-knowledge-platform": ["Validation", "Doc Passes", "AWS Path"],
     "tableau-quicksight-migration": ["Checks", "Parity", "Deploy Mode"],
+    "constrained-transformer-adaptation": ["Scenarios", "Validation", "Execution"],
+    "governed-model-lifecycle": ["Dataset", "Holdout", "Lifecycle"],
   };
 
   const visualizationStats =
@@ -168,6 +174,29 @@ export default function CaseStudyPageContent({
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-cyan-400 px-4 text-sm font-semibold text-[#07111f] transition-colors hover:bg-cyan-300"
               >
                 Open Workbench
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </section>
+        )}
+
+        {caseStudyKey === "governed-model-lifecycle" && (
+          <section className="rounded-lg border border-cyan-500/25 bg-[#0c1726] p-5">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <h2 className="flex items-center gap-2 text-xl font-semibold text-white">
+                  <MonitorCheck className="h-5 w-5 text-cyan-300" />
+                  Virtual Data Scientist
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                  See how the governed model lifecycle fits inside the broader agentic analytics workbench without moving runtime code into the portfolio site.
+                </p>
+              </div>
+              <Link
+                href="/apps/virtual-data-scientist"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-cyan-400 px-4 text-sm font-semibold text-[#07111f] transition-colors hover:bg-cyan-300"
+              >
+                Open Project Overview
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

@@ -6,7 +6,9 @@ export type ArchitectureDiagramKey =
   | "recallgraph-ai"
   | "tradingview-webhook-aws-poc"
   | "tableau-knowledge-platform"
-  | "tableau-quicksight-migration";
+  | "tableau-quicksight-migration"
+  | "constrained-transformer-adaptation"
+  | "governed-model-lifecycle";
 
 interface ArchitectureDiagramProps {
   diagram: ArchitectureDiagramKey;
@@ -38,8 +40,88 @@ export default function ArchitectureDiagram({ diagram, title }: ArchitectureDiag
         {diagram === "tradingview-webhook-aws-poc" && <TradingViewWebhookDiagram />}
         {diagram === "tableau-knowledge-platform" && <TableauKnowledgeDiagram />}
         {diagram === "tableau-quicksight-migration" && <TableauMigrationDiagram />}
+        {diagram === "constrained-transformer-adaptation" && <ConstrainedTransformerDiagram />}
+        {diagram === "governed-model-lifecycle" && <GovernedModelLifecycleDiagram />}
       </svg>
     </figure>
+  );
+}
+
+function ConstrainedTransformerDiagram() {
+  const steps = [
+    { x: 70, label: "Synthetic", sublabel: "task examples" },
+    { x: 190, label: "4-bit Base", sublabel: "Qwen 1.5B" },
+    { x: 310, label: "QLoRA", sublabel: "0.171% trained" },
+    { x: 430, label: "Benchmark", sublabel: "held-out + smoke" },
+    { x: 550, label: "Validator", sublabel: "schema + policy" },
+    { x: 670, label: "Offline", sublabel: "structured output" },
+  ];
+
+  return (
+    <>
+      <text x={360} y={28} textAnchor="middle" fill="#a78bfa" fontSize={14} fontWeight={600}>
+        Constrained Transformer Adaptation
+      </text>
+      {steps.map((step, index) => (
+        <g key={step.label}>
+          {index > 0 && <path d={`M${steps[index - 1].x + 48} 80 H${step.x - 48}`} stroke={muted} strokeWidth={2} />}
+          <rect x={step.x - 48} y={54} width={96} height={56} rx={8} fill={index === 5 ? "#312e81" : box} stroke={index === 5 ? "#a78bfa" : stroke} strokeWidth={1.5} />
+          <text x={step.x} y={76} textAnchor="middle" fill={text} fontSize={9.5} fontWeight={600}>{step.label}</text>
+          <text x={step.x} y={94} textAnchor="middle" fill={muted} fontSize={8}>{step.sublabel}</text>
+        </g>
+      ))}
+      <rect x={80} y={136} width={170} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={165} y={159} textAnchor="middle" fill="#ddd6fe" fontSize={10} fontWeight={600}>Quality</text>
+      <text x={165} y={178} textAnchor="middle" fill={muted} fontSize={9}>7/8 held-out • 1/6 external</text>
+      <rect x={275} y={136} width={170} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={360} y={159} textAnchor="middle" fill="#bae6fd" fontSize={10} fontWeight={600}>Resources</text>
+      <text x={360} y={178} textAnchor="middle" fill={muted} fontSize={9}>1.18s • 1.78 GB peak</text>
+      <rect x={470} y={136} width={170} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={555} y={159} textAnchor="middle" fill="#bae6fd" fontSize={10} fontWeight={600}>Control Plane</text>
+      <text x={555} y={178} textAnchor="middle" fill={muted} fontSize={9}>rules remain authoritative</text>
+      <text x={360} y={246} textAnchor="middle" fill={muted} fontSize={10}>
+        Local MLX path • fixed evaluation • request tracing • no network dependency
+      </text>
+    </>
+  );
+}
+
+function GovernedModelLifecycleDiagram() {
+  const steps = [
+    { x: 70, label: "Contract", sublabel: "point-in-time" },
+    { x: 190, label: "Audit", sublabel: "leakage gate" },
+    { x: 310, label: "Evaluate", sublabel: "time holdout" },
+    { x: 430, label: "Register", sublabel: "model card" },
+    { x: 550, label: "Approve", sublabel: "human gate" },
+    { x: 670, label: "Score", sublabel: "batch + lineage" },
+  ];
+
+  return (
+    <>
+      <text x={360} y={28} textAnchor="middle" fill="#34d399" fontSize={14} fontWeight={600}>
+        Governed Analytical Model Lifecycle
+      </text>
+      {steps.map((step, index) => (
+        <g key={step.label}>
+          {index > 0 && <path d={`M${steps[index - 1].x + 48} 80 H${step.x - 48}`} stroke={muted} strokeWidth={2} />}
+          <rect x={step.x - 48} y={54} width={96} height={56} rx={8} fill={index === 5 ? "#064e3b" : box} stroke={index === 5 ? "#34d399" : stroke} strokeWidth={1.5} />
+          <text x={step.x} y={76} textAnchor="middle" fill={text} fontSize={9.5} fontWeight={600}>{step.label}</text>
+          <text x={step.x} y={94} textAnchor="middle" fill={muted} fontSize={8}>{step.sublabel}</text>
+        </g>
+      ))}
+      <rect x={84} y={136} width={160} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={164} y={159} textAnchor="middle" fill="#6ee7b7" fontSize={10} fontWeight={600}>Benchmark</text>
+      <text x={164} y={178} textAnchor="middle" fill={muted} fontSize={9}>AP 0.312 → 0.716</text>
+      <rect x={280} y={136} width={160} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={360} y={159} textAnchor="middle" fill="#bae6fd" fontSize={10} fontWeight={600}>Registry State</text>
+      <text x={360} y={178} textAnchor="middle" fill={muted} fontSize={9}>Pending → Approved</text>
+      <rect x={476} y={136} width={160} height={58} rx={10} fill={panel} stroke="#475569" />
+      <text x={556} y={159} textAnchor="middle" fill="#bae6fd" fontSize={10} fontWeight={600}>Outputs</text>
+      <text x={556} y={178} textAnchor="middle" fill={muted} fontSize={9}>risk • reasons • lineage</text>
+      <text x={360} y={246} textAnchor="middle" fill={muted} fontSize={10}>
+        Local POC today • SageMaker Pipelines, Registry, and Batch Transform target path
+      </text>
+    </>
   );
 }
 

@@ -268,6 +268,34 @@ export const CASE_STUDIES = [
     gradient: "from-sky-500 to-blue-500",
     githubRepo: "https://github.com/leducse/tableau-quicksight-migration-assistant",
   },
+  {
+    id: "constrained-transformer-adaptation",
+    slug: "constrained-transformer-adaptation",
+    category: "portfolio" as const,
+    title: "Constrained Transformer Adaptation",
+    tagline: "QLoRA Fine-Tuning for Offline Structured Generation",
+    metrics: [
+      { label: "Held-Out Tasks", value: "7/8", suffix: " passed" },
+      { label: "JSON Validity", value: "100%", suffix: " held-out" },
+      { label: "Trainable Weights", value: "0.171%", suffix: " of model" },
+      { label: "Model Footprint", value: "849.5", suffix: " MiB" },
+    ],
+    gradient: "from-violet-500 to-cyan-500",
+  },
+  {
+    id: "governed-model-lifecycle",
+    slug: "governed-model-lifecycle",
+    category: "portfolio" as const,
+    title: "Governed Model Lifecycle for Sales Analytics",
+    tagline: "Point-in-Time Evaluation, Approval, and Batch Scoring",
+    metrics: [
+      { label: "Average Precision", value: "0.716", suffix: " from 0.312" },
+      { label: "Brier Score", value: "0.137", suffix: " from 0.201" },
+      { label: "Top-Decile Recall", value: "28%", suffix: " from 12%" },
+      { label: "Workflow Tests", value: "15", suffix: " passing" },
+    ],
+    gradient: "from-emerald-500 to-cyan-500",
+  },
 ];
 
 // Icon mapping for dynamic icon rendering
